@@ -1,0 +1,63 @@
+.registerKurallariAnaDiv {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.kural-buton {
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 7px;
+    background-color: white;
+}
+
+.kural-buton:hover {
+    text-decoration: underline;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+}
+
+.modal h2 {
+    margin-bottom: 15px;
+}
+
+.modal ul {
+    text-align: left;
+    list-style-type: none;
+    padding: 0;
+    font-size: 10px;
+}
+
+.modal ul li {
+    margin: 10px 0;
+}
+
+.kapat-buton {
+    margin-top: 20px;
+    padding: 8px 15px;
+    background-color: rgb(106, 90, 205);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+}

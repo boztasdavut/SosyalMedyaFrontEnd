@@ -1,0 +1,42 @@
+.loginRegisterGecisAnaDiv {
+    display: flex;
+    justify-content: center;
+
+}
+
+.kayitOlLoginRegisterGecis {
+    padding: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.kayitOlLoginRegisterGecis:hover {
+    cursor: pointer;
+
+}
+
+
+.girisYapLoginRegisterGecis {
+    padding: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.girisYapLoginRegisterGecis:hover {
+    cursor: pointer;
+
+}
+
+.loginRegisterGecisArkaPlan {
+    background-color: rgb(106, 90, 205);
+    color: white;
+    border-radius: 4px;
+}
+
+#kayitOlIdLoginRegisterGecis {
+    text-decoration: none;
+    color: inherit;
+}
+
+#girisYapIdLoginRegisterGecis {
+    text-decoration: none;
+    color: inherit;
+}

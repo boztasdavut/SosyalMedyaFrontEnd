@@ -1,0 +1,23 @@
+export const me = async () => {
+    try {
+        console.log("3. satır");
+        const response = await fetch("http://localhost:8080/api/user/me", {
+            method: "GET",
+            credentials: "include", // ✅ Doğru Kullanım
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        console.log("12. satır");
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Hata mesajı: ${response.status} - ${JSON.stringify(errorText)}`);
+        }
+
+        const responseData = await response.json();
+        return responseData;
+    } catch (err) {
+        console.error("İstek hatası:", err);
+    }
+};

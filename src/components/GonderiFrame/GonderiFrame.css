@@ -1,0 +1,44 @@
+.gonderiFrameAnaDiv {
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.gonderiFrame {
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    transition: 0.5s;
+}
+
+.gonderiFrame:hover {
+    background-color: rgb(243, 243, 243);
+    cursor: pointer;
+
+}
+
+.gonderiIcons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.gonderiIcons>div {
+    padding: 8px;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+.gonderiIcons>div:hover {
+    transform: scale(1.2);
+    color: #007bff;
+    cursor: pointer;
+}
+
+.gonderiIcons>div:first-child {
+    margin-left: 0;
+}

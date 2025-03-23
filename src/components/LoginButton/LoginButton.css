@@ -1,0 +1,23 @@
+#LoginButton {
+    background-color: rgb(106, 90, 205);
+    color: #FFFFFF;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 2px;
+    font-size: 10px;
+    border: 0;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    transition: background-color 0.3s ease-in-out;
+    /* 🔥 Yumuşak geçiş efekti */
+
+}
+
+#LoginButton:hover {
+    background-color: rgb(76, 59, 185);
+}
+
+.loginButonAnaDiv {
+    display: flex;
+    justify-content: center;
+}

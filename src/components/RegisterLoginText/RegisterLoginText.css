@@ -1,0 +1,20 @@
+.custom-input-text {
+    border: 1px solid rgb(234, 236, 235);
+    border-radius: 4px;
+    width: 185px;
+    font-size: 10px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    padding: 5px;
+}
+
+.custom-input-text::placeholder {
+    color: #aaa;
+    opacity: 1;
+}
+
+.custom-input-text:hover {
+    border-color: rgb(85, 78, 129);
+    box-shadow: 0 0 5px rgb(85, 78, 129);
+    font-size: 11px;
+}

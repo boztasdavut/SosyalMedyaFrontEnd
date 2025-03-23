@@ -1,0 +1,38 @@
+.messageContent {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    color: white;
+    background-color: black;
+    border-radius: 6px;
+}
+
+.messageAndArrowOpen {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.messageIcon {
+    display: flex;
+    width: 200px;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 6px;
+
+}
+
+#mesajKapatOku:hover {
+    cursor: pointer;
+}

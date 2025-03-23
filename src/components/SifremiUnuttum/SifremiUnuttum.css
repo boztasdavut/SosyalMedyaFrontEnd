@@ -1,0 +1,16 @@
+.sifremiUnuttumAnaDiv {
+    padding-left: 10px;
+}
+
+#sifremiUnuttumYonlendir {
+    text-decoration: none;
+    font-size: 10px;
+    color: inherit;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+#sifremiUnuttumYonlendir:hover {
+    color: rgb(106, 90, 205);
+    text-shadow: 1px 1px 8px rgba(0, 123, 255, 0.5);
+    cursor: pointer;
+}
