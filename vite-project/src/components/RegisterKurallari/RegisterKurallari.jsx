@@ -8,7 +8,7 @@ function RegisterKurallari() {
 
   return (
     <div className="registerKurallariAnaDiv">
-      <IoInformationCircleOutline size={10} />
+      <IoInformationCircleOutline size={20} />
 
       <button className="kural-buton" onClick={() => setModalAcik(true)}>
         Kayıt Kuralları
