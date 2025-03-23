@@ -31,7 +31,6 @@ function LoginPage() {
         <div className='componentDiv'>
           <LoginButton butonBilgisi={"Giriş Yap"} kullaniciBilgileri={userData} />
         </div>
-      
         <HesapOlusturYonlendir />
       </div>
         

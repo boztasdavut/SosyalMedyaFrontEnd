@@ -18,6 +18,7 @@ export const login = async(kullaniciData)=>{
     
     catch(err){
         console.error("İstek hatası:", err);
+        throw err;
     }
 }
 

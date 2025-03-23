@@ -17,14 +17,12 @@ function LoginPage() {
   const [sifre, setSifre] = useState("");
   const [sifreTekrar, setSifreTekrar] = useState("");
   const [kullaniciDogumTarihi, setKullaniciDogumTarihi] = useState("");
-  const [kullaniciBio, setKullaniciBio] = useState("");
   const [ePostaController, setEPostaController] = useState(false);
   const [takmaAdController, setTakmaAdController] = useState(false);
   const [telefonController, setTelefonController] = useState(false);
   const [sifreController, setSifreController] = useState(false);
   const [sifreTekrarController, setSifreTekrarController] = useState(false);
   const [dogumTarihiController, setDogumTarihiController] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
     document.title = "Kayıt Ekranı";
@@ -66,13 +64,7 @@ function LoginPage() {
     setDogumTarihiController(age >= 18);
   }, [kullaniciDogumTarihi]);
 
-  useEffect(() => {
-    if (ePostaController && takmaAdController && telefonController && sifreController && sifreTekrarController && dogumTarihiController) {
-      setIsButtonDisabled(false);
-    } else {
-      setIsButtonDisabled(true);
-    }
-  }, [ePostaController, takmaAdController, telefonController, sifreController, sifreTekrarController, dogumTarihiController]);
+  
 
 
   return (
@@ -108,12 +100,13 @@ function LoginPage() {
             <RegisterLoginDate value={kullaniciDogumTarihi} onChange={setKullaniciDogumTarihi} />
             <CiCircleCheck className={dogumTarihiController ? "visible" : "hidden"} />
           </div>
-          <RegisterButton disabled={isButtonDisabled} butonBilgisi={"Kayıt Ol"} kullaniciBilgileri={{ ePosta, kullaniciTakmaAd, kullaniciTelefonNo, sifre, kullaniciDogumTarihi, kullaniciBio }} />
+          <RegisterButton butonBilgisi={"Kayıt Ol"} kullaniciBilgileri={{ ePosta, kullaniciTakmaAd, kullaniciTelefonNo, sifre, kullaniciDogumTarihi}} validasyon={{ePosta:ePostaController,kullaniciTakmaAd:takmaAdController, kullaniciTelefonNo:telefonController, sifre:sifreController, kullaniciDogumTarihi:dogumTarihiController}} />
           <RegisterKurallari />
 
         </div>
     </div>
   );
 }
+
 
 export default LoginPage;
