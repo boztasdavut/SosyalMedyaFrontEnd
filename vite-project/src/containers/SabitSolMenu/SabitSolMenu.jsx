@@ -26,13 +26,13 @@ function SabitSolMenu() {
               <SolMenuAyarlar />
             </div>
             <div onClick={handleMenu}>
-              <MdArrowBackIos  color='white' size={25} />
+              <MdArrowBackIos  color='white' size={30} />
             </div>
           </div>
         ) : (
           <div className='menuSagArrowAnaDiv' onClick={handleMenu}>
             <div className='menuSagArrowDiv'>
-              <MdArrowForwardIos id='menuKapatButonu' color='white' size={25} />
+              <MdArrowForwardIos id='menuKapatButonu' color='white' size={30} />
             </div>
           </div>
         )

@@ -25,6 +25,7 @@
     align-items: center;
     justify-content: space-between;
     width: 200px;
+    font-size: 25px;
 }
 
 .gonderiIcons>div {
@@ -41,4 +42,12 @@
 
 .gonderiIcons>div:first-child {
     margin-left: 0;
+}
+
+#kullaniciTakmaAdP {
+    font-size: 40px;
+}
+
+#gonderilerP {
+    font-size: 25px;
 }

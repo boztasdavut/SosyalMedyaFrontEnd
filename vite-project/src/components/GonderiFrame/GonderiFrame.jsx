@@ -13,8 +13,8 @@ function GonderiFrame({veriler, totalBegeniSayisi}) {
         {
             veriler.map((veri)=>(
                 <div key={veri.gonderiId} className='gonderiFrame'>
-                    <p>{veri.takipEdilenKullaniciTakmaAd }</p>
-                    <p>{veri.gonderiIcerigi}</p>
+                    <p id='kullaniciTakmaAdP'>{veri.takipEdilenKullaniciTakmaAd }</p>
+                    <p id='gonderilerP'>{veri.gonderiIcerigi}</p>
                     <div className='gonderiIcons'>
                         <div onClick={()=>{console.log(totalBegeniSayisi)}}>
                             {veri.begenildiMi ? <AiFillLike color="red" /> : <AiOutlineLike />}

@@ -4,7 +4,7 @@
 
 #hesapOlusturYonlendir {
     text-decoration: none;
-    font-size: 10px;
+    font-size: 15px;
     color: inherit;
     transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
 }
