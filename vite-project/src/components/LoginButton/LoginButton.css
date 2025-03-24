@@ -21,3 +21,9 @@
     display: flex;
     justify-content: center;
 }
+
+.girisBasariliToastify {
+    font-size: 30px;
+    width: fit-content !important;
+    padding: 30px !important;
+}

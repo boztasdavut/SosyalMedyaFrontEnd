@@ -8,6 +8,9 @@ import { ToastContainer, toast } from "react-toastify";
 function LoginButton({butonBilgisi, kullaniciBilgileri}) {
   const navigate = useNavigate();
 
+  
+
+
   const handleClick = async () => {
     try {
       const donenVeri = await login(kullaniciBilgileri);
@@ -22,8 +25,9 @@ function LoginButton({butonBilgisi, kullaniciBilgileri}) {
         console.log("Giriş başarılı");
         toast.success("Giriş başarılı! Yönlendiriliyorsunuz...", {
           position: "top-right",
-          autoClose: 2000, // 2 saniye sonra kapanacak
-          onClose: () => navigate("/anasayfa"), // Toast kapanınca yönlendirme yap
+          autoClose: 2000,
+          className:"girisBasariliToastify",
+          onClose: () => navigate("/anasayfa"), 
         });
       }
     } catch (error) {

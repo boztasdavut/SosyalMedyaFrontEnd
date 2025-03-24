@@ -6,8 +6,8 @@ function SifremiUnuttum() {
   return (
     <div>
       <div className='sifremiUnuttumAnaDiv'>
-      <Link id='sifremiUnuttumYonlendir' to="/">Şifreni mi unuttun?</Link>
-    </div>
+        <Link id='sifremiUnuttumYonlendir' to="/sifremiUnuttum">Şifreni mi unuttun?</Link>
+      </div>
     </div>
   )
 }

@@ -2,14 +2,14 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 300px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     padding: 20px;
     color: white;
     background-color: black;
     border-radius: 6px;
-    font-size: 30px;
+    font-size: 35px;
 }
 
 .messageAndArrowOpen {
@@ -21,7 +21,7 @@
 
 .messageIcon {
     display: flex;
-    width: 300px;
+    width: 400px;
     justify-content: space-around;
     background-color: black;
     color: white;
@@ -30,8 +30,8 @@
     bottom: 0;
     padding: 20px;
     cursor: pointer;
-    border-radius: 6px;
-    font-size: 25px;
+    border-radius: 10px;
+    font-size: 35px;
 
 }
 

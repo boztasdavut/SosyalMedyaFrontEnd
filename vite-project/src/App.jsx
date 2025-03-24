@@ -2,8 +2,8 @@ import LoginPage from "./containers/LoginPage/LoginPage";
 import RegisterPage from "./containers/RegisterPage/RegisterPage"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AnasayfaPage from "./containers/AnasayfaPage/AnasayfaPage";
-import Message from "./components/Message/Message";
 import "./App.css";
+import SifremiUnuttum from "./containers/SifremiUnuttumPage/SifremiUnuttumPage";
 
 function App() {
   
@@ -16,7 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<RegisterPage />} />
           <Route path="/loginPage" element={<LoginPage />} />
-          <Route path="/anasayfa" element={<AnasayfaPage />} />  
+          <Route path="/anasayfa" element={<AnasayfaPage />} />
+          <Route path="/sifremiUnuttum" element={<SifremiUnuttum />} />
         </Routes>
       </BrowserRouter>
 

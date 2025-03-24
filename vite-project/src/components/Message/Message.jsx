@@ -5,7 +5,7 @@ import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 
 function Message() {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const modalOpenAndClose = () => {
     setModal(!modal);
@@ -39,10 +39,10 @@ function Message() {
     ) : (
     <div className='messageIcon'  onClick={modalOpenAndClose}> 
       <div>
-        <BiSolidMessageAltDetail />
+        Mesajlarım
       </div>
       <div>
-        Mesajlarım
+        <BiSolidMessageAltDetail />
       </div>
       <div>
         <MdOutlineKeyboardDoubleArrowUp />

@@ -7,38 +7,19 @@ import "./SabitSolMenu.css";
 import {anasayfa} from "../../services/Anasayfa";
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIos } from "react-icons/md";
+import Logout from '../../components/Logout/Logout';
 
 function SabitSolMenu() {
-  const[menuDurumu, setMenuDurumu] = useState(false);
-  
-  const handleMenu = () =>{
-    setMenuDurumu(!menuDurumu);
-  }
-
   return (
-
-        menuDurumu ? (
           <div className="sabitSolMenuAnaDiv">
             <div className="sabitSolMenu">
               <SolMenuAnasayfa />
               <SolMenuProfil />
               <SolMenuArama />
               <SolMenuAyarlar />
-            </div>
-            <div onClick={handleMenu}>
-              <MdArrowBackIos  color='white' size={30} />
+              <Logout />
             </div>
           </div>
-        ) : (
-          <div className='menuSagArrowAnaDiv' onClick={handleMenu}>
-            <div className='menuSagArrowDiv'>
-              <MdArrowForwardIos id='menuKapatButonu' color='white' size={30} />
-            </div>
-          </div>
-        )
-        
-        
-      
   );
 }
 

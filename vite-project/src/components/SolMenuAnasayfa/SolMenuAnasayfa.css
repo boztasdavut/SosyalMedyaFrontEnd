@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 30px;
+    font-size: 50px;
+    padding: 25px;
 }
 
 .anasayfaIconAnaDiv:hover {
@@ -13,5 +14,5 @@
 
 .anasayfaIcon {
     margin: 5px;
-    font-size: 30px;
+    font-size: 50px;
 }

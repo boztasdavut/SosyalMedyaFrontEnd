@@ -9,13 +9,14 @@
 
 .gonderiFrame {
     width: 100%;
-    padding: 10px;
-    margin: 5px;
-    transition: 0.5s;
+    padding: 25px;
+    transition: 2s;
+    border: 0.5px solid rgb(187, 192, 187);
+    box-sizing: border-box;
 }
 
 .gonderiFrame:hover {
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(241, 237, 237);
     cursor: pointer;
 
 }
@@ -25,7 +26,7 @@
     align-items: center;
     justify-content: space-between;
     width: 200px;
-    font-size: 25px;
+    font-size: 45px;
 }
 
 .gonderiIcons>div {
@@ -45,9 +46,19 @@
 }
 
 #kullaniciTakmaAdP {
-    font-size: 40px;
+    font-size: 60px;
 }
 
 #gonderilerP {
-    font-size: 25px;
+    font-size: 45px;
+}
+
+.resimVeTakmaAdAnaDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.anasayfaProfilResmi {
+    border-radius: 50%;
 }
