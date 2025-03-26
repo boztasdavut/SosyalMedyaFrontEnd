@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AnasayfaPage from "./containers/AnasayfaPage/AnasayfaPage";
 import "./App.css";
 import SifremiUnuttum from "./containers/SifremiUnuttumPage/SifremiUnuttumPage";
+import MailOnay from "./components/MailOnay/MailOnay";
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
           <Route path="/loginPage" element={<LoginPage />} />
           <Route path="/anasayfa" element={<AnasayfaPage />} />
           <Route path="/sifremiUnuttum" element={<SifremiUnuttum />} />
+          <Route path="/mailOnay" element={<MailOnay />} />
         </Routes>
       </BrowserRouter>
 

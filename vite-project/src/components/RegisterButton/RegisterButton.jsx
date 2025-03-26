@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./RegisterButton.css"; 
 import "react-toastify/dist/ReactToastify.css"; // Toastify stillerini eklemeyi unutma
 import { ToastContainer, toast } from "react-toastify";
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 function RegisterButton({butonBilgisi, kullaniciBilgileri, disabled, validasyon}) {
   const navigate = useNavigate();
 
+  
 
   const handleClick = async() =>{
     console.log("Kullanıcı bilgileri",kullaniciBilgileri);
@@ -47,7 +48,18 @@ function RegisterButton({butonBilgisi, kullaniciBilgileri, disabled, validasyon}
         progress: undefined,
       });
     }
-
+    else {
+      toast.success("Mail Onay Kısmına Yönlendiriliyorsunuz...", {
+        position: "top-right",
+        autoClose: 2000, // 2 saniye sonra kapanacak
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => navigate("/mailOnay", { state: kullaniciBilgileri }),
+      });
+    }
     
   }
 
