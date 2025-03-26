@@ -26,7 +26,7 @@
     align-items: center;
     justify-content: space-between;
     width: 200px;
-    font-size: 45px;
+    font-size: 40px;
 }
 
 .gonderiIcons>div {
@@ -46,11 +46,11 @@
 }
 
 #kullaniciTakmaAdP {
-    font-size: 60px;
+    font-size: 40px;
 }
 
 #gonderilerP {
-    font-size: 45px;
+    font-size: 40px;
 }
 
 .resimVeTakmaAdAnaDiv {
