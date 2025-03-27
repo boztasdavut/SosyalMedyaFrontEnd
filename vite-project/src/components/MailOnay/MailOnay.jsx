@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./MailOnay.css";
 import { register } from "../../services/Register";
 import { useLocation } from "react-router-dom";
-
+import { mailOnay } from "../../services/MailOnay";
 function MailOnay() {
   const locationState = useLocation();
   const kullaniciBilgileri = locationState.state;
@@ -49,6 +49,11 @@ function MailOnay() {
     }
   };
 
+  const mailValidateCode = async () => {
+    const gelenVeri = await mailOnay(kullaniciBilgileri.ePosta, values);
+    console.log("Gelen Veri", gelenVeri);
+  };
+
   return (
     <div className="anaDiv">
       <div className="baslikVeKutucuklarDiv">
@@ -71,7 +76,9 @@ function MailOnay() {
           ))}
         </div>
         <div>
-          <button className="validasyonOnayButton">Onayla</button>
+          <button onClick={mailValidateCode} className="validasyonOnayButton">
+            Onayla
+          </button>
         </div>
       </div>
     </div>
