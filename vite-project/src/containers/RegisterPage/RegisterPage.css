@@ -28,11 +28,11 @@
 }
 
 .hidden {
-    visibility: hidden;
+    display: none;
 }
 
 .visible {
-    visibility: visible;
+    display: inline;
     color: rgb(106, 90, 205);
     font-size: 30px;
 }
