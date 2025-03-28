@@ -34,4 +34,5 @@
 .visible {
     visibility: visible;
     color: rgb(106, 90, 205);
+    font-size: 30px;
 }

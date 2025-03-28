@@ -8,7 +8,7 @@ export const mailOnay = async (email, otp) => {
         email
       )}&otp=${encodeURIComponent(otp)}`,
       {
-        method: "GET",
+        method: "POST",
       }
     );
 
