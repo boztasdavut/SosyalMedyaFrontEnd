@@ -6,9 +6,11 @@
 }
 
 .registerPageContentDiv {
-    width: fit-content;
+    width: 330px;
     border: 1px solid rgb(180, 194, 187);
-    padding: 10px;
+    padding-left: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     border-radius: 5px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
     background-color: white;
@@ -22,7 +24,7 @@
 .checkDiv {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin: 8px;
 }
