@@ -1,4 +1,7 @@
 export const mailOnay = async (email, otp) => {
+  console.log("Email= " + email);
+  console.log("Otp= " + otp);
+  console.log("OTP type= " + typeof otp);
   try {
     const response = await fetch(
       `http://localhost:8080/api/auth/verify-otp?email=${encodeURIComponent(
@@ -6,9 +9,6 @@ export const mailOnay = async (email, otp) => {
       )}&otp=${encodeURIComponent(otp)}`,
       {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }
     );
 
@@ -16,7 +16,7 @@ export const mailOnay = async (email, otp) => {
       throw new Error(`Hata: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = await response.status;
     return data;
   } catch (error) {
     console.error("OTP doğrulama hatası:", error);

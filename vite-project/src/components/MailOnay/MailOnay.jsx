@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./MailOnay.css";
 import { register } from "../../services/Register";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { mailOnay } from "../../services/MailOnay";
+import { ToastContainer, toast } from "react-toastify";
+
 function MailOnay() {
   const locationState = useLocation();
   const kullaniciBilgileri = locationState.state;
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Kullanici Bilgileri", kullaniciBilgileri);
@@ -50,8 +53,21 @@ function MailOnay() {
   };
 
   const mailValidateCode = async () => {
-    const gelenVeri = await mailOnay(kullaniciBilgileri.ePosta, values);
+    const kod = values.join("");
+    const gelenVeri = await mailOnay(kullaniciBilgileri.ePosta, kod);
     console.log("Gelen Veri", gelenVeri);
+    if (gelenVeri === 201) {
+      toast.success("Kayıt Başarılıyla Tamamlandı. Yönlendiriliyorsunuz...", {
+        position: "top-right",
+        autoClose: 2000, // 2 saniye sonra kapanacak
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => navigate("/loginPage"),
+      });
+    }
   };
 
   return (
@@ -81,6 +97,7 @@ function MailOnay() {
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
