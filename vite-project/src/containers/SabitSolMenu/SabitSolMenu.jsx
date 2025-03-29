@@ -14,7 +14,7 @@ function SabitSolMenu() {
           <div className="sabitSolMenuAnaDiv">
             <div className="sabitSolMenu">
               <SolMenuAnasayfa />
-              <SolMenuProfil />
+              <SolMenuProfil  />
               <SolMenuArama />
               <SolMenuAyarlar />
               <Logout />

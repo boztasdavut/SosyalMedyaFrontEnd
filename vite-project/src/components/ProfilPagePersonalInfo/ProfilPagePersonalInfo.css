@@ -1,0 +1,12 @@
+.profilPagePersonalAnaDiv{
+    width: calc(100%-324.531px);
+    margin-left: 354.53px;
+    height: 400px;
+    background-color: rgb(178, 192, 192);
+}
+
+.profilResmiVeBioAnaDiv{
+    width: 25%;
+    height: 400px;
+    background-color: wheat;
+}

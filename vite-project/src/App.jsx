@@ -1,16 +1,13 @@
 import LoginPage from "./containers/LoginPage/LoginPage";
-import RegisterPage from "./containers/RegisterPage/RegisterPage"
+import RegisterPage from "./containers/RegisterPage/RegisterPage";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AnasayfaPage from "./containers/AnasayfaPage/AnasayfaPage";
 import "./App.css";
 import SifremiUnuttum from "./containers/SifremiUnuttumPage/SifremiUnuttumPage";
 import MailOnay from "./components/MailOnay/MailOnay";
+import ProfilPage from "./containers/ProfilPage/ProfilPage";
 
 function App() {
-  
-  
-
-
   return (
     <>
       <BrowserRouter>
@@ -20,12 +17,11 @@ function App() {
           <Route path="/anasayfa" element={<AnasayfaPage />} />
           <Route path="/sifremiUnuttum" element={<SifremiUnuttum />} />
           <Route path="/mailOnay" element={<MailOnay />} />
+          <Route path="/:kullaniciAdi" element={<ProfilPage />} />
         </Routes>
       </BrowserRouter>
-
-      
     </>
-  )
+  );
 }
 
-export default App
+export default App;
