@@ -1,12 +1,76 @@
 .profilPagePersonalAnaDiv{
-    width: calc(100%-324.531px);
-    margin-left: 354.53px;
-    height: 400px;
-    background-color: rgb(178, 192, 192);
+    width: 35%;
+    display: flex;
+    background-color: rgb(241, 241, 241);
+    margin: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.takipciTakipEdilenDiv{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.takipciTakipEdilenVeBioAnaDiv{
+    display: flex;
+    flex-direction: column;
+    width:50% ;
 }
 
 .profilResmiVeBioAnaDiv{
-    width: 25%;
-    height: 400px;
-    background-color: wheat;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.takipciDiv > button{
+    padding: 10px;
+    border: 0;
+    white-space: nowrap;
+    transition: 1s;
+    margin-right: 5px;
+    background-color: rgb(215, 226, 236);
+    font-size: 20px;
+}
+
+.takipEdilenDiv > button{
+    padding: 10px;
+    border: 0;
+    white-space: nowrap;
+    transition: 1s;
+    background-color: rgb(215, 226, 236);
+    font-size: 20px;
+}
+
+.takipciDiv > button:hover{
+    background-color: black;
+    color:white;
+    cursor: pointer;
+}
+
+.takipEdilenDiv > button:hover{
+    background-color: black;
+    color:white;
+    cursor: pointer;
+}
+
+.editProfilDiv > button{
+    padding: 10px;
+    border: 0;
+    white-space: nowrap;
+    transition: 1s;
+    background-color: rgb(215, 226, 236);
+    font-size: 20px;
+}
+
+.editProfilDiv > button:hover{
+    background-color: black;
+    color:white;
+    cursor: pointer;
+}
+
+.profilResmi{
+    margin-right: 15px;
 }

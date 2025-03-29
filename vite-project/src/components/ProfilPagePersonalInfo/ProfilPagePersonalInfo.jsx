@@ -11,19 +11,33 @@ function ProfilPagePersonalInfo() {
             className="anasayfaProfilResmi"
             src={emptyProfilePicture}
             alt="Logo"
-            width={160}
+            width={60}
             height={60}
           />
         </div>
         <div className="takipciTakipEdilenVeBioAnaDiv">
           <div className="takipciTakipEdilenDiv">
-            <div className="takipciDiv"></div>
-            <div className="takipEdilenDiv"></div>
+            <div className="takipciDiv">
+              <button>Takipçiler</button>
+            </div>
+            <div className="takipEdilenDiv">
+              <button>Takip Edilenler</button>
+            </div>
           </div>
-          <div className="bioDiv"></div>
+          <div className="bioDiv">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis
+            nulla fugit iste nihil sequi magni officiis! Eum expedita ipsum
+            blanditiis similique fugit est soluta itaque distinctio delectus,
+            laudantium, ex commodi? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Accusantium dolore similique modi quod culpa
+            commodi delectus! Magni non deserunt temporibus recusandae rerum vel
+            quia alias, accusantium, odit autem optio voluptate?
+          </div>
         </div>
       </div>
-      <div className="editProfilDiv"></div>
+      <div className="editProfilDiv">
+        <button>Profili Düzenle</button>
+      </div>
     </div>
   );
 }

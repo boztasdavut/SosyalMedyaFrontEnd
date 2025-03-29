@@ -3,13 +3,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-    margin: 0 auto;
+    width: 35%;
+    margin: auto;
+    
 }
 
 .gonderiFrame {
     width: 100%;
-    padding: 25px;
+    padding: 10px;
     transition: 2s;
     border: 0.5px solid rgb(187, 192, 187);
     box-sizing: border-box;
@@ -26,7 +27,7 @@
     align-items: center;
     justify-content: space-between;
     width: 200px;
-    font-size: 40px;
+    font-size: 20px;
 }
 
 .gonderiIcons>div {
@@ -46,11 +47,11 @@
 }
 
 #kullaniciTakmaAdP {
-    font-size: 40px;
+    font-size: 20px;
 }
 
 #gonderilerP {
-    font-size: 40px;
+    font-size: 20px;
 }
 
 .resimVeTakmaAdAnaDiv {

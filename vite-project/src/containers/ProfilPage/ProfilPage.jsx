@@ -4,6 +4,7 @@ import { me } from "../../services/Me";
 import SabitSolMenu from "../SabitSolMenu/SabitSolMenu";
 import Message from "../../components/Message/Message";
 import ProfilPagePersonalInfo from "../../components/ProfilPagePersonalInfo/ProfilPagePersonalInfo";
+import ProfilPageAltMenuler from "../../components/ProfilPageAltMenuler/ProfilPageAltMenuler";
 
 function ProfilPage() {
   return (
@@ -11,6 +12,7 @@ function ProfilPage() {
       <SabitSolMenu />
       <Message />
       <ProfilPagePersonalInfo />
+      <ProfilPageAltMenuler />
     </div>
   );
 }
