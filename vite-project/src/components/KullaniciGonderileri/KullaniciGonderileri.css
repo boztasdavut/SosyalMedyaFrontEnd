@@ -1,0 +1,33 @@
+.kullanicininTumGonderileriAnaDiv{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+}
+
+.profilResmiVeIcerigiDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-right: 10px;
+}
+
+.profilResmiIcerigiVeAyarlarDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid whitesmoke;
+    margin-bottom: 10px;
+}
+
+.kullanicininPaylastigiGonderi{
+    font-family: 'Roboto', sans-serif;
+
+}
+
+
+

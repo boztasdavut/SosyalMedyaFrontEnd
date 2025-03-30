@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import GonderiFrame from "../GonderiFrame/GonderiFrame";
 import { anasayfa } from "../../services/Anasayfa";
 import { totalBegeniApi } from "../../services/GonderiTotalBegeniSayisi";
+import KullaniciGonderileri from "../KullaniciGonderileri/KullaniciGonderileri";
 
 function ProfilPageAltMenuler() {
   const [gelenVeriler, setGelenVeriler] = useState([]);
@@ -62,10 +63,7 @@ function ProfilPageAltMenuler() {
       </div>
       {gonderilerVisibility && (
         <div className="gonderilerDiv">
-          <GonderiFrame
-            veriler={gelenVeriler}
-            totalBegeniSayisi={totalBegeniler}
-          />
+          <KullaniciGonderileri />
         </div>
       )}
       {begenilerVisibility && (
