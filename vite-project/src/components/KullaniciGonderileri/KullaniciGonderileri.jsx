@@ -5,6 +5,8 @@ import emptyProfilePicture from "../../assests/empty.png";
 import { BsThreeDots } from "react-icons/bs";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import { IoStatsChartSharp } from "react-icons/io5";
+import {belirtilenGonderiyiSil} from "../../services/GonderiSil";
+import {takipcileriGetir} from "../../services/KullaniciTakipcileriGetir";
 
 function KullaniciGonderileri() {
   const [kullaniciVerileri, setKullaniciVerileri] = useState([]);
@@ -48,6 +50,21 @@ function KullaniciGonderileri() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  const gonderiSil = async(gonderiId) => {
+    console.log("Gönderi Silindi.");
+    const filtrelenmisYeniVeriler = kullaniciVerileri.filter((veri)=> veri.gonderiId !== gonderiId);
+    setKullaniciVerileri(filtrelenmisYeniVeriler);
+    await belirtilenGonderiyiSil(gonderiId);
+  };
+
+  const gonderiyiDuzenle = () => {
+    console.log("Gönderi düzenlendi.");
+  };
+
+  const gonderiIstatistikleri = () => {
+    console.log("Gonderi istatistikleri gosterildi.");
+  };
+
   return (
     <div className="kullanicininTumGonderileriAnaDiv">
       {kullaniciVerileri.length === 0 ? (
@@ -78,15 +95,15 @@ function KullaniciGonderileri() {
             </div>
             {gonderiAyarlariVisibility[veri.gonderiId] && (
               <div className="gonderiAyarlariDiv">
-                <div className="gönderiSilmeAnaDiv">
+                <div onClick={()=>gonderiSil(veri.gonderiId)} className="gönderiSilmeAnaDiv">
                   <MdDelete />
                   <div>Gönderiyi Sil</div>
                 </div>
-                <div className="gonderiyiDuzenlemeAnaDiv">
+                <div onClick={gonderiyiDuzenle} className="gonderiyiDuzenlemeAnaDiv">
                   <MdEditSquare />
                   <div>Gönderiyi Düzenle</div>
                 </div>
-                <div className="gonderiIstatistikleriniGor">
+                <div onClick={gonderiIstatistikleri} className="gonderiIstatistikleriniGor">
                   <IoStatsChartSharp />
                   <div>Gönderi İstatistikleri</div>
                 </div>
