@@ -1,6 +1,6 @@
-export const takipcileriGetir = async() =>{
+export const takipEdilenleriGetir = async() =>{
     try{
-        const response = await fetch("http://localhost:8080/api/follows/takipciler",{
+        const response = await fetch("http://localhost:8080/api/follows/takip-edilenler",{
             method:"GET",
             headers:{
                 "Content-Type": "application/json"

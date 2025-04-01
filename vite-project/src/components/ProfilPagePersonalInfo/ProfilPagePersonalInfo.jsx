@@ -3,7 +3,7 @@ import "./ProfilPagePersonalInfo.css";
 import emptyProfilePicture from "../../assests/empty.png";
 import { me } from "../../services/Me";
 import { FaRegCalendarCheck } from "react-icons/fa6";
-
+import { takipcileriGetir } from "../../services/KullaniciTakipcileriGetir";
 function ProfilPagePersonalInfo() {
   const [userInformation, setUserInformation] = useState({});
   useEffect(() => {
@@ -14,6 +14,12 @@ function ProfilPagePersonalInfo() {
     };
     fetchData();
   }, []);
+
+  const takipcileriGetirFrontEnd = async () => {
+    const takipcilerListesi = await takipcileriGetir();
+    const takipEdilenlerListesi = await 
+    console.log("Gelen Veriler= ", gelenVeri.follow);
+  };
 
   return (
     <div className="profilPagePersonalInfoAnaDiv">
@@ -29,7 +35,7 @@ function ProfilPagePersonalInfo() {
         </div>
         <div className="bioTakipcilerVeTakipEdilenlerDiv">
           <div className="takipcilerVeTakipEdilenlerDiv">
-            <div>
+            <div onClick={takipcileriGetirFrontEnd}>
               <button id="takipcileriButonDiv">Takipçiler</button>
             </div>
             <div>
