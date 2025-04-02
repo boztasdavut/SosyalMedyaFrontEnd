@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./KullaniciGonderileri.css";
-import { tumGonderiler } from "../../services/KullaniciTumGonderileri";
+import { kullanicininTumGonderileri } from "../../services/KullaniciTumGonderileri";
 import emptyProfilePicture from "../../assests/empty.png";
 import { BsThreeDots } from "react-icons/bs";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import { IoStatsChartSharp } from "react-icons/io5";
-import {belirtilenGonderiyiSil} from "../../services/GonderiSil";
-import {takipcileriGetir} from "../../services/KullaniciTakipcileriGetir";
+import { belirtilenGonderiyiSil } from "../../services/GonderiSil";
 
 function KullaniciGonderileri() {
   const [kullaniciVerileri, setKullaniciVerileri] = useState([]);
@@ -16,7 +15,7 @@ function KullaniciGonderileri() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const gelenVeri = await tumGonderiler();
+      const gelenVeri = await kullanicininTumGonderileri();
       setKullaniciVerileri(gelenVeri);
     };
     fetchData();
@@ -50,9 +49,11 @@ function KullaniciGonderileri() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  const gonderiSil = async(gonderiId) => {
+  const gonderiSil = async (gonderiId) => {
     console.log("Gönderi Silindi.");
-    const filtrelenmisYeniVeriler = kullaniciVerileri.filter((veri)=> veri.gonderiId !== gonderiId);
+    const filtrelenmisYeniVeriler = kullaniciVerileri.filter(
+      (veri) => veri.gonderiId !== gonderiId
+    );
     setKullaniciVerileri(filtrelenmisYeniVeriler);
     await belirtilenGonderiyiSil(gonderiId);
   };
@@ -95,15 +96,24 @@ function KullaniciGonderileri() {
             </div>
             {gonderiAyarlariVisibility[veri.gonderiId] && (
               <div className="gonderiAyarlariDiv">
-                <div onClick={()=>gonderiSil(veri.gonderiId)} className="gönderiSilmeAnaDiv">
+                <div
+                  onClick={() => gonderiSil(veri.gonderiId)}
+                  className="gönderiSilmeAnaDiv"
+                >
                   <MdDelete />
                   <div>Gönderiyi Sil</div>
                 </div>
-                <div onClick={gonderiyiDuzenle} className="gonderiyiDuzenlemeAnaDiv">
+                <div
+                  onClick={gonderiyiDuzenle}
+                  className="gonderiyiDuzenlemeAnaDiv"
+                >
                   <MdEditSquare />
                   <div>Gönderiyi Düzenle</div>
                 </div>
-                <div onClick={gonderiIstatistikleri} className="gonderiIstatistikleriniGor">
+                <div
+                  onClick={gonderiIstatistikleri}
+                  className="gonderiIstatistikleriniGor"
+                >
                   <IoStatsChartSharp />
                   <div>Gönderi İstatistikleri</div>
                 </div>

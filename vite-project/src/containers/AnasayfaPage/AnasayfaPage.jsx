@@ -4,7 +4,7 @@ import GonderiFrame from "../../components/GonderiFrame/GonderiFrame";
 import { anasayfa } from "../../services/Anasayfa";
 import "./AnasayfaPage.css";
 import Message from "../../components/Message/Message";
-import { totalBegeniApi } from "../../services/GonderiTotalBegeniSayisi";
+import { gonderiTotalBegeniSayisi } from "../../services/GonderiTotalBegeniSayisi";
 
 function AnasayfaPage() {
   const [gelenVeriler, setGelenVeriler] = useState([]);
@@ -15,7 +15,7 @@ function AnasayfaPage() {
     const fetchData = async () => {
       try {
         const veriler = await anasayfa();
-        const begeniSayisi = await totalBegeniApi();
+        const begeniSayisi = await gonderiTotalBegeniSayisi();
 
         if (veriler && begeniSayisi) {
           // 🔹 Eğer veriler başarıyla gelmişse state güncellenir

@@ -3,7 +3,7 @@ import "./ProfilPageAltMenuler.css";
 import { useNavigate } from "react-router-dom";
 import GonderiFrame from "../GonderiFrame/GonderiFrame";
 import { anasayfa } from "../../services/Anasayfa";
-import { totalBegeniApi } from "../../services/GonderiTotalBegeniSayisi";
+import { gonderiTotalBegeniSayisi } from "../../services/GonderiTotalBegeniSayisi";
 import KullaniciGonderileri from "../KullaniciGonderileri/KullaniciGonderileri";
 
 function ProfilPageAltMenuler() {
@@ -16,7 +16,7 @@ function ProfilPageAltMenuler() {
     const fetchData = async () => {
       try {
         const veriler = await anasayfa();
-        const begeniSayisi = await totalBegeniApi();
+        const begeniSayisi = await gonderiTotalBegeniSayisi();
 
         if (veriler && begeniSayisi) {
           setGelenVeriler(veriler);

@@ -1,6 +1,5 @@
-export const me = async () => {
+export const kullaniciProfilBilgileri = async () => {
     try {
-        console.log("3. satır");
         const response = await fetch("http://localhost:8080/api/user/me", {
             method: "GET",
             credentials: "include", // ✅ Doğru Kullanım
@@ -8,8 +7,6 @@ export const me = async () => {
                 "Content-Type": "application/json",
             },
         });
-        console.log("12. satır");
-
         if (!response.ok) {
             const errorText = await response.text();
             throw new Error(`Hata mesajı: ${response.status} - ${JSON.stringify(errorText)}`);

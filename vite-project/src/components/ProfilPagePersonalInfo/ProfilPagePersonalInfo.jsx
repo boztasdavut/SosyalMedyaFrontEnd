@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./ProfilPagePersonalInfo.css";
 import emptyProfilePicture from "../../assests/empty.png";
-import { me } from "../../services/Me";
 import { FaRegCalendarCheck } from "react-icons/fa6";
-import { takipcileriGetir } from "../../services/KullaniciTakipcileriGetir";
+
+
 function ProfilPagePersonalInfo() {
   const [userInformation, setUserInformation] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-      const gelenVeri = await me();
+      const gelenVeri = await kullaniciProfilBilgileri();
       console.log("Gelen veri= ", gelenVeri);
       setUserInformation(gelenVeri);
     };
@@ -16,9 +16,7 @@ function ProfilPagePersonalInfo() {
   }, []);
 
   const takipcileriGetirFrontEnd = async () => {
-    const takipcilerListesi = await takipcileriGetir();
-    const takipEdilenlerListesi = await 
-    console.log("Gelen Veriler= ", gelenVeri.follow);
+    
   };
 
   return (
