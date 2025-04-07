@@ -1,7 +1,7 @@
 export const kullanicininTumGonderileri = async () => {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/gonderi/kullanici/gonderiler",
+      "https://bitirmeproje.xyz/api/gonderi/kullanici/gonderiler",
       {
         method: "GET",
 

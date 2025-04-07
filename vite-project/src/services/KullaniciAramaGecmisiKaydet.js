@@ -1,6 +1,6 @@
 export const aramaGecmisiKaydet = async (aramaGecmisi) => {
   try {
-    const response = await fetch("http://localhost:8080/api/arama/yeni", {
+    const response = await fetch("https://bitirmeproje.xyz/api/arama/yeni", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 export const aramaGecmisiSil = async(aramaGecmisiId)=>{
     try {
-        const response = await fetch(`http://localhost:8080/api/arama/${aramaGecmisiId}`, {
+        const response = await fetch(`https://bitirmeproje.xyz/api/arama/${aramaGecmisiId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

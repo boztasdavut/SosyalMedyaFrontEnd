@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./ProfilPagePersonalInfo.css";
 import emptyProfilePicture from "../../assests/empty.png";
 import { FaRegCalendarCheck } from "react-icons/fa6";
+import { kullaniciProfilBilgileri } from "../../services/KullaniciProfilBilgileri";
+
 
 
 function ProfilPagePersonalInfo() {

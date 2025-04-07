@@ -1,7 +1,7 @@
 export const kullanicininTumBegendigiGonderiler = async()=>{
     try {
         const response = await fetch(
-          `http://localhost:8080/api/gonderiBegeni/kullanici/begenilen-gonderiler`,
+          `https://bitirmeproje.xyz/api/gonderiBegeni/kullanici/begenilen-gonderiler`,
           {
             method: "GET",
             headers: {

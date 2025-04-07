@@ -1,6 +1,6 @@
 export const aramaGecmisiGetir = async() =>{
     try{
-        const response = await fetch("http://localhost:8080/api/arama/gecmis",{
+        const response = await fetch("https://bitirmeproje.xyz/api/arama/gecmis",{
             method:"GET",
             headers:{
                 "Content-Type": "application/json"

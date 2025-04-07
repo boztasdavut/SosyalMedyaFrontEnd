@@ -2,7 +2,7 @@
 
 export const register = async (kullaniciData) => {
     try {
-        const response = await fetch("http://localhost:8080/api/auth/register", {
+        const response = await fetch("https://bitirmeproje.xyz/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

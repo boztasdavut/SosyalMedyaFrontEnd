@@ -1,6 +1,6 @@
 export const anasayfa = async() =>{
     try{
-        const response = await fetch("http://localhost:8080/home",{
+        const response = await fetch("https://bitirmeproje.xyz/home",{
             method:"GET",
             headers:{
                 "Content-Type": "application/json"

@@ -1,7 +1,7 @@
 export const birKullaniciyiTakipEt = async (takipEdilenId) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/follows/takip-et?takipEdilenId=${takipEdilenId}`,
+      `https://bitirmeproje.xyz/api/follows/takip-et?takipEdilenId=${takipEdilenId}`,
       {
         method: "POST",
         headers: {

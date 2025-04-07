@@ -4,7 +4,7 @@ export const mailOnay = async (email, otp) => {
   console.log("OTP type= " + typeof otp);
   try {
     const response = await fetch(
-      `http://localhost:8080/api/auth/verify-otp?email=${encodeURIComponent(
+      `https://bitirmeproje.xyz/api/auth/verify-otp?email=${encodeURIComponent(
         email
       )}&otp=${encodeURIComponent(otp)}`,
       {

@@ -1,7 +1,7 @@
 export const gonderiBegen = async (gonderi_id) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/gonderiBegeni/${gonderi_id}/begeni`,
+      `https://bitirmeproje.xyz/api/gonderiBegeni/${gonderi_id}/begeni`,
       {
         method: "POST",
         headers: {

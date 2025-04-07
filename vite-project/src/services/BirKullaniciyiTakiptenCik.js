@@ -1,7 +1,7 @@
 export const birKullaniciyiTakiptenCik = async(takipEdilenId)=>{
     try {
         const response = await fetch(
-          `http://localhost:8080/api/follows/takibi-bırakma?takipEdilenId=${takipEdilenId}`,
+          `https://bitirmeproje.xyz/api/follows/takibi-bırakma?takipEdilenId=${takipEdilenId}`,
           {
             method: "DELETE",
             headers: {

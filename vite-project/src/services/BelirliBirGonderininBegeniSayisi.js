@@ -2,7 +2,7 @@
 export const belirliBirGonderininBegeniSayisi = async(gonderi_id)=>{
     try {
         const response = await fetch(
-          `http://localhost:8080/api/gonderiBegeni/${gonderi_id}/begeni-sayisi`,
+          `https://bitirmeproje.xyz/api/gonderiBegeni/${gonderi_id}/begeni-sayisi`,
           {
             method: "GET",
             headers: {

@@ -1,7 +1,7 @@
 export const begeniKaldir = async(gonderi_id)=>{
     try {
         const response = await fetch(
-          `http://localhost:8080/api/gonderiBegeni/${gonderi_id}/begeni-kaldir`,
+          `https://bitirmeproje.xyz/api/gonderiBegeni/${gonderi_id}/begeni-kaldir`,
           {
             method: "DELETE",
             headers: {

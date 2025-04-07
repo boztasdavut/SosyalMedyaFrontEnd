@@ -1,6 +1,6 @@
 export const kullaniciYeniGonderiEkle = async (gonderiBilgileri) => {
   try {
-    const response = await fetch("http://localhost:8080/api/gonderi/ekle", {
+    const response = await fetch("https://bitirmeproje.xyz/api/gonderi/ekle", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 export const kullaniciProfilBilgileri = async () => {
     try {
-        const response = await fetch("http://localhost:8080/api/user/me", {
+        const response = await fetch("https://bitirmeproje.xyz/api/user/me", {
             method: "GET",
             credentials: "include", // ✅ Doğru Kullanım
             headers: {

@@ -1,6 +1,6 @@
 export const belirtilenGonderiyiSil = async(gonderiId) =>{
     try{
-        const response = await fetch(`http://localhost:8080/api/gonderi/sil/${gonderiId}`,{
+        const response = await fetch(`https://bitirmeproje.xyz/api/gonderi/sil/${gonderiId}`,{
             method:"DELETE",
             headers:{
                 "Content-Type": "application/json"

@@ -1,6 +1,6 @@
 export const kullanicininTumTakipcileriniGetir = async() =>{
     try{
-        const response = await fetch("http://localhost:8080/api/follows/takipciler",{
+        const response = await fetch("https://bitirmeproje.xyz/api/follows/takipciler",{
             method:"GET",
             headers:{
                 "Content-Type": "application/json"

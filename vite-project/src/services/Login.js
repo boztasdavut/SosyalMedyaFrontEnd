@@ -1,6 +1,6 @@
 export const login = async(kullaniciData)=>{
     try{
-        const response = await fetch("http://localhost:8080/api/auth/login",{
+        const response = await fetch("https://bitirmeproje.xyz/api/auth/login",{
             method:"POST",
             headers:{
                 "Content-Type": "application/json"
