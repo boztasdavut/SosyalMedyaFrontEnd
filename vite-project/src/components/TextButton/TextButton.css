@@ -1,0 +1,19 @@
+.textButtonArea{
+    border: 0;
+    background-color: white;
+    color: rgb(47, 205, 245);
+    font-size: 10px;
+    
+}
+
+span{
+    font-size: 10px;
+}
+
+.textButtonArea:hover{
+    cursor: pointer;
+}
+
+.textButtonAnaDiv{
+    text-align: right;
+}

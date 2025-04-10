@@ -1,0 +1,12 @@
+.textInputArea{
+    padding: 10px;
+    background-color: rgb(233, 233, 233);
+    border: 0;
+    border-radius: 5px;
+    font-size: 10px;
+    width: 250px;
+}
+.textInputArea:focus{
+    border: 1px solid rgb(161, 161, 161);
+    outline: none;
+}

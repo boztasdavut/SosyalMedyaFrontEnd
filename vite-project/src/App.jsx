@@ -1,25 +1,14 @@
-import LoginPage from "./containers/LoginPage/LoginPage";
-import RegisterPage from "./containers/RegisterPage/RegisterPage";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import AnasayfaPage from "./containers/AnasayfaPage/AnasayfaPage";
 import "./App.css";
-import SifremiUnuttum from "./containers/SifremiUnuttumPage/SifremiUnuttumPage";
-import MailOnay from "./components/MailOnay/MailOnay";
-import ProfilPage from "./containers/ProfilPage/ProfilPage";
+import Button from "./components/Button/Button";
+
+import InputText from "./components/InputText/InputText";
+import TextButton from "./components/TextButton/TextButton";
+import GirisYap from "./containers/GirisYapEkranı/GirisYap";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<RegisterPage />} />
-          <Route path="/loginPage" element={<LoginPage />} />
-          <Route path="/anasayfa" element={<AnasayfaPage />} />
-          <Route path="/sifremiUnuttum" element={<SifremiUnuttum />} />
-          <Route path="/mailOnay" element={<MailOnay />} />
-          <Route path="/:kullaniciAdi" element={<ProfilPage />} />
-        </Routes>
-      </BrowserRouter>
+      <GirisYap />
     </>
   );
 }
