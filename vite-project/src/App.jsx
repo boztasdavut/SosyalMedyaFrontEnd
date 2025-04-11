@@ -1,14 +1,19 @@
 import "./App.css";
-import Button from "./components/Button/Button";
-
-import InputText from "./components/InputText/InputText";
-import TextButton from "./components/TextButton/TextButton";
+import Anasayfa from "./containers/Anasayfa/Anasayfa";
 import GirisYap from "./containers/GirisYapEkranı/GirisYap";
+import KayitOl from "./containers/KayıtOlmaEkranı/KayitOl";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <GirisYap />
+      <Router>
+        <Routes>
+          <Route path="/kayitOl" element={<KayitOl />} />
+          <Route path="/girisYap" element={<GirisYap />} />
+          <Route path="/" element={<Anasayfa />} />
+        </Routes>
+      </Router>
     </>
   );
 }

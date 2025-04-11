@@ -1,5 +1,5 @@
 #butonInputArea{
-    width: 250px;
+    width: 350px;
     padding: 10px;
     border: 0;
     display: inline-block;
@@ -7,6 +7,7 @@
     background-color: rgb(47, 205, 245);
     border-radius: 5px;
     color: white;
+    font-size: 15px;
 }
 
 #butonInputArea:hover{

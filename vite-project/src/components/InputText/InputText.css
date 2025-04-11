@@ -3,8 +3,8 @@
     background-color: rgb(233, 233, 233);
     border: 0;
     border-radius: 5px;
-    font-size: 10px;
-    width: 250px;
+    font-size: 15px;
+    width: 350px;
 }
 .textInputArea:focus{
     border: 1px solid rgb(161, 161, 161);

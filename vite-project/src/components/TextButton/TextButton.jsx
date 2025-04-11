@@ -1,12 +1,12 @@
 import React from "react";
 import "./TextButton.css";
 
-function TextButton({ butonAdi, label }) {
+function TextButton({ butonAdi, label, onClickMethod }) {
   return (
     <div className="textButtonAnaDiv">
       <label htmlFor="">
         <span>{label}</span>
-        <button className="textButtonArea">{butonAdi}</button>
+        <button onClick={onClickMethod} className="textButtonArea">{butonAdi}</button>
       </label>
     </div>
   );

@@ -7,10 +7,12 @@ import logo from "./LoginEkraniResmi.jpg";
 import logo2 from "./loginEkraniResmi2.jpg";
 import logo3 from "./loginEkraniResmi3.jpg";
 import { login } from "../../services/Login.js";
+import { useNavigate } from "react-router-dom";
 
 function GirisYap() {
   const [kullaniciEPosta, setKullaniciEPosta] = useState("");
   const [kullaniciSifre, setKullaniciSifre] = useState("");
+  const navigate = useNavigate();
 
   const girisYapHandle = async () => {
     const kullanicininGirdigiBilgiler = {
@@ -18,7 +20,13 @@ function GirisYap() {
       sifre: kullaniciSifre,
     };
     const apidenGelenCevap = await login(kullanicininGirdigiBilgiler);
-    console.log("Gelen cevap= ", apidenGelenCevap);
+    if (apidenGelenCevap.ok) {
+      navigate("/");
+    }
+  };
+
+  const kayitOlButonHandle = () => {
+    navigate("/kayitOl");
   };
 
   return (
@@ -50,7 +58,11 @@ function GirisYap() {
           <Button butonAdi="Giriş Yap" />
         </div>
         <div>
-          <TextButton butonAdi="Kaydol" label="Hesabın yok mu?" />
+          <TextButton
+            onClickMethod={kayitOlButonHandle}
+            butonAdi="Kaydol"
+            label="Hesabın yok mu?"
+          />
         </div>
       </div>
       <div>
