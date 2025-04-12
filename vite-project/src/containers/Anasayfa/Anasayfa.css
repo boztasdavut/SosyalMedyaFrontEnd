@@ -1,0 +1,66 @@
+.solMenu{
+    position: fixed;
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.solMenu>div{
+    padding: 30px;
+    cursor: pointer;
+}
+
+
+.mesajlasmaAnaDiv{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: black;
+    width: 15vw;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.mesajlasmaAnaDiv:hover{
+    cursor: pointer;
+}
+
+.mesajKutusuKapaliDurum{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    color: white;
+
+}
+
+
+.mesajKutusuKapaliDurum:first-child{
+    font-size: 40px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.mesajKutusuAcikDurum{
+    display: flex;
+    color: white;
+}
+
+.mesajKutusuAcikBaslikVeIcon{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    color: white;
+    
+}
+
+.mesajKutusuAcikDurum:first-child{
+    font-size: 40px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+}

@@ -30,9 +30,9 @@ function KayitOl() {
     console.log("donen veri= ", donenVeri);
   };
 
-  const girisYapButonHandle = () =>{
+  const girisYapButonHandle = () => {
     navigate("/girisYap");
-  }
+  };
 
   return (
     <div className="componentDiv">
@@ -44,7 +44,7 @@ function KayitOl() {
           <InputText
             inputValue={kullaniciEPosta}
             setInputValue={setKullaniciEPosta}
-            placeholder="Telefon numarası, kullanıcı adı veya e-posta"
+            placeholder="E-Posta"
             type="text"
           />
         </div>
@@ -102,7 +102,11 @@ function KayitOl() {
           <Button butonAdi="Kayıt Ol" />
         </div>
         <div>
-          <TextButton onClickMethod={girisYapButonHandle} butonAdi="Giriş Yap" label="Hesabın var mı?" />
+          <TextButton
+            onClickMethod={girisYapButonHandle}
+            butonAdi="Giriş Yap"
+            label="Hesabın var mı?"
+          />
         </div>
       </div>
       <div>

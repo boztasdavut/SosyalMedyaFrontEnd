@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/kayitOl" element={<KayitOl />} />
           <Route path="/girisYap" element={<GirisYap />} />
-          <Route path="/" element={<Anasayfa />} />
+          <Route path="/anasayfa" element={<Anasayfa />} />
         </Routes>
       </Router>
     </>

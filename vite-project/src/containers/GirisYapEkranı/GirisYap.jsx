@@ -21,7 +21,7 @@ function GirisYap() {
     };
     const apidenGelenCevap = await login(kullanicininGirdigiBilgiler);
     if (apidenGelenCevap.ok) {
-      navigate("/");
+      navigate("/anasayfa");
     }
   };
 
@@ -39,7 +39,7 @@ function GirisYap() {
           <InputText
             inputValue={kullaniciEPosta}
             setInputValue={setKullaniciEPosta}
-            placeholder="Telefon numarası, kullanıcı adı veya e posta"
+            placeholder="E-Posta"
             type="text"
           />
         </div>
