@@ -5,15 +5,18 @@ export const login = async (kullaniciData) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify(kullaniciData),
     });
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);
     }
-    const responseData = response;
-    return responseData;
+    const responseData = await response.text();
+    if (responseData) {
+      localStorage.setItem("jwt", responseData);
+    } else {
+      console.warn("Sunucudan JWT alinmadi");
+    }
   } catch (err) {
     console.error("İstek hatası:", err);
     throw err;

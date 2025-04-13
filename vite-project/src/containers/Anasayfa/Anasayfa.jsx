@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Anasayfa.css";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoSearchOutline } from "react-icons/io5";
@@ -10,6 +10,9 @@ import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 
 function Anasayfa() {
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
+  const [mesajBaslangicSayfasiVerileri, setMesajBaslangicSayfasiVerileri] =
+    useState([]);
+
   const handleClickMesajlasma = () => {
     setMesajlasmaKutusuAcikMi(!mesajlasmaKutusuAcikMi);
   };

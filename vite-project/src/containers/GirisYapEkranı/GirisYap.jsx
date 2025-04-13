@@ -19,9 +19,14 @@ function GirisYap() {
       ePosta: kullaniciEPosta,
       sifre: kullaniciSifre,
     };
-    const apidenGelenCevap = await login(kullanicininGirdigiBilgiler);
-    if (apidenGelenCevap.ok) {
+  
+    try {
+      const apidenGelenCevap = await login(kullanicininGirdigiBilgiler);
       navigate("/anasayfa");
+  
+    } catch (error) {
+      console.log("Giriş yapılamadı:", error.message);
+      // İstersen kullanıcıya hata mesajı göster
     }
   };
 
