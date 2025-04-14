@@ -15,50 +15,7 @@
 }
 
 
-.mesajlasmaAnaDiv{
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    background-color: black;
-    width: 15vw;
-    padding: 30px;
-    border-radius: 15px;
-}
 
-.mesajlasmaAnaDiv:hover{
-    cursor: pointer;
-}
-
-.mesajKutusuKapaliDurum{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: start;
-    color: white;
-    
-}
-
-
-.mesajKutusuKapaliDurum:first-child{
-    font-size: 40px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-
-}
-
-
-.mesajKutusuAcikBaslikVeIcon{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: start;
-    color: white;
-}
-
-.mesajKutusuAcikDurum:first-child{
-    font-size: 40px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-
-}
 
 
 
@@ -168,4 +125,9 @@
     border-radius: 25px;
     background-color:rgb(195, 241, 224);
     color:mediumspringgreen;
+  }
+
+
+  .addBackgroundColor{
+    color:red;
   }
