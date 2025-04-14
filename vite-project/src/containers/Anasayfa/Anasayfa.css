@@ -45,9 +45,6 @@
 
 }
 
-.mesajKutusuAcikDurum{
-    
-}
 
 .mesajKutusuAcikBaslikVeIcon{
     display: flex;
@@ -62,3 +59,113 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
 }
+
+
+
+
+/* loading-container class'ını özelleştir */
+.loading-container {
+    position: fixed; /* Sayfanın tamamını kaplamak için fixed konumlandırma */
+    top: 50%; /* Sayfanın tam ortasına yerleştir */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Yatay ve dikey olarak tam ortalamak için */
+    z-index: 1000; /* Spinner'ın sayfanın üstünde görünmesini sağlar */
+  }
+  
+  /* RingLoader boyutunu arttırmak */
+  .react-spinner-ring {
+    width: 100px; /* Boyutunu burada artırabilirsiniz */
+    height: 100px; /* Boyutunu burada artırabilirsiniz */
+  }
+  
+
+  .gonderCardDiv {
+    width: 25%;
+    margin: auto;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; 
+    align-items: flex-start; 
+    padding: 10px;
+    transition: 1s;
+    border: 0;
+  }
+.gonderCardDiv:hover{
+    background-color: rgb(242, 243, 240);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+  .profilResmiVeTakmaAdDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .gonderiIcerigi{
+    padding: 10px;
+    font-size: 19px;
+  }
+
+  .gonderiAksiyonlariDiv {
+    display: flex;
+    justify-content: space-between; /* Aralarındaki mesafeyi eşitler */
+    align-items: center; /* Simgeleri dikeyde ortalar */
+    width: 25%;
+    
+  }
+  
+  .gonderiAksiyonlariDiv div {
+    margin-right: 15px; /* Simgeler arasına mesafe ekler */
+  }
+  
+  .gonderiAksiyonlariDiv div:last-child {
+    margin-right: 0; /* Son simgenin sağında mesafe olmasın */
+  }
+
+
+  
+  .begenmeButonu{
+    transition: 1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .begenmeButonu:hover{
+    border-radius: 25px;
+    background-color: rgb(247, 202, 202);
+    color:red;
+  }
+
+  .yorumButonu{
+    transition: 1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .yorumButonu:hover{
+    border-radius: 25px;
+    background-color:rgb(206, 206, 247);
+    color:blue;
+  }
+
+.gondermeButonu{
+    transition: 1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.gondermeButonu:hover{
+    border-radius: 25px;
+    background-color:rgb(195, 241, 224);
+    color:mediumspringgreen;
+  }

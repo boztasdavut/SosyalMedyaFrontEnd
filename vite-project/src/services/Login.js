@@ -14,6 +14,7 @@ export const login = async (kullaniciData) => {
     const responseData = await response.text();
     if (responseData) {
       localStorage.setItem("jwt", responseData);
+      return responseData;
     } else {
       console.warn("Sunucudan JWT alinmadi");
     }

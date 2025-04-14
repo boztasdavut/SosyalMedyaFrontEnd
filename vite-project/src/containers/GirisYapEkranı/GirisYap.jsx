@@ -8,7 +8,7 @@ import logo2 from "./loginEkraniResmi2.jpg";
 import logo3 from "./loginEkraniResmi3.jpg";
 import { login } from "../../services/Login.js";
 import { useNavigate } from "react-router-dom";
-
+import { anasayfa } from "../../services/Anasayfa.js";
 function GirisYap() {
   const [kullaniciEPosta, setKullaniciEPosta] = useState("");
   const [kullaniciSifre, setKullaniciSifre] = useState("");
@@ -19,11 +19,11 @@ function GirisYap() {
       ePosta: kullaniciEPosta,
       sifre: kullaniciSifre,
     };
-  
+
     try {
       const apidenGelenCevap = await login(kullanicininGirdigiBilgiler);
+      console.log("Apiden gelen cevap= " + apidenGelenCevap);
       navigate("/anasayfa");
-  
     } catch (error) {
       console.log("Giriş yapılamadı:", error.message);
       // İstersen kullanıcıya hata mesajı göster
