@@ -54,7 +54,7 @@ function Mesajlasma() {
             onClick={handleClickMesajlasma}
             className="mesajKutusuKapaliDurum"
           >
-            <div>Mesajlar</div>
+            <div>Mesajlarım</div>
             <div>
               <MdOutlineKeyboardDoubleArrowUp size={50} />
             </div>
