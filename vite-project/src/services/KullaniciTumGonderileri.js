@@ -1,17 +1,25 @@
-export const kullanicininTumGonderileri = async () => {
+export const kullanicininTumGonderileriniGetir = async () => {
   try {
+    const jwt = localStorage.getItem("jwt");
     const response = await fetch(
       "https://bitirmeproje.xyz/api/gonderi/kullanici/gonderiler",
       {
         method: "GET",
-
-        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
       }
     );
-
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);
+    }
+    console.log("JWT dogrulama basarili.");
     const responseData = await response.json();
     return responseData;
-  } catch (err) {
-    console.error("İstek hatası:", err);
+  } catch (e) {
+    console.log("İstek hatasi: ", err);
+    throw err;
   }
 };

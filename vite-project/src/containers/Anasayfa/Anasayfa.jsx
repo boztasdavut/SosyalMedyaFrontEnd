@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Anasayfa.css";
-import { GrHomeRounded } from "react-icons/gr";
-import { IoSearchOutline } from "react-icons/io5";
-import { BiMessageRoundedDetail } from "react-icons/bi";
-import { FaRegCircle } from "react-icons/fa";
-import { IoSettingsOutline } from "react-icons/io5";
 
 import { anasayfa } from "../../services/Anasayfa";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +10,8 @@ import { BsSend } from "react-icons/bs";
 import { gonderiBegen } from "../../services/GonderiBegen";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir";
 import Mesajlasma from "../Mesajlasma/Mesajlasma";
-
+import { jwtParse } from "../../services/ParseJWT";
+import SolMenu from "../SolMenu/SolMenu";
 function Anasayfa() {
   const [takipEdilenlerinGonderiler, setTakipEdilenlerinGonderileri] = useState(
     []
@@ -36,7 +32,8 @@ function Anasayfa() {
         setIsLoading(false);
       }
     };
-
+    const kullaniciId = jwtParse();
+    console.log("Kullanici id bilgisi= " + kullaniciId);
     anasayfaApiIstegi();
   }, []);
 
@@ -86,24 +83,7 @@ function Anasayfa() {
 
   return (
     <div>
-      <div className="solMenu">
-        <div>
-          <GrHomeRounded size={50} />
-        </div>
-        <div>
-          <IoSearchOutline size={50} />
-        </div>
-        <div>
-          <BiMessageRoundedDetail size={50} />
-        </div>
-        <div>
-          <IoSettingsOutline size={50} />
-        </div>
-        <div>
-          <FaRegCircle size={50} />
-        </div>
-      </div>
-
+      <SolMenu />
       <div>
         {takipEdilenlerinGonderiler.map((gonderi) => (
           <div key={gonderi.gonderiId} className="gonderCardDiv">

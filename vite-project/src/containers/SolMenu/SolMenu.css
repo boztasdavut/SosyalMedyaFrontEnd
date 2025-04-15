@@ -1,0 +1,14 @@
+.solMenu {
+  position: fixed;
+  width: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.solMenu > div {
+  padding: 30px;
+  cursor: pointer;
+}
