@@ -1,14 +1,25 @@
 .solMenu {
   position: fixed;
-  width: 10vw;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  gap: 30px;
+  background-color: #f8f9fa;
+  padding: 20px 10px;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
-.solMenu > div {
-  padding: 30px;
+.solMenu div {
   cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.solMenu div:hover {
+  background-color: #e1e7ef;
+  transform: scale(1.05);
 }
