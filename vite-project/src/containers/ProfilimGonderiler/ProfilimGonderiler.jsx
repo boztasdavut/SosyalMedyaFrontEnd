@@ -13,9 +13,41 @@ function ProfilimGonderiler() {
   const navigate = useNavigate();
 
   const birGonderiyiBegen = async (gonderiId) => {
-    const gonderi = takipEdilenlerinGonderiler.find(
-      (item) => item.gonderiId === gonderiId
+    const gonderi = kullanicininTumGonderileri.find(
+      (g) => g.gonderiId === gonderiId
     );
+
+    if (!gonderi) return;
+
+    if (gonderi.begenildiMi === false) {
+      const gelenVeri = await gonderiBegen(gonderiId);
+      if (gelenVeri === "Beğeni eklendi!") {
+        setTakipEdilenlerinGonderileri((prevGonderiler) =>
+          prevGonderiler.map((gonderi) =>
+            gonderi.gonderiId === gonderiId
+              ? {
+                  ...gonderi,
+                  begenildiMi: true,
+                  begeniSayisi: gonderi.begeniSayisi + 1,
+                }
+              : gonderi
+          )
+        );
+      }
+    } else {
+      await begeniKaldir(gonderiId);
+      setTakipEdilenlerinGonderileri((prevGonderiler) =>
+        prevGonderiler.map((gonderi) =>
+          gonderi.gonderiId === gonderiId
+            ? {
+                ...gonderi,
+                begenildiMi: false,
+                begeniSayisi: gonderi.begeniSayisi - 1,
+              }
+            : gonderi
+        )
+      );
+    }
   };
 
   useEffect(() => {

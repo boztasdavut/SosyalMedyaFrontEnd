@@ -3,7 +3,7 @@ import "./Mesajlasma.css";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 
-function Mesajlasma() {
+function Mesajlasma({ mesajBaslangicSayfasi, setMesajBaslangicSayfasi }) {
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
 
   const handleClickMesajlasma = () => {
@@ -23,7 +23,7 @@ function Mesajlasma() {
             </div>
             <div>
               <div className="profilResmiMesajVeGonderenDiv">
-                {baslangicMesajlari.map((mesaj) => (
+                {mesajBaslangicSayfasi.map((mesaj) => (
                   <div key={mesaj.mesajId} className="cardDiv">
                     <div className="profilResmiVeTakmaAd">
                       <div>profilResmi</div>

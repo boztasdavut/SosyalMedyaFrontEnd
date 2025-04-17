@@ -1,0 +1,31 @@
+.aramaSonuclarDiv {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  margin: 8px auto;
+  max-width: 400px;
+  border-radius: 12px;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.aramaSonuclarDiv:hover {
+  background-color: #eaeaea;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.aramaSonuclarDiv img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.aramaSonuclarDiv div:last-child {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}

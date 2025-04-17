@@ -5,7 +5,6 @@ export const aramaGecmisiKaydet = async (aramaGecmisi) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify(aramaGecmisi),
     });
     if (!response.ok) {

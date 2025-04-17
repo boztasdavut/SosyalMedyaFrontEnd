@@ -16,7 +16,10 @@ function SolMenu() {
   const anasayfaYonlendir = () => {
     navigate("/anasayfa");
   };
-  
+  const aramaYap = () => {
+    navigate("/arama");
+  };
+
   return (
     <div>
       <div className="solMenu">
@@ -24,7 +27,7 @@ function SolMenu() {
           <GrHomeRounded size={50} />
         </div>
         <div>
-          <IoSearchOutline size={50} />
+          <IoSearchOutline onClick={aramaYap} size={50} />
         </div>
         <div>
           <BiMessageRoundedDetail size={50} />
