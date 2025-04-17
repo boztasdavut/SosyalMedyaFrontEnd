@@ -13,6 +13,7 @@ export const anasayfa = async () => {
     if (!response.ok) {
       const errorText = await response.text();
       console.log("JWT dogrulama basarisiz");
+      console.log(errorText);
       throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);
     }
 

@@ -4,11 +4,14 @@ import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { GoComment } from "react-icons/go";
 import { BsSend } from "react-icons/bs";
 import { kullanicininTumGonderileriniGetir } from "../../services/KullaniciTumGonderileri.js";
+import { useNavigate } from "react-router-dom";
 
 function ProfilimGonderiler() {
   const [kullanicininTumGonderileri, setKullanicininTumGonderileri] = useState(
     []
   );
+  const navigate = useNavigate();
+
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = takipEdilenlerinGonderiler.find(
       (item) => item.gonderiId === gonderiId
@@ -17,9 +20,15 @@ function ProfilimGonderiler() {
 
   useEffect(() => {
     const gonderileriGetir = async () => {
-      const gonderiler = await kullanicininTumGonderileriniGetir();
-      setKullanicininTumGonderileri(gonderiler);
-      console.log("kullanicinin gonderileri=", gonderiler);
+      try {
+        const gonderiler = await kullanicininTumGonderileriniGetir();
+        setKullanicininTumGonderileri(gonderiler);
+        console.log("kullanicinin gonderileri=", gonderiler);
+      } catch (error) {
+        if (error.message.includes("401")) {
+          navigate("/girisYap");
+        }
+      }
     };
     gonderileriGetir();
   }, []);

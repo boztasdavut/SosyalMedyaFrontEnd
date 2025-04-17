@@ -13,13 +13,15 @@ export const kullanicininTumGonderileriniGetir = async () => {
     );
     if (!response.ok) {
       const errorText = await response.text();
+      console.log("ErrorText");
+      console.log(response.status);
       throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);
     }
     console.log("JWT dogrulama basarili.");
     const responseData = await response.json();
     return responseData;
   } catch (e) {
-    console.log("İstek hatasi: ", err);
-    throw err;
+    console.log("İstek hatasi: ", e);
+    throw e;
   }
 };

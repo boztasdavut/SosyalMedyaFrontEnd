@@ -3,38 +3,15 @@ import "./AnasayfaGonderiler.css";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { GoComment } from "react-icons/go";
 import { BsSend } from "react-icons/bs";
-import { anasayfa } from "../../services/Anasayfa";
-import { useNavigate } from "react-router-dom";
-import { RingLoader } from "react-spinners";
 import { gonderiBegen } from "../../services/GonderiBegen";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir";
 
-function AnasayfaGonderiler() {
-  const [takipEdilenlerinGonderiler, setTakipEdilenlerinGonderileri] = useState(
-    []
-  );
-
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-  useEffect(() => {
-    const anasayfaApiIstegi = async () => {
-      try {
-        const gelenVeri = await anasayfa();
-        setTakipEdilenlerinGonderileri(gelenVeri);
-        console.log("gelenVeri= ", gelenVeri);
-      } catch (error) {
-        if (error.message.includes("401")) {
-          navigate("/girisYap");
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    anasayfaApiIstegi();
-  }, [navigate]);
-
+function AnasayfaGonderiler({
+  takipEdilenlerinTumGonderileri,
+  setTakipEdilenlerinGonderileri,
+}) {
   const birGonderiyiBegen = async (gonderiId) => {
-    const gonderi = takipEdilenlerinGonderiler.find(
+    const gonderi = takipEdilenlerinTumGonderileri.find(
       (g) => g.gonderiId === gonderiId
     );
 
@@ -71,17 +48,10 @@ function AnasayfaGonderiler() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="loading-container">
-        <RingLoader color="#3498db" loading={true} size={50} />
-      </div>
-    );
-  }
   return (
     <div>
       <div>
-        {takipEdilenlerinGonderiler.map((gonderi) => (
+        {takipEdilenlerinTumGonderileri.map((gonderi) => (
           <div key={gonderi.gonderiId} className="gonderCardDiv">
             <div className="profilResmiVeTakmaAdDiv">
               <div>Profil Resmi</div>

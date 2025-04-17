@@ -5,13 +5,37 @@ import { useNavigate } from "react-router-dom";
 import Mesajlasma from "../Mesajlasma/Mesajlasma";
 import SolMenu from "../SolMenu/SolMenu";
 import AnasayfaGonderiler from "../AnasayfaGonderiler/AnasayfaGonderiler";
+import { anasayfa } from "../../services/Anasayfa";
+import { mesajBaslangicSayfasiGetir } from "../../services/MesajlasmaBaslangicSayfasi";
 
 function Anasayfa() {
+  const [takipEdilenlerinGonderileri, setTakipEdilenlerinGonderileri] =
+    useState([]);
+  const [mesajBaslangicSayfasi, setMesajBaslangicSayfasi] = useState([]);
+
+  useEffect(() => {
+    const anasayfaTumVerileriCek = async () => {
+      try {
+        setTakipEdilenlerinGonderileri(await anasayfa());
+        setMesajBaslangicSayfasi(await mesajBaslangicSayfasiGetir());
+      } catch (err) {
+        console.log("Hata=", err);
+      }
+    };
+    anasayfaTumVerileriCek();
+  }, []);
+
   return (
     <div>
       <SolMenu />
-      <AnasayfaGonderiler />
-      <Mesajlasma />
+      <AnasayfaGonderiler
+        takipEdilenlerinTumGonderileri={takipEdilenlerinGonderileri}
+        setTakipEdilenlerinGonderileri={setTakipEdilenlerinGonderileri}
+      />
+      <Mesajlasma
+        mesajBaslangicSayfasi={mesajBaslangicSayfasi}
+        setMesajBaslangicSayfasi={setMesajBaslangicSayfasi}
+      />
     </div>
   );
 }

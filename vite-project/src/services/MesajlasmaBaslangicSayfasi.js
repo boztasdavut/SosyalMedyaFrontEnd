@@ -1,4 +1,4 @@
-export const mesajBaslangicSayfasi = async () => {
+export const mesajBaslangicSayfasiGetir = async () => {
   try {
     const jwt = localStorage.getItem("jwt");
     const response = await fetch(

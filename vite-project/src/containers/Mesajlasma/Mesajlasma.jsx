@@ -2,26 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./Mesajlasma.css";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
-import { mesajBaslangicSayfasi } from "../../services/MesajlasmaBaslangicSayfasi";
 
 function Mesajlasma() {
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
-  const [baslangicMesajlari, setBaslangicMesajlari] = useState([]);
 
   const handleClickMesajlasma = () => {
     setMesajlasmaKutusuAcikMi(!mesajlasmaKutusuAcikMi);
   };
 
-  useEffect(() => {
-    const mesajVerileriniAl = async () => {
-      const gelenVeri = await mesajBaslangicSayfasi();
-      setBaslangicMesajlari(gelenVeri);
-    };
-    mesajVerileriniAl();
-  }, []);
-  useEffect(() => {
-    console.log(baslangicMesajlari);
-  }, [baslangicMesajlari]);
   return (
     <div>
       <div className="mesajlasmaAnaDiv">

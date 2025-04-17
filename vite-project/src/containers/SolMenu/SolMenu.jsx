@@ -6,6 +6,7 @@ import { BiMessageRoundedDetail } from "react-icons/bi";
 import { FaRegCircle } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { CiLogout } from "react-icons/ci";
 
 function SolMenu() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function SolMenu() {
   const anasayfaYonlendir = () => {
     navigate("/anasayfa");
   };
+  
   return (
     <div>
       <div className="solMenu">
@@ -32,6 +34,9 @@ function SolMenu() {
         </div>
         <div onClick={profilYonlendir}>
           <FaRegCircle size={50} />
+        </div>
+        <div>
+          <CiLogout size={50} />
         </div>
       </div>
     </div>
