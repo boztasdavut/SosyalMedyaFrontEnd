@@ -1,0 +1,119 @@
+.gonderiPaylasContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #e6ecf0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: 30px auto;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.profilIkon {
+  color: #555;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.gonderiFormu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.gonderiInput {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  resize: none;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  color: #1c1e21;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  min-height: 80px;
+}
+
+.gonderiInput:focus {
+  background-color: #fff;
+  border: 1px solid #1da1f2;
+  outline: none;
+}
+
+.gonderiAltBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.ikonlar label {
+  color: #4b5563;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.ikonlar label:hover {
+  color: #1da1f2;
+}
+
+.gonderButonu {
+  background-color: #1da1f2;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.gonderButonu:hover {
+  background-color: #0d8de0;
+}
+
+.gonderButonu:disabled {
+  background-color: #a0d3f5;
+  cursor: not-allowed;
+}
+
+.mediaPreviewContainer {
+  margin-top: 12px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.mediaKapat {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1;
+}
+
+.mediaPreview {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 12px;
+}

@@ -7,6 +7,7 @@ import Profilim from "./containers/Profilim/Profilim";
 import MailOnay from "./containers/MailOnay/MailOnay.jsx";
 import SolMenu from "./containers/SolMenu/SolMenu.jsx";
 import AramaGecmisi from "./containers/AramaGecmisi/AramaGecmisi.jsx";
+import GonderiPaylas from "./components/GonderiPaylas/GonderiPaylas.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/profilim" element={<Profilim />} />
           <Route path="/mailOnay" element={<MailOnay />} />
           <Route path="/arama" element={<AramaGecmisi />} />
+          <Route path="/gonderiPaylas" element={<GonderiPaylas />} />
         </Routes>
       </Router>
     </>

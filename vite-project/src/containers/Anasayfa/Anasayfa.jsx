@@ -7,6 +7,7 @@ import SolMenu from "../SolMenu/SolMenu";
 import AnasayfaGonderiler from "../AnasayfaGonderiler/AnasayfaGonderiler";
 import { anasayfa } from "../../services/Anasayfa";
 import { mesajBaslangicSayfasiGetir } from "../../services/MesajlasmaBaslangicSayfasi";
+import GonderiPaylas from "../../components/GonderiPaylas/GonderiPaylas";
 
 function Anasayfa() {
   const [takipEdilenlerinGonderileri, setTakipEdilenlerinGonderileri] =
@@ -28,6 +29,7 @@ function Anasayfa() {
   return (
     <div>
       <SolMenu />
+      <GonderiPaylas/>
       <AnasayfaGonderiler
         takipEdilenlerinTumGonderileri={takipEdilenlerinGonderileri}
         setTakipEdilenlerinGonderileri={setTakipEdilenlerinGonderileri}
