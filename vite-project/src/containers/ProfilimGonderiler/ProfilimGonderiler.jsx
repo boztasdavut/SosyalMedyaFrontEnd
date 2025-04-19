@@ -5,8 +5,9 @@ import { GoComment } from "react-icons/go";
 import { BsSend } from "react-icons/bs";
 import { kullanicininTumGonderileriniGetir } from "../../services/KullaniciTumGonderileri.js";
 import { useNavigate } from "react-router-dom";
+import { PiDotsThreeOutlineThin } from "react-icons/pi";
 
-function ProfilimGonderiler() {
+function ProfilimGonderiler({setGonderiSayisi}) {
   const [kullanicininTumGonderileri, setKullanicininTumGonderileri] = useState(
     []
   );
@@ -54,6 +55,7 @@ function ProfilimGonderiler() {
     const gonderileriGetir = async () => {
       try {
         const gonderiler = await kullanicininTumGonderileriniGetir();
+        setGonderiSayisi(gonderiler.length);
         setKullanicininTumGonderileri(gonderiler);
         console.log("kullanicinin gonderileri=", gonderiler);
       } catch (error) {
@@ -69,15 +71,20 @@ function ProfilimGonderiler() {
       <div>
         {kullanicininTumGonderileri.map((gonderi) => (
           <div key={gonderi.gonderiId} className="gonderCardDiv">
-            <div className="profilResmiVeTakmaAdDiv">
-              <div>Profil Resmi</div>
-              <div>@{gonderi.takipEdilenKullaniciTakmaAd}</div>
+            <div className="profilimProfilResmiVeTakmaAdDiv">
+              <div>
+                <div>Profil Resmi</div>
+                <div>@{gonderi.kullaniciTakmaAd}</div>
+              </div>
+              <div>
+                <PiDotsThreeOutlineThin />
+              </div>
             </div>
-            <div className="gonderiIcerigi">{gonderi.gonderiIcerigi}</div>
-            <div className="gonderiAksiyonlariDiv">
+            <div className="profilimGonderiIcerigi">{gonderi.gonderiIcerigi}</div>
+            <div className="profilimGonderiAksiyonlariDiv">
               <div
                 onClick={() => birGonderiyiBegen(gonderi.gonderiId)}
-                className="begenmeButonu"
+                className="profilimBegenmeButonu"
               >
                 {gonderi.begenildiMi ? (
                   <IoIosHeart size={30} color="red" />
@@ -86,10 +93,10 @@ function ProfilimGonderiler() {
                 )}
                 <span>{gonderi.begeniSayisi}</span>
               </div>
-              <div className="yorumButonu">
+              <div className="profilimYorumButonu">
                 <GoComment size={25} />
               </div>
-              <div className="gondermeButonu">
+              <div className="profilimGondermeButonu">
                 <BsSend size={25} />
               </div>
             </div>

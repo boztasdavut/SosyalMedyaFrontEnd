@@ -29,7 +29,7 @@ function Anasayfa() {
   return (
     <div>
       <SolMenu />
-      <GonderiPaylas/>
+      <GonderiPaylas />
       <AnasayfaGonderiler
         takipEdilenlerinTumGonderileri={takipEdilenlerinGonderileri}
         setTakipEdilenlerinGonderileri={setTakipEdilenlerinGonderileri}

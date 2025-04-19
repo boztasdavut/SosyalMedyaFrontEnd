@@ -5,11 +5,12 @@ import ProfilimGonderiler from "../ProfilimGonderiler/ProfilimGonderiler.jsx";
 import Mesajlasma from "../Mesajlasma/Mesajlasma.jsx";
 import ProfilimPageHeader from "../ProfilimPageHeader/ProfilimPageHeader.jsx";
 function Profilim() {
+  const[gonderiSayisi, setGonderiSayisi] = useState(null);
   return (
     <div>
       <SolMenu />
-      <ProfilimPageHeader />
-      <ProfilimGonderiler />
+      <ProfilimPageHeader gonderiSayisi={gonderiSayisi} />
+      <ProfilimGonderiler setGonderiSayisi={setGonderiSayisi} />
       <Mesajlasma />
     </div>
   );

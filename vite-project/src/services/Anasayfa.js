@@ -22,6 +22,6 @@ export const anasayfa = async () => {
     return responseData;
   } catch (err) {
     console.error("İstek hatası:", err);
-    throw err; // ← BU ÇOK ÖNEMLİ!
+    throw err;
   }
 };

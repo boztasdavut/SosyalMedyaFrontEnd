@@ -5,9 +5,9 @@ import KayitOl from "./containers/KayıtOlmaEkranı/KayitOl";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Profilim from "./containers/Profilim/Profilim";
 import MailOnay from "./containers/MailOnay/MailOnay.jsx";
-import SolMenu from "./containers/SolMenu/SolMenu.jsx";
 import AramaGecmisi from "./containers/AramaGecmisi/AramaGecmisi.jsx";
 import GonderiPaylas from "./components/GonderiPaylas/GonderiPaylas.jsx";
+import BaskasininProfileGit from "./containers/BaskasininProfileGit/BaskasininProfileGit.jsx";
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
           <Route path="/mailOnay" element={<MailOnay />} />
           <Route path="/arama" element={<AramaGecmisi />} />
           <Route path="/gonderiPaylas" element={<GonderiPaylas />} />
+          <Route path="/profil/:takmaAd" element={<BaskasininProfileGit />} />
         </Routes>
       </Router>
     </>
