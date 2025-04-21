@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SolMenu.css";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoSearchOutline } from "react-icons/io5";
@@ -7,8 +7,19 @@ import { FaRegCircle } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
+import { logout } from "../../services/Logout.js";
+import { kullaniciProfilBilgileriGetir } from "../../services/KullaniciProfilBilgileri.js";
 
 function SolMenu() {
+  const [kullanicininProfilBilgileri, setKullanicininProfilBilgileri] =
+    useState({});
+  useEffect(() => {
+    const profilBilgisiGetir = async () => {
+      const profilBilgileri = await kullaniciProfilBilgileriGetir();
+      setKullanicininProfilBilgileri(profilBilgileri);
+    };
+    profilBilgisiGetir();
+  }, []);
   const navigate = useNavigate();
   const profilYonlendir = () => {
     navigate("/profilim");
@@ -18,6 +29,12 @@ function SolMenu() {
   };
   const aramaYap = () => {
     navigate("/arama");
+  };
+  const cikisYap = async () => {
+    const basariDurumu = await logout();
+    console.log("Logout durumu= ", basariDurumu);
+    localStorage.removeItem("jwt");
+    navigate("/girisYap");
   };
 
   return (
@@ -35,10 +52,13 @@ function SolMenu() {
         <div>
           <IoSettingsOutline size={50} />
         </div>
-        <div onClick={profilYonlendir}>
-          <FaRegCircle size={50} />
+        <div onClick={profilYonlendir} className="solMenu-profilResmi">
+          <img
+            src={kullanicininProfilBilgileri.kullaniciProfilResmi}
+            alt="profil"
+          />
         </div>
-        <div>
+        <div onClick={cikisYap}>
           <CiLogout size={50} />
         </div>
       </div>

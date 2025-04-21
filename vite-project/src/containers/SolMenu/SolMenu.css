@@ -23,3 +23,23 @@
   background-color: #e1e7ef;
   transform: scale(1.05);
 }
+
+.solMenu-profilResmi {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;      /* div yuvarlak */
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.solMenu-profilResmi img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;      /* resme de yuvarlaklık ver */
+  object-fit: cover;
+  display: block;
+}
+

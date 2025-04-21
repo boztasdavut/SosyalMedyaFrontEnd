@@ -28,7 +28,11 @@ function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
             <div key={gonderi.gonderiId} className="gonderCardDiv">
               <div className="profilimProfilResmiVeTakmaAdDiv">
                 <div>
-                  <div>Profil Resmi</div>
+                  <div>
+                    <img
+                      src={baskasininProfiliBilgileri.kullaniciProfilResmi}
+                    />
+                  </div>
                   <div>@{gonderi.kullaniciTakmaAd}</div>
                 </div>
                 <div>

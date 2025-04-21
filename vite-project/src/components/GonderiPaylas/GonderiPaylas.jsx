@@ -42,9 +42,6 @@ function GonderiPaylas() {
 
   return (
     <div className="gonderiPaylasContainer">
-      <div className="profilIkon">
-        <BsPersonCircle size={40} />
-      </div>
       <div className="gonderiFormu">
         <textarea
           className="gonderiInput"

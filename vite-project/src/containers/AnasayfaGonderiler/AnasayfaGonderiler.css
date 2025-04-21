@@ -74,4 +74,11 @@
     align-items: center;
     height: 60vh;
   }
+
+  #anasayfaProfilResim {
+    width: 50px;         /* İsteğe göre boyutlandır */
+    height: 50px;
+    object-fit: cover;   /* Görselin taşmasını engeller, düzgün kırpma sağlar */
+    border-radius: 50%;  /* Tam yuvarlak yapmak için */
+  }
   

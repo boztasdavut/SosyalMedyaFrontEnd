@@ -6,38 +6,34 @@ import Mesajlasma from "../Mesajlasma/Mesajlasma";
 import SolMenu from "../SolMenu/SolMenu";
 import AnasayfaGonderiler from "../AnasayfaGonderiler/AnasayfaGonderiler";
 import { anasayfa } from "../../services/Anasayfa";
-import { mesajBaslangicSayfasiGetir } from "../../services/MesajlasmaBaslangicSayfasi";
 import GonderiPaylas from "../../components/GonderiPaylas/GonderiPaylas";
 
 function Anasayfa() {
   const [takipEdilenlerinGonderileri, setTakipEdilenlerinGonderileri] =
     useState([]);
-  const [mesajBaslangicSayfasi, setMesajBaslangicSayfasi] = useState([]);
 
   useEffect(() => {
     const anasayfaTumVerileriCek = async () => {
       try {
-        setTakipEdilenlerinGonderileri(await anasayfa());
-        setMesajBaslangicSayfasi(await mesajBaslangicSayfasiGetir());
+        const anasayfaGonderiler = await anasayfa();
+        setTakipEdilenlerinGonderileri(anasayfaGonderiler);
+        console.log("anasayfa gonderileri= ", anasayfaGonderiler);
       } catch (err) {
         console.log("Hata=", err);
       }
     };
     anasayfaTumVerileriCek();
   }, []);
-
+  
   return (
     <div>
-      <SolMenu />
+      <SolMenu  />
       <GonderiPaylas />
       <AnasayfaGonderiler
         takipEdilenlerinTumGonderileri={takipEdilenlerinGonderileri}
         setTakipEdilenlerinGonderileri={setTakipEdilenlerinGonderileri}
       />
-      <Mesajlasma
-        mesajBaslangicSayfasi={mesajBaslangicSayfasi}
-        setMesajBaslangicSayfasi={setMesajBaslangicSayfasi}
-      />
+      <Mesajlasma />
     </div>
   );
 }

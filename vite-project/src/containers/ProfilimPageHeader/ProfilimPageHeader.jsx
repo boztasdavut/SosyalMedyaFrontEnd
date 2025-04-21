@@ -17,7 +17,9 @@ function ProfilimPageHeader({ gonderiSayisi }) {
         const profilBilgileri = await kullaniciProfilBilgileriGetir();
         const takipciler = await kullanicininTumTakipcileriniGetir();
         const takipEdilenler = await kullaniciTumTakipEdilenleriGetir();
-        // Veriler geldiyse state güncelleme
+
+        console.log("Kendi profili bilgiler= ", profilBilgileri);
+
         setKullaniciProfilBilgileri(profilBilgileri);
         setKullaniciTakipcileri(takipciler);
         setKullaniciTakipEttikleri(takipEdilenler);
@@ -48,7 +50,9 @@ function ProfilimPageHeader({ gonderiSayisi }) {
       ) : (
         <div className="profilim-content">
           <div className="profilim-header">
-            <div className="profilim-avatar">Profil Resmi</div>
+            <div className="profilim-avatar">
+              <img src={kullaniciProfilBilgileri.kullaniciProfilResmi} />
+            </div>
             <div className="profilim-info">
               <div className="profilim-top-bar">
                 <div className="profilim-username">

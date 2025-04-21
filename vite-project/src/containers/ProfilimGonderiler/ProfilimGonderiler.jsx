@@ -6,11 +6,13 @@ import { BsSend } from "react-icons/bs";
 import { kullanicininTumGonderileriniGetir } from "../../services/KullaniciTumGonderileri.js";
 import { useNavigate } from "react-router-dom";
 import { PiDotsThreeOutlineThin } from "react-icons/pi";
+import { kullaniciProfilBilgileriGetir } from "../../services/KullaniciProfilBilgileri.js";
 
-function ProfilimGonderiler({setGonderiSayisi}) {
+function ProfilimGonderiler({ setGonderiSayisi }) {
   const [kullanicininTumGonderileri, setKullanicininTumGonderileri] = useState(
     []
   );
+  const [kullaniciProfilBilgileri, setKullaniciProfilBilgileri] = useState({});
   const navigate = useNavigate();
 
   const birGonderiyiBegen = async (gonderiId) => {
@@ -58,6 +60,8 @@ function ProfilimGonderiler({setGonderiSayisi}) {
         setGonderiSayisi(gonderiler.length);
         setKullanicininTumGonderileri(gonderiler);
         console.log("kullanicinin gonderileri=", gonderiler);
+        const profilBilgileri = await kullaniciProfilBilgileriGetir();
+        setKullaniciProfilBilgileri(profilBilgileri);
       } catch (error) {
         if (error.message.includes("401")) {
           navigate("/girisYap");
@@ -73,14 +77,18 @@ function ProfilimGonderiler({setGonderiSayisi}) {
           <div key={gonderi.gonderiId} className="gonderCardDiv">
             <div className="profilimProfilResmiVeTakmaAdDiv">
               <div>
-                <div>Profil Resmi</div>
+                <div>
+                  <img id="profilimGonderilerProfilResmi" src={kullaniciProfilBilgileri.kullaniciProfilResmi} />
+                </div>
                 <div>@{gonderi.kullaniciTakmaAd}</div>
               </div>
               <div>
                 <PiDotsThreeOutlineThin />
               </div>
             </div>
-            <div className="profilimGonderiIcerigi">{gonderi.gonderiIcerigi}</div>
+            <div className="profilimGonderiIcerigi">
+              {gonderi.gonderiIcerigi}
+            </div>
             <div className="profilimGonderiAksiyonlariDiv">
               <div
                 onClick={() => birGonderiyiBegen(gonderi.gonderiId)}

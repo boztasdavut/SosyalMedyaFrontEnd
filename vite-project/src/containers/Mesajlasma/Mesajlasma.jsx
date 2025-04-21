@@ -2,9 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./Mesajlasma.css";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
+import { mesajBaslangicSayfasiGetir } from "../../services/MesajlasmaBaslangicSayfasi";
 
-function Mesajlasma({ mesajBaslangicSayfasi, setMesajBaslangicSayfasi }) {
+function Mesajlasma() {
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
+  const [mesajBaslangicSayfasi, setMesajBaslangicSayfasi] = useState([]);
+
+  useEffect(() => {
+    const baslangicMesajlariGetir = async () => {
+      const mesajBaslangic = await mesajBaslangicSayfasiGetir();
+      setMesajBaslangicSayfasi(mesajBaslangic);
+    };
+    baslangicMesajlariGetir();
+  }, []);
 
   const handleClickMesajlasma = () => {
     setMesajlasmaKutusuAcikMi(!mesajlasmaKutusuAcikMi);
