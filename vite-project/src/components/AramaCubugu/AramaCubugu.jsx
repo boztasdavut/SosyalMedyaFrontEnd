@@ -8,19 +8,20 @@ import AramaSonuclariGoster from "../../containers/AramaSonuclari/AramaSonuclari
 export default function AramaCubugu() {
   const [query, setQuery] = useState("");
   const [aramaSonuclari, setAramaSonuclari] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const debouncedSearch = useCallback(
     debounce(async (q) => {
       if (!q.trim()) {
-        setAramaSonuclari([]);   // query boşsa temizle
+        setAramaSonuclari([]);
+        setIsLoading(false);
         return;
       }
+      setIsLoading(true);
       const results = await aramaSonucuGetir(q);
-      // API’den array gelmeyebilir, data içinde gelebilir
-      const list = Array.isArray(results)
-        ? results
-        : results?.data || [];
+      const list = Array.isArray(results) ? results : results?.data || [];
       setAramaSonuclari(list);
+      setIsLoading(false);
     }, 300),
     []
   );
@@ -47,7 +48,7 @@ export default function AramaCubugu() {
       <AramaSonuclariGoster
         query={query}
         aramaSonuclari={aramaSonuclari}
-        setAramaSonuclari={setAramaSonuclari}
+        isLoading={isLoading}
       />
     </div>
   );
