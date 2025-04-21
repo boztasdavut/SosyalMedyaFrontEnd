@@ -54,7 +54,7 @@ function AnasayfaGonderiler({
         {takipEdilenlerinTumGonderileri.map((gonderi) => (
           <div key={gonderi.gonderiId} className="gonderCardDiv">
             <div className="profilResmiVeTakmaAdDiv">
-              <div>Profil Resmi</div>
+              <div></div>
               <div>@{gonderi.takipEdilenKullaniciTakmaAd}</div>
             </div>
             <div className="gonderiIcerigi">{gonderi.gonderiIcerigi}</div>

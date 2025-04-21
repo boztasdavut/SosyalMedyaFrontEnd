@@ -6,7 +6,8 @@ import { baskasininProfiliniGetir } from "../../services/BaskasininProfiliniGeti
 import { useParams } from "react-router-dom";
 import Mesajlasma from "../Mesajlasma/Mesajlasma.jsx";
 import SolMenu from "../SolMenu/SolMenu.jsx";
-
+import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";
+import { kullaniciTumTakipEdilenleriGetir } from "../../services/KullaniciTumTakipEdilenlerGetir.js";
 function BaskasininProfileGit() {
   const [baskasininProfiliBilgileri, setBaskasininProfiliBilgileri] = useState(
     {}
@@ -17,6 +18,7 @@ function BaskasininProfileGit() {
     const baskasininProfiliGetirDemo = async (takmaAd) => {
       try {
         const gelenVeri = await baskasininProfiliniGetir(takmaAd);
+        console.log("baskasinin profili gelen veri= ", gelenVeri);
         setBaskasininProfiliBilgileri(gelenVeri);
       } catch (err) {
         console.log("Bir hata meydana geldi", err);
