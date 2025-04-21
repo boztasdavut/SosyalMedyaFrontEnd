@@ -29,3 +29,10 @@
   font-weight: 500;
   color: #333;
 }
+
+.no-results {
+  text-align: center;
+  color: #666;
+  margin: 12px 0;
+  font-style: bold;
+}

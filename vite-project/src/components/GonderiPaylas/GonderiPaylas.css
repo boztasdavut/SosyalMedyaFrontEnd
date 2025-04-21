@@ -4,13 +4,21 @@
   gap: 12px;
   padding: 20px;
   background-color: #ffffff;
-  border: 1px solid #e6ecf0;
-  border-radius: 16px;
+  border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin: 30px auto;
-  max-width: 600px;
+  margin: 20px auto;
+  max-width: 690px; /* daha büyük hale getirdik */
   box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
 }
+
+
+.gonderiPaylasContainer:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+
 
 .profilIkon {
   color: #555;

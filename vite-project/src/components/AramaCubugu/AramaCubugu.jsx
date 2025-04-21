@@ -1,51 +1,54 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./AramaCubugu.css";
 import { CiSearch } from "react-icons/ci";
 import { aramaSonucuGetir } from "../../services/AramaYap.js";
 import { debounce } from "lodash";
+import AramaSonuclariGoster from "../../containers/AramaSonuclari/AramaSonuclariGoster";
 
-function AramaCubugu({ aramaSonuclari, setAramaSonuclari }) {
+export default function AramaCubugu() {
   const [query, setQuery] = useState("");
+  const [aramaSonuclari, setAramaSonuclari] = useState([]);
 
-  const handleQueryChange = (e) => {
-    setQuery(e);
-    debouncedSearch(e);
-  };
-
-  useEffect(() => {
-    console.log("query= ", query);
-  }, [query]);
-
-  useEffect(() => {
-    console.log("arama sonuclari=", aramaSonuclari);
-  }, [aramaSonuclari]);
-
-  const searchUser = async (q) => {
-    const aramaSonuclari = await aramaSonucuGetir(q);
-    setAramaSonuclari(aramaSonuclari);
-  };
   const debouncedSearch = useCallback(
-    debounce((q) => {
-      searchUser(q);
+    debounce(async (q) => {
+      if (!q.trim()) {
+        setAramaSonuclari([]);   // query boşsa temizle
+        return;
+      }
+      const results = await aramaSonucuGetir(q);
+      // API’den array gelmeyebilir, data içinde gelebilir
+      const list = Array.isArray(results)
+        ? results
+        : results?.data || [];
+      setAramaSonuclari(list);
     }, 300),
-    [] // sadece bir kere oluşturulsun
+    []
   );
 
+  const handleChange = (e) => {
+    const q = e.target.value;
+    setQuery(q);
+    debouncedSearch(q);
+  };
+
   return (
-    <div className="aramaCubunuAnaDiv">
-      <div>
+    <div>
+      <div className="aramaCubunuAnaDiv">
         <input
-          onChange={(e) => handleQueryChange(e.target.value)}
-          value={query}
-          className="aramaCubuguInput"
           type="text"
+          value={query}
+          onChange={handleChange}
+          placeholder="Kullanıcı ara..."
+          className="aramaCubuguInput"
         />
+        <CiSearch className="searchIcon" />
       </div>
-      <div className="searchIcon">
-        <CiSearch />
-      </div>
+
+      <AramaSonuclariGoster
+        query={query}
+        aramaSonuclari={aramaSonuclari}
+        setAramaSonuclari={setAramaSonuclari}
+      />
     </div>
   );
 }
-
-export default AramaCubugu;

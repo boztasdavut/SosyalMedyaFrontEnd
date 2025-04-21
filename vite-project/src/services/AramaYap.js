@@ -1,6 +1,12 @@
 export const aramaSonucuGetir = async (query) => {
+  const jwt = localStorage.getItem("jwt");
+
+  if (!jwt) {
+    console.warn("JWT bulunamadı.");
+    return [];
+  }
+
   try {
-    const jwt = localStorage.getItem("jwt");
     const response = await fetch(
       `https://bitirmeproje.xyz/api/user/arama?query=${query}`,
       {
@@ -11,13 +17,19 @@ export const aramaSonucuGetir = async (query) => {
         },
       }
     );
+
+    if (response.status === 404) {
+      return [];
+    }
+
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);
     }
-    const responseData = await response.json();
-    return responseData;
+
+    return await response.json();
   } catch (err) {
     console.error("İstek hatası:", err);
+    return [];
   }
 };
