@@ -11,6 +11,7 @@ function Mesajlasma() {
   useEffect(() => {
     const baslangicMesajlariGetir = async () => {
       const mesajBaslangic = await mesajBaslangicSayfasiGetir();
+      console.log("Mesajlar verisi= ", mesajBaslangic);
       setMesajBaslangicSayfasi(mesajBaslangic);
     };
     baslangicMesajlariGetir();
@@ -36,7 +37,9 @@ function Mesajlasma() {
                 {mesajBaslangicSayfasi.map((mesaj) => (
                   <div key={mesaj.mesajId} className="cardDiv">
                     <div className="profilResmiVeTakmaAd">
-                      <div>profilResmi</div>
+                      <div>
+                        <img src={mesaj.karsiTarafProfilResmi} />
+                      </div>
                       <div>@{mesaj.karsiTarafAdi}</div>
                     </div>
                     <div className="mesajVeGonderenDiv">

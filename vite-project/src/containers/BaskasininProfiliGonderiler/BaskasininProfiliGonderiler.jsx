@@ -5,47 +5,44 @@ import { PiDotsThreeOutlineThin } from "react-icons/pi";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { GoComment } from "react-icons/go";
 import { BsSend } from "react-icons/bs";
+
 function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     setIsLoading(false);
   }, [baskasininProfiliBilgileri]);
+
   return (
     <div>
       {isLoading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "40px",
-          }}
-        >
+        <div className="gonderi-loading">
           <ClipLoader color="#4a90e2" size={40} />
         </div>
       ) : (
         <div>
           {baskasininProfiliBilgileri?.gonderiler?.map((gonderi) => (
-            <div key={gonderi.gonderiId} className="gonderCardDiv">
-              <div className="profilimProfilResmiVeTakmaAdDiv">
-                <div>
-                  <div>
-                    <img
-                      src={baskasininProfiliBilgileri.kullaniciProfilResmi}
-                    />
+            <div key={gonderi.gonderiId} className="gonderi-karti">
+              <div className="gonderi-baslik">
+                <div className="gonderi-kullanici">
+                  <img
+                    className="gonderi-profil-resmi"
+                    src={baskasininProfiliBilgileri.kullaniciProfilResmi}
+                    alt="Profil"
+                  />
+                  <div className="gonderi-takma-ad">
+                    @{gonderi.kullaniciTakmaAd}
                   </div>
-                  <div>@{gonderi.kullaniciTakmaAd}</div>
                 </div>
-                <div>
+                <div className="gonderi-menusu">
                   <PiDotsThreeOutlineThin />
                 </div>
               </div>
-              <div className="profilimGonderiIcerigi">
-                {gonderi.gonderiIcerigi}
-              </div>
-              <div className="profilimGonderiAksiyonlariDiv">
+              <div className="gonderi-icerik">{gonderi.gonderiIcerigi}</div>
+              <div className="gonderi-aksiyonlar">
                 <div
                   onClick={() => birGonderiyiBegen(gonderi.gonderiId)}
-                  className="profilimBegenmeButonu"
+                  className="gonderi-begen"
                 >
                   {gonderi.begenildiMi ? (
                     <IoIosHeart size={30} color="red" />
@@ -54,10 +51,10 @@ function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
                   )}
                   <span>{gonderi.begeniSayisi}</span>
                 </div>
-                <div className="profilimYorumButonu">
+                <div className="gonderi-yorum">
                   <GoComment size={25} />
                 </div>
-                <div className="profilimGondermeButonu">
+                <div className="gonderi-paylas">
                   <BsSend size={25} />
                 </div>
               </div>

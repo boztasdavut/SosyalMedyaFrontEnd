@@ -1,0 +1,83 @@
+.gonderi-karti {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .gonderi-karti:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+  
+  .gonderi-baslik {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .gonderi-kullanici {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .gonderi-profil-resmi {
+    background-color: #ddd;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .gonderi-takma-ad {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .gonderi-icerik {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .gonderi-aksiyonlar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .gonderi-begen,
+  .gonderi-yorum,
+  .gonderi-paylas {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .gonderi-begen:hover,
+  .gonderi-yorum:hover,
+  .gonderi-paylas:hover {
+    transform: scale(1.1);
+  }
+  
+  .gonderi-begen span {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .gonderi-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+  }
+  

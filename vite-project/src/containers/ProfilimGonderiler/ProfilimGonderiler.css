@@ -1,91 +1,70 @@
 .gonderCardDiv {
-    background-color: #ffffff;
-    border: 1px solid #e4e4e4;
-    border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    margin: 24px auto;
-    max-width: 650px;
-    transition: transform 0.2s ease;
-  }
-  
-  .gonderCardDiv:hover {
-    transform: translateY(-4px);
-  }
-  
-  .profilimProfilResmiVeTakmaAdDiv {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-  }
-  
-  .profilimProfilResmiVeTakmaAdDiv > div:first-child {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #444;
-  }
-  
-  .profilimProfilResmiVeTakmaAdDiv > div:first-child div:first-child {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 12px;
-    color: #555;
-  }
-  
-  .profilimProfilResmiVeTakmaAdDiv > div:last-child {
-    cursor: pointer;
-    color: #888;
-    font-size: 20px;
-  }
-  
-  .profilimGonderiIcerigi {
-    font-size: 15.5px;
-    color: #333;
-    line-height: 1.6;
-    margin-bottom: 12px;
-  }
-  
-  .profilimGonderiAksiyonlariDiv {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .profilimBegenmeButonu,
-  .profilimYorumButonu,
-  .profilimGondermeButonu {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    transition: transform 0.15s ease;
-  }
-  
-  .profilimBegenmeButonu:hover,
-  .profilimYorumButonu:hover,
-  .profilimGondermeButonu:hover {
-    transform: scale(1.1);
-  }
-  
-  .profilimBegenmeButonu span {
-    font-size: 14px;
-    color: #555;
-  }
-  
-  #profilimGonderilerProfilResmi {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;  /* Görselin düzgün şekilde alanı doldurmasını sağlar */
-    display: block;     /* Gereksiz boşluk bırakmamak için */
-  }
-  
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 600px;
+  transition: all 0.3s ease-in-out;
+}
+
+.gonderCardDiv:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.profilimProfilResmiVeTakmaAdDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.profilimProfilResmiVeTakmaAdDiv > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+#profilimGonderilerProfilResmi {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #ddd;
+}
+
+.profilimGonderiIcerigi {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.profilimGonderiAksiyonlariDiv {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profilimBegenmeButonu,
+.profilimYorumButonu,
+.profilimGondermeButonu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.profilimBegenmeButonu:hover,
+.profilimYorumButonu:hover,
+.profilimGondermeButonu:hover {
+  transform: scale(1.1);
+}
+
+.profilimBegenmeButonu span {
+  font-size: 16px;
+  color: #333;
+}
