@@ -13,13 +13,13 @@ export const mailOnay = async (email, otp) => {
     );
 
     if (!response.ok) {
-      throw new Error(`Hata: ${response.status}`);
+      throw new Error(`Response ok degil: ${response.status}`);
     }
 
-    const data = await response.status;
+    const data = response.status;
     return data;
   } catch (error) {
     console.error("OTP doğrulama hatası:", error);
-    return null;
+    throw new Error(`Response ok degil:`);
   }
 };

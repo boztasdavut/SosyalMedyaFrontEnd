@@ -1,0 +1,52 @@
+
+  
+  .mailOnayAnaDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 30px;
+  }
+  
+  .kodKutucuklariAnaDiv {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .kodInput {
+    width: 50px;
+    height: 60px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ccc;
+    outline: none;
+    transition: box-shadow 0.2s ease, border 0.2s ease;
+  }
+  
+  .kodInput:focus {
+    border: 1px solid #4f8cf7;
+    box-shadow: 0 0 0 3px rgba(79, 140, 247, 0.2);
+  }
+  
+  #mailOnaylamaButonu {
+    padding: 12px 28px;
+    background-color: #4f8cf7;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(79, 140, 247, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  #mailOnaylamaButonu:hover {
+    background-color: #3b74d0;
+    box-shadow: 0 6px 18px rgba(79, 140, 247, 0.4);
+  }
+  

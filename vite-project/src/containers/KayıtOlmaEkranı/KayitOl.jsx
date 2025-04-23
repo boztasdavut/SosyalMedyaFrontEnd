@@ -28,6 +28,9 @@ function KayitOl() {
     };
     const donenVeri = await register(kullanicininGirdigiBilgiler);
     console.log("donen veri= ", donenVeri);
+    navigate("/mailOnay", {
+      state: { ePosta: kullaniciEPosta },
+    });
   };
 
   const girisYapButonHandle = () => {
