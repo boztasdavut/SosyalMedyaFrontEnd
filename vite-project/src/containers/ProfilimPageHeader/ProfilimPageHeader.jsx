@@ -7,6 +7,11 @@ import { kullaniciTumTakipEdilenleriGetir } from "../../services/KullaniciTumTak
 import { ClipLoader } from "react-spinners";
 import { CiEdit } from "react-icons/ci";
 import { PiCheckThin } from "react-icons/pi";
+import { profilResmiGuncelle } from "../../services/ProfilResmiGuncelle.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { bioGuncelle } from "../../services/BioGuncelle.js";
 
 function ProfilimPageHeader({ gonderiSayisi }) {
   const [kullaniciProfilBilgileri, setKullaniciProfilBilgileri] = useState({});
@@ -44,13 +49,62 @@ function ProfilimPageHeader({ gonderiSayisi }) {
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
-    // İsteğe bağlı: sunucuya bio'yu güncellemek için API çağrısı yapılabilir.
+  const handleSaveClick = async () => {
     setIsEditing(false);
+    try {
+      const gelenVeri = await bioGuncelle(bio);
+      console.log("Bio basariyla güncellendi.");
+      toast.success("Bio Başarıyla Güncellendi", {
+        style: {
+          width: "500px",
+        },
+      });
+    } catch (err) {
+      console.log("Bio güncellenirken bir hata meydana geldi= ", err);
+    }
+  };
+
+  const resimGuncelleAcilis = () => {
+    document.getElementById("profilResmiInput").click();
+  };
+
+  const resimGuncelleHandle = async (e) => {
+    const dosya = e.target.files[0];
+    if (!dosya) return;
+
+    const gecerliTipler = ["image/png", "image/jpeg"];
+    if (!gecerliTipler.includes(dosya.type)) {
+      toast.error(
+        "Sadece PNG, JPG veya JPEG formatındaki dosyaları yükleyebilirsiniz.",
+        {
+          style: {
+            width: "500px",
+          },
+        }
+      );
+
+      return;
+    }
+
+    console.log("resim yüklenen= ", dosya);
+    const formData = new FormData();
+    formData.append("resim", dosya);
+
+    try {
+      const gelenVeri = await profilResmiGuncelle(formData);
+      console.log("Profil resmi guncelleme sonuc= ", gelenVeri);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (err) {
+      console.error("Profil resmi güncelleme hatası:", err);
+    }
   };
 
   return (
     <div>
+      <ToastContainer position="top-center" />
+
       {isLoading ? (
         <div className="loading-container">
           <ClipLoader size={100} color="#4a90e2" />
@@ -65,9 +119,19 @@ function ProfilimPageHeader({ gonderiSayisi }) {
                   alt="Profil"
                 />
               </div>
-              <div className="profilim-avatar-edit">
+              <div
+                onClick={resimGuncelleAcilis}
+                className="profilim-avatar-edit"
+              >
                 <CiEdit size={24} />
               </div>
+              <input
+                type="file"
+                id="profilResmiInput"
+                accept="image/"
+                style={{ display: "none" }}
+                onChange={resimGuncelleHandle}
+              />
             </div>
             <div className="profilim-info">
               <div className="profilim-top-bar">
