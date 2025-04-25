@@ -44,7 +44,7 @@ export default function AramaCubugu() {
         />
         <CiSearch className="searchIcon" />
       </div>
-
+      
       <AramaSonuclariGoster
         query={query}
         aramaSonuclari={aramaSonuclari}

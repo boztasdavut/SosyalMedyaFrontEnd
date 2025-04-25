@@ -17,7 +17,8 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
 
   useEffect(() => {
     kullanicininTumAramaGecmisiniGetir();
-  }, []);
+    console.log("Query bilgisi= ", aramaSonuclari);
+  }, [aramaSonuclari]);
 
   if (!query.trim()) {
     return (

@@ -39,7 +39,7 @@
 }
 
 .takipEt-button,
-.mesajAt-button {
+.mesajAt-button, .takipEdiliyor-button {
   padding: 8px 16px;
   font-size: 14px;
   font-weight: 500;
@@ -51,7 +51,7 @@
 }
 
 .takipEt-button:hover,
-.mesajAt-button:hover {
+.mesajAt-button:hover, .takipEdiliyor-button:hover {
   background-color: #f0f0f0;
 }
 

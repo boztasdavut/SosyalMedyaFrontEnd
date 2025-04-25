@@ -1,13 +1,14 @@
 export const birKullaniciyiTakipEt = async (takipEdilenId) => {
   try {
+    const jwt = localStorage.getItem("jwt");
     const response = await fetch(
       `https://bitirmeproje.xyz/api/follows/takip-et?takipEdilenId=${takipEdilenId}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
         },
-        credentials: "include",
       }
     );
     if (!response.ok) {

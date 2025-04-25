@@ -2,17 +2,31 @@ import React, { useEffect, useState } from "react";
 import "./BaskasininProfiliHeader.css";
 import { IoSettingsOutline } from "react-icons/io5";
 import { ClipLoader } from "react-spinners";
+import { birKullaniciyiTakipEt } from "../../services/BirKullaniciyiTakipEt.js";
 
 function BaskasininProfiliHeader({ baskasininProfiliBilgileri }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [kullaniciyiTakipEdiyorMuyum, setKullaniciyiTakipEdiyorMuyum] =
+    useState(null);
   useEffect(() => {
     if (
       baskasininProfiliBilgileri &&
       Array.isArray(baskasininProfiliBilgileri.gonderiler)
     ) {
       setIsLoading(false);
+      console.log("Baskasinin profil bilgileri= ", baskasininProfiliBilgileri);
+      setKullaniciyiTakipEdiyorMuyum(
+        baskasininProfiliBilgileri.kullaniciyiTakipEdiyorMuyum
+      );
     }
   }, [baskasininProfiliBilgileri]);
+
+  const kullaniciyiTakipEt = async (takipEdilenId) => {
+    setKullaniciyiTakipEdiyorMuyum(true);
+    const gelenVeri = await birKullaniciyiTakipEt(takipEdilenId);
+    console.log("Kullanici takip etme dönüş= ", gelenVeri);
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -35,7 +49,21 @@ function BaskasininProfiliHeader({ baskasininProfiliBilgileri }) {
             <div className="profilim-info">
               <div className="profilim-top-bar">
                 <div className="profilim-username">{}</div>
-                <button className="takipEt-button">Takip Et</button>
+                {kullaniciyiTakipEdiyorMuyum ? (
+                  <button className="takipEdiliyor-button">
+                    Takip Ediliyor
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      kullaniciyiTakipEt(baskasininProfiliBilgileri.kullaniciId)
+                    }
+                    className="takipEt-button"
+                  >
+                    Takip Et
+                  </button>
+                )}
+
                 <button className="mesajAt-button">Mesaj</button>
                 <div className="profilim-settings">
                   <IoSettingsOutline size={22} />
