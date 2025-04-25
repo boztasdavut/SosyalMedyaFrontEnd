@@ -14,10 +14,7 @@ function AramaGecmisi() {
         aramaSonuclari={aramaSonuclari}
         setAramaSonuclari={setAramaSonuclari}
       />
-      <AramaSonuclariGoster
-        aramaSonuclari={aramaSonuclari}
-        setAramaSonuclari={setAramaSonuclari}
-      />
+
       <Mesajlasma />
     </div>
   );

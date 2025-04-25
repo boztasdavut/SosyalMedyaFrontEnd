@@ -1,9 +1,12 @@
 export const aramaGecmisiKaydet = async (aramaGecmisi) => {
   try {
+    const jwt = localStorage.getItem("jwt");
+
     const response = await fetch("https://bitirmeproje.xyz/api/arama/yeni", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
       },
       body: JSON.stringify(aramaGecmisi),
     });

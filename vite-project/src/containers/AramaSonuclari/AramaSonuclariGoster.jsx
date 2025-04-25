@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AramaSonuclariGoster.css";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { aramaGecmisiKaydet } from "../../services/KullaniciAramaGecmisiKaydet.js";
+import { aramaGecmisiGetir } from "../../services/KullanicininTumAramaGecmisi.js";
 
 function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
   const navigate = useNavigate();
+  const [aramaGecmisiSonuclari, setAramaGecmisiSonuclari] = useState([]);
 
-  // 1) Henüz yazı yoksa hiçbir şey render etme
-  if (!query.trim()) return null;
+  const kullanicininTumAramaGecmisiniGetir = async () => {
+    const aramaGecmisi = await aramaGecmisiGetir();
+    setAramaGecmisiSonuclari(aramaGecmisi);
+    console.log("Arama gecmisi sonucları= ", aramaGecmisi);
+  };
 
-  // 2) Yükleniyorsa loader göster
+  useEffect(() => {
+    kullanicininTumAramaGecmisiniGetir();
+  }, []);
+
+  if (!query.trim()) {
+    return (
+      <div>
+        <h3 style={{ textAlign: "center" }}>Arama Geçmişi</h3>
+        {aramaGecmisiSonuclari.map((aramaGecmisi) => (
+          <div key={aramaGecmisi.aramaGecmisiId} className="aramaGecmisiDiv">
+            <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Fdefault-profile%3Fpage%3D10&psig=AOvVaw0zowpZJkaH9OMYkOLbfvgM&ust=1745675874067000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMj7s8Wr84wDFQAAAAAdAAAAABAE" />
+            <div>{aramaGecmisi.aramaIcerigi}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div
@@ -24,19 +47,31 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
     );
   }
 
-  // 3) Yükleme bitti, sonuç yoksa uyarı göster
   if (aramaSonuclari.length === 0) {
     return <div className="no-results">Sonuç bulunamadı.</div>;
   }
 
+  const aramadanKullaniciProfilineYonlendir = async (takmaAd) => {
+    const yonlendirilecekUrlAdresi = `/profil/${takmaAd}`;
+    navigate(yonlendirilecekUrlAdresi);
+    const aramaBilgisi = {
+      aramaIcerigi: takmaAd,
+    };
+    const gelenVeri = aramaGecmisiKaydet(aramaBilgisi);
+    console.log("Arama bilgisi kaydedildi mi? ", gelenVeri);
+  };
+
   // 4) Sonuç varsa listele
   return (
     <div>
+      <h3 style={{ textAlign: "center" }}>Arama Sonuçları</h3>
       {aramaSonuclari.map((sonuc) => (
         <div
           key={sonuc.kullaniciId}
           className="aramaSonuclarDiv"
-          onClick={() => navigate(`/profil/${sonuc.kullaniciTakmaAd}`)}
+          onClick={() =>
+            aramadanKullaniciProfilineYonlendir(sonuc.kullaniciTakmaAd)
+          }
         >
           <img src={sonuc.kullaniciProfilResmi} alt="" />
           <div>{sonuc.kullaniciTakmaAd}</div>
