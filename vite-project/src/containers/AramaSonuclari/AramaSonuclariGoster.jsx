@@ -25,7 +25,7 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
         <h3 style={{ textAlign: "center" }}>Arama Geçmişi</h3>
         {aramaGecmisiSonuclari.map((aramaGecmisi) => (
           <div key={aramaGecmisi.aramaGecmisiId} className="aramaGecmisiDiv">
-            <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Fdefault-profile%3Fpage%3D10&psig=AOvVaw0zowpZJkaH9OMYkOLbfvgM&ust=1745675874067000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMj7s8Wr84wDFQAAAAAdAAAAABAE" />
+            <img src={aramaGecmisi.kullaniciProfilResmi} />
             <div>{aramaGecmisi.aramaIcerigi}</div>
           </div>
         ))}
