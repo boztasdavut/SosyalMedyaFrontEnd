@@ -16,7 +16,7 @@ function GonderiPaylas() {
 
     try {
       setYükleniyor(true);
-      await gonderiPaylas(icerik); // sadece text gönderimi
+      await gonderiPaylas(icerik, mediaFile); // sadece text gönderimi
       setIcerik("");
       setMediaFile(null);
       setMediaPreview(null);

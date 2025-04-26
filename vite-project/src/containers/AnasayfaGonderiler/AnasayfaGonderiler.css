@@ -81,4 +81,17 @@
     object-fit: cover;   /* Görselin taşmasını engeller, düzgün kırpma sağlar */
     border-radius: 50%;  /* Tam yuvarlak yapmak için */
   }
-  
+
+  .anasayfaMedyaVideo{
+    width: 100%;
+     border-radius: 8px; /* İstersen kenarları da yuvarlatırız */
+  }
+
+
+  .anasayfaMedyaResim{
+    width: 100%;
+     border-radius: 8px; /* İstersen kenarları da yuvarlatırız */
+  }
+
+
+ 

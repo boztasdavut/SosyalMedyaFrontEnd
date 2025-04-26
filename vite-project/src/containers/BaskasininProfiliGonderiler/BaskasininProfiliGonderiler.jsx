@@ -38,7 +38,31 @@ function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
                   <PiDotsThreeOutlineThin />
                 </div>
               </div>
-              <div className="gonderi-icerik">{gonderi.gonderiIcerigi}</div>
+              <div className="gonderi-icerik">
+                <div>{gonderi.gonderiIcerigi}</div>
+                <div>
+                  {gonderi.gonderiMedyaUrl && (
+                    <>
+                      {gonderi.gonderiMedyaUrl
+                        .toLowerCase()
+                        .endsWith(".mp4") ? (
+                        <video
+                          className="baskasininProfiliVideo"
+                          src={gonderi.gonderiMedyaUrl}
+                          controls
+                        />
+                      ) : (
+                        <img
+                          className="baskasininProfiliResim"
+                          src={gonderi.gonderiMedyaUrl}
+                          alt="gonderi"
+                        />
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+
               <div className="gonderi-aksiyonlar">
                 <div
                   onClick={() => birGonderiyiBegen(gonderi.gonderiId)}

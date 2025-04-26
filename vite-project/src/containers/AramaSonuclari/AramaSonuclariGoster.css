@@ -40,31 +40,46 @@
 .aramaGecmisiDiv {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   padding: 10px 15px;
   margin: 8px auto;
-  max-width: 400px;
+  max-width: 450px;
   border-radius: 12px;
-  background-color: #f5f5f5;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
 .aramaGecmisiDiv:hover {
-  background-color: #eaeaea;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  background-color: #ececec;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .aramaGecmisiDiv img {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.aramaGecmisiDiv div:last-child {
+.aramaGecmisiDiv .kullaniciBilgisi {
+  flex-grow: 1;
+  margin-left: 12px;
   font-size: 16px;
   font-weight: 500;
   color: #333;
 }
+
+.aramaGecmisiDiv .silIkonu {
+  color: #999;
+  font-size: 20px;
+  transition: color 0.2s ease;
+}
+
+.aramaGecmisiDiv .silIkonu:hover {
+  color: #ff5c5c;
+}
+
+

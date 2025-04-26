@@ -59,7 +59,28 @@ function AnasayfaGonderiler({
               </div>
               <div>@{gonderi.takipEdilenKullaniciTakmaAd}</div>
             </div>
-            <div className="gonderiIcerigi">{gonderi.gonderiIcerigi}</div>
+            <div className="gonderiIcerigi">
+              <div>{gonderi.gonderiIcerigi}</div>
+              <div>
+                {gonderi.gonderiMedyaUrl && (
+                  <>
+                    {gonderi.gonderiMedyaUrl.toLowerCase().endsWith(".mp4") ? (
+                      <video
+                        className="anasayfaMedyaVideo"
+                        src={gonderi.gonderiMedyaUrl}
+                        controls
+                      />
+                    ) : (
+                      <img
+                        className="anasayfaMedyaResim"
+                        src={gonderi.gonderiMedyaUrl}
+                        alt="gonderi"
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
             <div className="gonderiAksiyonlariDiv">
               <div
                 onClick={() => birGonderiyiBegen(gonderi.gonderiId)}

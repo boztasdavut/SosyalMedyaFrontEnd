@@ -78,7 +78,10 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
             <div className="profilimProfilResmiVeTakmaAdDiv">
               <div>
                 <div>
-                  <img id="profilimGonderilerProfilResmi" src={kullaniciProfilBilgileri.kullaniciProfilResmi} />
+                  <img
+                    id="profilimGonderilerProfilResmi"
+                    src={kullaniciProfilBilgileri.kullaniciProfilResmi}
+                  />
                 </div>
                 <div>@{gonderi.kullaniciTakmaAd}</div>
               </div>
@@ -87,7 +90,12 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
               </div>
             </div>
             <div className="profilimGonderiIcerigi">
-              {gonderi.gonderiIcerigi}
+              <div>{gonderi.gonderiIcerigi}</div>
+              <div>
+                {gonderi.gonderiMedyaUrl !== null && (
+                  <img src={gonderi.gonderiMedyaUrl} className="gonderiMedya" />
+                )}
+              </div>
             </div>
             <div className="profilimGonderiAksiyonlariDiv">
               <div

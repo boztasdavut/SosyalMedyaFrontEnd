@@ -1,11 +1,13 @@
 export const aramaGecmisiSil = async(aramaGecmisiId)=>{
     try {
+        const jwt = localStorage.getItem("jwt");
         const response = await fetch(`https://bitirmeproje.xyz/api/arama/${aramaGecmisiId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`
           },
-          credentials: "include",
+          
         });
         if (!response.ok) {
           const errorText = await response.text();
