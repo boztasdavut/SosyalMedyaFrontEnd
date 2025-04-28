@@ -1,0 +1,115 @@
+.icMesajEkrani {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+}
+.mesajlarContainer {
+  overflow-y: auto; /* Dikey kaydırma ekler */
+  padding-right: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  margin-top: auto;
+  width: 100%;
+}
+
+.mesajSayfasinaDonDiv:hover {
+  cursor: pointer;
+}
+
+.mesajSayfasinaDonDiv {
+  position: absolute;
+  width: 90%;
+  background-color: #f1f1f1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.mesajlasilanKullaniciBasligi {
+  margin-top: 10px;
+  display: flex; /* Öğeleri yan yana hizalamak için flexbox kullanıyoruz */
+  align-items: center; /* Dikeyde ortalamak için */
+  gap: 10px; /* Resim ile kullanıcı adı arasındaki boşluk */
+  margin-left: 10px;
+}
+
+.mesajlasilanKullaniciBasligi img {
+  width: 40px; /* Resmin genişliği */
+  height: 40px; /* Resmin yüksekliği */
+  border-radius: 50%; /* Yuvarlak yapmak için */
+  object-fit: cover; /* Resmi kutuya düzgün şekilde sığdırmak için */
+}
+
+.mesajlasilanKullaniciBasligi div:last-child {
+  font-weight: bold; /* Kullanıcı adını kalın yaparak vurgulamak */
+}
+
+.mesajCard {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.benimMesajimCard {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  align-items: flex-end; /* Mesaj sağa yaslanacak */
+}
+
+.benimAttigimMesajDiv {
+  background-color: #d6f7ff;
+  padding: 8px;
+  border-radius: 12px;
+  align-self: flex-end; /* Benim mesajım sağa yaslanacak */
+  max-width: 75%; /* Mesajın genişliği sınırlı */
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.onunMesajiCard {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  align-items: flex-start; /* Mesaj sola yaslanacak */
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.banaAtilanMesajDiv {
+  background-color: #ffeff0;
+  padding: 8px;
+  border-radius: 12px;
+  align-self: flex-start; /* Bana gelen mesaj sola yaslanacak */
+  max-width: 75%; /* Mesajın genişliği sınırlı */
+  word-wrap: break-word;
+  text-align: left;
+}
+
+/* Mesaj Yazma Alanı */
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  margin-top: auto;
+}
+
+.inputContainer input {
+  width: 90%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.inputContainer input:focus {
+  outline: none;
+  border-color: #007bff;
+}

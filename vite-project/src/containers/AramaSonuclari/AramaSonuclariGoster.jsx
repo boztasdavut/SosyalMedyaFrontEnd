@@ -6,6 +6,7 @@ import { aramaGecmisiKaydet } from "../../services/KullaniciAramaGecmisiKaydet.j
 import { aramaGecmisiGetir } from "../../services/KullanicininTumAramaGecmisi.js";
 import { TiDelete } from "react-icons/ti";
 import { aramaGecmisiSil } from "../../services/KullaniciAramaGecmisiSil.js";
+import { tumAramaGecmisiniSil } from "../../services/TumAramaGecmisiniSil.js";
 
 function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
   const navigate = useNavigate();
@@ -50,12 +51,27 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
     }
   };
 
+  const aramaGecmisiTemizle = async () => {
+    try {
+      setAramaGecmisiLoading(true);
+      const gelenVeri = await tumAramaGecmisiniSil();
+      setAramaGecmisiSonuclari([]);
+    } catch (err) {
+      console.log("Tüm arama geçmişini silme işleminde bir hata var= ", err);
+    } finally {
+      setAramaGecmisiLoading(false);
+    }
+  };
+
   if (!query.trim()) {
     if (aramaGecmisiSonuclari && aramaGecmisiSonuclari.length !== 0) {
       if (aramaGecmisiLoading === false) {
         return (
           <div>
             <h3 style={{ textAlign: "center" }}>Arama Geçmişi</h3>
+            <h5 onClick={aramaGecmisiTemizle} style={{ textAlign: "center" }}>
+              Tüm Arama Geçmişini Temizle
+            </h5>
             {aramaGecmisiSonuclari.map((aramaGecmisi) => (
               <div
                 key={aramaGecmisi.aramaGecmisiId}
