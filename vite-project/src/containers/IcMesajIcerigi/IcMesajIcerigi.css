@@ -1,115 +1,157 @@
 .icMesajEkrani {
   display: flex;
   flex-direction: column;
-  height: 400px;
-}
-.mesajlarContainer {
-  overflow-y: auto; /* Dikey kaydırma ekler */
-  padding-right: 10px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  margin-top: auto;
+  height: 100vh; /* Tam ekran yükseklik */
   width: 100%;
+  background-color: #f9f9f9;
+  position: relative;
+  overflow: hidden; /* Ana containera scroll eklemek yerine hidden yapıyoruz */
 }
 
-.mesajSayfasinaDonDiv:hover {
+/* Sabit Başlık - Değişmedi */
+.mesajSayfasinaDonDiv {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ccc;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Kullanıcı Adı ve Fotoğrafı - Değişmedi */
+.mesajlasilanKullaniciBasligi {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mesajlasilanKullaniciBasligi:hover{
   cursor: pointer;
 }
 
-.mesajSayfasinaDonDiv {
-  position: absolute;
-  width: 90%;
-  background-color: #f1f1f1;
+#mesajBasligiResimId {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.anasayfayaDonArrowDiv {
+  cursor: pointer;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+}
+
+/* Mesajlar Alanı - Güncellendi */
+.mesajlarContainer {
+  flex: 1;
+  overflow-y: auto; /* İçerik taşarsa scroll çıkacak */
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0; /* Flex içinde scroll için gerekli */
 }
 
-.mesajlasilanKullaniciBasligi {
-  margin-top: 10px;
-  display: flex; /* Öğeleri yan yana hizalamak için flexbox kullanıyoruz */
-  align-items: center; /* Dikeyde ortalamak için */
-  gap: 10px; /* Resim ile kullanıcı adı arasındaki boşluk */
-  margin-left: 10px;
-}
-
-.mesajlasilanKullaniciBasligi img {
-  width: 40px; /* Resmin genişliği */
-  height: 40px; /* Resmin yüksekliği */
-  border-radius: 50%; /* Yuvarlak yapmak için */
-  object-fit: cover; /* Resmi kutuya düzgün şekilde sığdırmak için */
-}
-
-.mesajlasilanKullaniciBasligi div:last-child {
-  font-weight: bold; /* Kullanıcı adını kalın yaparak vurgulamak */
-}
-
+/* Mesaj Kartı - Değişmedi */
 .mesajCard {
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px;
 }
 
+/* Benim mesajlarım - Değişmedi */
 .benimMesajimCard {
   display: flex;
-  flex-direction: column;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 5px;
-  align-items: flex-end; /* Mesaj sağa yaslanacak */
+  justify-content: flex-end;
 }
 
 .benimAttigimMesajDiv {
-  background-color: #d6f7ff;
-  padding: 8px;
-  border-radius: 12px;
-  align-self: flex-end; /* Benim mesajım sağa yaslanacak */
-  max-width: 75%; /* Mesajın genişliği sınırlı */
+  max-width: 70%;
+  background-color: burlywood;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 16px;
   word-wrap: break-word;
-  text-align: left;
 }
 
+/* Karşı tarafın mesajları - Değişmedi */
 .onunMesajiCard {
   display: flex;
-  flex-direction: column;
-  padding: 5px;
-  align-items: flex-start; /* Mesaj sola yaslanacak */
-  margin: 5px;
-  border-radius: 5px;
+  justify-content: flex-start;
 }
 
 .banaAtilanMesajDiv {
-  background-color: #ffeff0;
-  padding: 8px;
-  border-radius: 12px;
-  align-self: flex-start; /* Bana gelen mesaj sola yaslanacak */
-  max-width: 75%; /* Mesajın genişliği sınırlı */
+  max-width: 70%;
+  background-color: darkkhaki;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 16px;
   word-wrap: break-word;
-  text-align: left;
 }
 
-/* Mesaj Yazma Alanı */
+/* Input alanı sabit - Değişmedi */
 .inputContainer {
   display: flex;
-  justify-content: center;
+  align-items: center;
   padding: 10px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
-  margin-top: auto;
+  background-color: #ffffff;
+  border-top: 1px solid #ccc;
+  gap: 10px;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 }
 
-.inputContainer input {
-  width: 90%;
+.mesajGondermeDivi {
+  flex: 1;
+}
+
+.mesajGondermeDivi input {
+  width: 100%;
   padding: 10px;
-  font-size: 16px;
+  border: 1px solid #ccc;
   border-radius: 20px;
-  border: 1px solid #ddd;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
 }
 
-.inputContainer input:focus {
-  outline: none;
-  border-color: #007bff;
+.mesajGondermeDivi input:focus {
+  border-color: #4a90e2;
+}
+
+/* Gönder butonu - Değişmedi */
+.gonderButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4a90e2;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.gonderButton:hover {
+  background-color: #3b7dc4;
+}
+
+/* Yükleyici - Değişmedi */
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Mesaj bulunamadı - Değişmedi */
+.mesajYokText {
+  padding: 20px;
+  text-align: center;
+  color: #666;
 }

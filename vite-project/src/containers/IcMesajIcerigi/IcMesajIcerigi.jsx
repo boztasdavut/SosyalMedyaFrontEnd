@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./IcMesajIcerigi.css";
-import { AiOutlineDoubleLeft } from "react-icons/ai";
+import { FaLongArrowAltLeft } from "react-icons/fa";
+import { BiSend } from "react-icons/bi";
 import { ClipLoader } from "react-spinners";
 import { ikiKullaniciArasindakiMesajlar } from "../../services/İkiKullaniciArasindakiMesajlar.js";
 import { jwtDecode } from "../../services/JwtDecode.js";
+import { useNavigate } from "react-router-dom";
 
 function IcMesajIcerigi({
   karsiTarafIdBilgisi,
@@ -16,12 +18,12 @@ function IcMesajIcerigi({
     setIkiKullaniciArasindakiTumMesajlar,
   ] = useState([]);
   const [oturumSahibiKullaniciId, setOturumSahibiKullaniciId] = useState(0);
-
-  const mesajListesiRef = useRef(null); // Mesajlar container'ı için ref
+  const mesajListesiRef = useRef(null);
 
   const mesajSayfasinaGeriDon = () => {
     setIcMesajAcikMi(false);
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
     const mesajVerileriniAl = async (karsiTarafId) => {
@@ -30,81 +32,102 @@ function IcMesajIcerigi({
         const kullaniciId = await jwtDecode();
         setOturumSahibiKullaniciId(kullaniciId);
         const gelenVeri = await ikiKullaniciArasindakiMesajlar(karsiTarafId);
-        console.log("kisi ile olan mesajlar= ", gelenVeri);
         setIkiKullaniciArasindakiTumMesajlar(gelenVeri);
       } catch (err) {
-        console.log("Bir hata meydana geldi= ", err);
+        console.error("Hata:", err);
       } finally {
         setIcMesajlasmaLoading(false);
       }
     };
     mesajVerileriniAl(karsiTarafIdBilgisi);
-  }, []);
+  }, [karsiTarafIdBilgisi]);
 
-  // Scroll işlemi, yeni mesajlar eklendiğinde en alta kaydırmak için
   useEffect(() => {
     if (mesajListesiRef.current) {
       mesajListesiRef.current.scrollTop = mesajListesiRef.current.scrollHeight;
     }
+    console.log(
+      "iki kullanici arasindaki mesaj= ",
+      ikiKullaniciArasindakiTumMesajlar
+    );
   }, [ikiKullaniciArasindakiTumMesajlar]);
+
+  const mesajdanProfileYonlendir = (takmaAd) => {
+    const yonlendirilecekUrlAdresi = `/profil/${takmaAd}`;
+    navigate(yonlendirilecekUrlAdresi);
+  };
 
   return (
     <div className="icMesajEkrani">
-      {/* Mesajların Görünmesi */}
+      {/* Sabit Başlık */}
+      <div className="mesajSayfasinaDonDiv">
+        <div className="anasayfayaDonArrowDiv" onClick={mesajSayfasinaGeriDon}>
+          <FaLongArrowAltLeft size={25} />
+        </div>
+        {ikiKullaniciArasindakiTumMesajlar.length > 0 && (
+          <div
+            onClick={() =>
+              mesajdanProfileYonlendir(
+                ikiKullaniciArasindakiTumMesajlar[0].mesajGonderilenKullaniciAdi
+              )
+            }
+            className="mesajlasilanKullaniciBasligi"
+          >
+            <img
+              id="mesajBasligiResimId"
+              src={
+                ikiKullaniciArasindakiTumMesajlar[0]
+                  .mesajGonderilenKullaniciResmi
+              }
+              alt="Profil"
+            />
+            <div>
+              @
+              {ikiKullaniciArasindakiTumMesajlar[0].mesajGonderilenKullaniciAdi}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Mesajlar veya Yükleyici */}
       {icMesajlasmaLoading ? (
         <div className="loaderContainer">
-          <ClipLoader size={100} color="#4a90e2" className="loader" />
+          <ClipLoader size={100} color="#4a90e2" />
         </div>
       ) : ikiKullaniciArasindakiTumMesajlar.length > 0 ? (
-        <div className="mesajlarContainer" ref={mesajListesiRef}>
-          <div className="mesajSayfasinaDonDiv" onClick={mesajSayfasinaGeriDon}>
-            <div>
-              <div>
-                <AiOutlineDoubleLeft />
+        <>
+          <div className="mesajlarContainer" ref={mesajListesiRef}>
+            {ikiKullaniciArasindakiTumMesajlar.map((mesaj, index) => (
+              <div key={index} className="mesajCard">
+                {mesaj.gonderenKullaniciId === oturumSahibiKullaniciId ? (
+                  <div className="benimMesajimCard">
+                    <div className="benimAttigimMesajDiv">
+                      {mesaj.mesajIcerigi}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="onunMesajiCard">
+                    <div className="banaAtilanMesajDiv">
+                      {mesaj.mesajIcerigi}
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-            <div className="mesajlasilanKullaniciBasligi">
-              <div>
-                <img
-                  src={
-                    ikiKullaniciArasindakiTumMesajlar[0]
-                      .mesajGonderilenKullaniciResmi
-                  }
-                />
-              </div>
-              <div>
-                @
-                {
-                  ikiKullaniciArasindakiTumMesajlar[0]
-                    .mesajGonderilenKullaniciAdi
-                }
-              </div>
-            </div>
+            ))}
           </div>
-          {ikiKullaniciArasindakiTumMesajlar.map((mesaj, index) => (
-            <div key={index} className="mesajCard">
-              {mesaj.gonderenKullaniciId === oturumSahibiKullaniciId ? (
-                <div className="benimMesajimCard">
-                  <div className="benimAttigimMesajDiv">
-                    <p>{mesaj.mesajIcerigi}</p>
-                  </div>
-                </div>
-              ) : (
-                <div className="onunMesajiCard">
-                  <div className="banaAtilanMesajDiv">
-                    <p>{mesaj.mesajIcerigi}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-          {/* Mesaj Yazma Input'u */}
+
+          {/* Sabit Input */}
           <div className="inputContainer">
-            <input type="text" placeholder="Mesajınızı yazın..." />
+            <div className="mesajGondermeDivi">
+              <input type="text" placeholder="Mesajınızı yazın..." />
+            </div>
+            <div className="gonderButton">
+              <BiSend size={25} />
+            </div>
           </div>
-        </div>
+        </>
       ) : (
-        <p>Mesaj bulunamadı.</p>
+        <p className="mesajYokText">Mesaj bulunamadı.</p>
       )}
     </div>
   );
