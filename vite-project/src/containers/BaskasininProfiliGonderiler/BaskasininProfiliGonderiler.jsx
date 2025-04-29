@@ -11,6 +11,7 @@ function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
 
   useEffect(() => {
     setIsLoading(false);
+    console.log("baskasinin profil bilgileri= ", baskasininProfiliBilgileri);
   }, [baskasininProfiliBilgileri]);
 
   return (
@@ -73,7 +74,7 @@ function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
                   ) : (
                     <IoIosHeartEmpty size={30} />
                   )}
-                  <span>{gonderi.begeniSayisi}</span>
+                  <span>{gonderi.gonderiBegeniSayisi}</span>
                 </div>
                 <div className="gonderi-yorum">
                   <GoComment size={25} />

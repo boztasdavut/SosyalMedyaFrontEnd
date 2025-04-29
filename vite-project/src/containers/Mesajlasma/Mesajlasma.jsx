@@ -11,7 +11,7 @@ function Mesajlasma() {
   const [icMesajAcikMi, setIcMesajAcikMi] = useState(false);
   const [karsiTarafIdBilgisi, setKarsiTarafIdBilgisi] = useState("");
   const [icMesajlasmaLoading, setIcMesajlasmaLoading] = useState(false);
-
+  const [karsiTarafAdi, setKarsiTarafAdi] = useState("");
   useEffect(() => {
     const baslangicMesajlariGetir = async () => {
       try {
@@ -30,11 +30,12 @@ function Mesajlasma() {
     setIcMesajAcikMi(false); // Mesaj kutusuna geri dönünce iç mesaj kapanmalı
   };
 
-  const icMesajlasmaHandle = async (karsiTarafId) => {
+  const icMesajlasmaHandle = async (karsiTarafId, karsiTarafAdi) => {
     try {
       setIcMesajlasmaLoading(true);
       setIcMesajAcikMi(true); // İç mesaja girildi
       setKarsiTarafIdBilgisi(karsiTarafId);
+      setKarsiTarafAdi(karsiTarafAdi);
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     } finally {
@@ -64,11 +65,17 @@ function Mesajlasma() {
                     icMesajlasmaLoading={icMesajlasmaLoading}
                     setIcMesajlasmaLoading={setIcMesajlasmaLoading}
                     setIcMesajAcikMi={setIcMesajAcikMi}
+                    karsiTarafAdi={karsiTarafAdi}
                   />
                 ) : (
                   mesajBaslangicSayfasi.map((mesaj) => (
                     <div
-                      onClick={() => icMesajlasmaHandle(mesaj.karsiTarafId)}
+                      onClick={() =>
+                        icMesajlasmaHandle(
+                          mesaj.karsiTarafId,
+                          mesaj.karsiTarafAdi
+                        )
+                      }
                       key={mesaj.mesajId}
                       className="cardDiv"
                     >

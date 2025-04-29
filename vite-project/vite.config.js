@@ -5,6 +5,9 @@ import fs from "fs";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  define: {
+    global: "globalThis",
+  },
   server: {
     https: {
       key: fs.readFileSync("src/localhost-key.pem"),

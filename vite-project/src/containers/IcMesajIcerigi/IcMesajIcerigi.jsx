@@ -6,12 +6,15 @@ import { ClipLoader } from "react-spinners";
 import { ikiKullaniciArasindakiMesajlar } from "../../services/İkiKullaniciArasindakiMesajlar.js";
 import { jwtDecode } from "../../services/JwtDecode.js";
 import { useNavigate } from "react-router-dom";
+import { connect, disconnect } from "../../services/SocketBaglantisi.js";
+import { birKullaniciyaMesajGonder } from "../../services/BirKullaniciyaMesajGonder.js";
 
 function IcMesajIcerigi({
   karsiTarafIdBilgisi,
   icMesajlasmaLoading,
   setIcMesajlasmaLoading,
   setIcMesajAcikMi,
+  karsiTarafAdi,
 }) {
   const [
     ikiKullaniciArasindakiTumMesajlar,
@@ -24,6 +27,60 @@ function IcMesajIcerigi({
     setIcMesajAcikMi(false);
   };
   const navigate = useNavigate();
+
+  const [yazilanMesaj, setYazilanMesaj] = useState("");
+
+  const onMessageReceived = (message) => {
+    console.log("Yeni mesaj geldi", message);
+    //setIkiKullaniciArasindakiTumMesajlar((prev) => [...prev, message]);
+  };
+
+  useEffect(() => {
+    connect(onMessageReceived, karsiTarafAdi);
+
+    return () => {
+      disconnect();
+    };
+  }, [karsiTarafAdi]);
+
+  const mesajGondermeButonuHandle = async () => {
+    console.log(
+      "Mesaj gonderme butonuna tiklandi, mesaj icerigi= ",
+      yazilanMesaj
+    );
+
+    try {
+      let nesne = {};
+      for (const obj of ikiKullaniciArasindakiTumMesajlar) {
+        console.log("Deger= ", obj["mesajGonderenKullaniciAdi"]);
+        if (obj["gonderenKullaniciId"] === oturumSahibiKullaniciId) {
+          nesne["aliciKullaniciId"] = karsiTarafIdBilgisi;
+          nesne["gonderenKullaniciId"] = oturumSahibiKullaniciId;
+          nesne["mesajIcerigi"] = yazilanMesaj;
+          nesne["mesajGonderilenKullaniciResmi"] =
+            obj["mesajGonderilenKullaniciResmi"];
+          nesne["mesajGonderilenKullaniciAdi"] =
+            obj["mesajGonderilenKullaniciAdi"];
+          break;
+        }
+      }
+      console.log(
+        "Listeye eklemek için yeni kaydedilen mesaj nesnesi= ",
+        nesne
+      );
+      setIkiKullaniciArasindakiTumMesajlar([
+        ...ikiKullaniciArasindakiTumMesajlar,
+        nesne,
+      ]);
+      const gelenVeri = await birKullaniciyaMesajGonder(
+        yazilanMesaj,
+        karsiTarafIdBilgisi
+      );
+      setYazilanMesaj("");
+    } catch (err) {
+      console.log("Bir hata meydana geldi= ", err);
+    }
+  };
 
   useEffect(() => {
     const mesajVerileriniAl = async (karsiTarafId) => {
@@ -119,9 +176,14 @@ function IcMesajIcerigi({
           {/* Sabit Input */}
           <div className="inputContainer">
             <div className="mesajGondermeDivi">
-              <input type="text" placeholder="Mesajınızı yazın..." />
+              <input
+                type="text"
+                value={yazilanMesaj}
+                onChange={(e) => setYazilanMesaj(e.target.value)}
+                placeholder="Mesajınızı yazın..."
+              />
             </div>
-            <div className="gonderButton">
+            <div onClick={mesajGondermeButonuHandle} className="gonderButton">
               <BiSend size={25} />
             </div>
           </div>

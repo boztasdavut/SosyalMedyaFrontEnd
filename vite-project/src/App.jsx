@@ -8,6 +8,7 @@ import MailOnay from "./containers/MailOnay/MailOnay.jsx";
 import AramaGecmisi from "./containers/AramaGecmisi/AramaGecmisi.jsx";
 import GonderiPaylas from "./components/GonderiPaylas/GonderiPaylas.jsx";
 import BaskasininProfileGit from "./containers/BaskasininProfileGit/BaskasininProfileGit.jsx";
+import ProfilAyarlari from "./containers/ProfilAyarlari/ProfilAyarlari.jsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/arama" element={<AramaGecmisi />} />
           <Route path="/gonderiPaylas" element={<GonderiPaylas />} />
           <Route path="/profil/:takmaAd" element={<BaskasininProfileGit />} />
+          <Route path="/ayarlar" element={<ProfilAyarlari />} />
         </Routes>
       </Router>
     </>

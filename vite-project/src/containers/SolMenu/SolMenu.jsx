@@ -46,6 +46,10 @@ function SolMenu() {
     navigate("/girisYap");
   };
 
+  const ayarlaraGit = async () => {
+    navigate("/ayarlar");
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -71,7 +75,7 @@ function SolMenu() {
             <BiMessageRoundedDetail size={50} />
           </div>
           <div>
-            <IoSettingsOutline size={50} />
+            <IoSettingsOutline onClick={ayarlaraGit} size={50} />
           </div>
           <div onClick={profilYonlendir} className="solMenu-profilResmi">
             <img
