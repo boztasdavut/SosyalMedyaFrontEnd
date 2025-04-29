@@ -9,7 +9,7 @@ export const anasayfa = async () => {
         Authorization: `Bearer ${jwt}`,
       },
     });
-
+    
     if (!response.ok) {
       const errorText = await response.text();
       console.log("JWT dogrulama basarisiz");

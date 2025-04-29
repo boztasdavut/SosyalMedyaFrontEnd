@@ -4,9 +4,13 @@ import { Client } from "@stomp/stompjs";
 let stompClient = null;
 
 export function connect(onMessageReceived, kullaniciTakmaAd) {
+  const jwt = localStorage.getItem("jwt");
   const socket = new SockJs("https://bitirmeproje.xyz/ws"); // Spring WebSocket endpoint
   stompClient = new Client({
     webSocketFactory: () => socket,
+    connectHeaders: {
+      Authorization: `Bearer ${jwt}`,
+    },
     onConnect: () => {
       console.log("🔗 Bağlandı!");
 
