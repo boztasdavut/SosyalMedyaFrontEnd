@@ -5,11 +5,13 @@ import { GoComment } from "react-icons/go";
 import { BsSend } from "react-icons/bs";
 import { gonderiBegen } from "../../services/GonderiBegen";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir";
+import { useNavigate } from "react-router-dom";
 
 function AnasayfaGonderiler({
   takipEdilenlerinTumGonderileri,
   setTakipEdilenlerinGonderileri,
 }) {
+  const navigate = useNavigate();
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = takipEdilenlerinTumGonderileri.find(
       (g) => g.gonderiId === gonderiId
@@ -48,6 +50,11 @@ function AnasayfaGonderiler({
     }
   };
 
+  const gonderiPaylasanProfilineGit = async (takmaAd) => {
+    const yonlendirilecekUrlAdresi = `/profil/${takmaAd}`;
+    navigate(yonlendirilecekUrlAdresi);
+  };
+
   return (
     <div>
       <div>
@@ -55,9 +62,26 @@ function AnasayfaGonderiler({
           <div key={gonderi.gonderiId} className="gonderCardDiv">
             <div className="profilResmiVeTakmaAdDiv">
               <div>
-                <img id="anasayfaProfilResim" src={gonderi.kullaniciResim} />
+                <img
+                  onClick={() =>
+                    gonderiPaylasanProfilineGit(
+                      gonderi.takipEdilenKullaniciTakmaAd
+                    )
+                  }
+                  id="anasayfaProfilResim"
+                  src={gonderi.kullaniciResim}
+                />
               </div>
-              <div>@{gonderi.takipEdilenKullaniciTakmaAd}</div>
+              <div
+                onClick={() =>
+                  gonderiPaylasanProfilineGit(
+                    gonderi.takipEdilenKullaniciTakmaAd
+                  )
+                }
+                id="anasayfaGonderiPaylasanTakmaAd"
+              >
+                @{gonderi.takipEdilenKullaniciTakmaAd}
+              </div>
             </div>
             <div className="gonderiIcerigi">
               <div>{gonderi.gonderiIcerigi}</div>
