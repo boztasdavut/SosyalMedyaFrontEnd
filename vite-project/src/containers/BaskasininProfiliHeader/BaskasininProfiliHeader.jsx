@@ -3,28 +3,44 @@ import "./BaskasininProfiliHeader.css";
 import { IoSettingsOutline } from "react-icons/io5";
 import { ClipLoader } from "react-spinners";
 import { birKullaniciyiTakipEt } from "../../services/BirKullaniciyiTakipEt.js";
+import { birKullaniciyiTakiptenCik } from "../../services/BirKullaniciyiTakiptenCik.js";
 
-function BaskasininProfiliHeader({ baskasininProfiliBilgileri }) {
+function BaskasininProfiliHeader({
+  baskasininProfiliBilgileri,
+  setBaskasininProfiliBilgileri,
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [kullaniciyiTakipEdiyorMuyum, setKullaniciyiTakipEdiyorMuyum] =
     useState(null);
+
   useEffect(() => {
-    if (
-      baskasininProfiliBilgileri &&
-      Array.isArray(baskasininProfiliBilgileri.gonderiler)
-    ) {
-      setIsLoading(false);
-      console.log("Baskasinin profil bilgileri= ", baskasininProfiliBilgileri);
-      setKullaniciyiTakipEdiyorMuyum(
-        baskasininProfiliBilgileri.kullaniciyiTakipEdiyorMuyum
-      );
-    }
+    setIsLoading(false);
   }, [baskasininProfiliBilgileri]);
 
   const kullaniciyiTakipEt = async (takipEdilenId) => {
-    setKullaniciyiTakipEdiyorMuyum(true);
-    const gelenVeri = await birKullaniciyiTakipEt(takipEdilenId);
-    console.log("Kullanici takip etme dönüş= ", gelenVeri);
+    try {
+      const gelenVeri = await birKullaniciyiTakipEt(takipEdilenId);
+      console.log("Kullanici takip etme dönüş= ", gelenVeri);
+
+      // local state güncellemesi
+      setBaskasininProfiliBilgileri((prev) => ({
+        ...prev,
+        kullaniciyiTakipEdiyorMuyum: true,
+        takipcisiKisiSayisi: prev.takipcisiKisiSayisi + 1,
+      }));
+    } catch (err) {
+      console.log("Kullaniciyi takip etmede bir hata meydana geldi= ", err);
+    }
+  };
+
+  const kullaniciTakiptenCik = async (takipEdilenId) => {
+    const gelenVeri = await birKullaniciyiTakiptenCik(takipEdilenId);
+    console.log("Kullanici takipten cikildi. = ", gelenVeri);
+    setBaskasininProfiliBilgileri((prev) => ({
+      ...prev,
+      kullaniciyiTakipEdiyorMuyum: false,
+      takipcisiKisiSayisi: prev.takipcisiKisiSayisi - 1,
+    }));
   };
 
   return (
@@ -49,8 +65,15 @@ function BaskasininProfiliHeader({ baskasininProfiliBilgileri }) {
             <div className="profilim-info">
               <div className="profilim-top-bar">
                 <div className="profilim-username">{}</div>
-                {kullaniciyiTakipEdiyorMuyum ? (
-                  <button className="takipEdiliyor-button">
+                {baskasininProfiliBilgileri.kullaniciyiTakipEdiyorMuyum ? (
+                  <button
+                    onClick={() =>
+                      kullaniciTakiptenCik(
+                        baskasininProfiliBilgileri.kullaniciId
+                      )
+                    }
+                    className="takipEdiliyor-button"
+                  >
                     Takip Ediliyor
                   </button>
                 ) : (
@@ -72,7 +95,7 @@ function BaskasininProfiliHeader({ baskasininProfiliBilgileri }) {
               <div className="profilim-stats">
                 <div>
                   <strong>
-                    {baskasininProfiliBilgileri.gonderiler.length}
+                    {baskasininProfiliBilgileri.gonderiler?.length}
                   </strong>{" "}
                   gönderi
                 </div>

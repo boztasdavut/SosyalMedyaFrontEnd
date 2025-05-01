@@ -32,6 +32,7 @@ function BaskasininProfileGit() {
       <SolMenu />
       <BaskasininProfiliHeader
         baskasininProfiliBilgileri={baskasininProfiliBilgileri}
+        setBaskasininProfiliBilgileri={setBaskasininProfiliBilgileri}
       />
       <BaskasininProfiliGonderiler
         baskasininProfiliBilgileri={baskasininProfiliBilgileri}
