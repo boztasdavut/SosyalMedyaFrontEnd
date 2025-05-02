@@ -180,6 +180,12 @@ function IcMesajIcerigi({
                 type="text"
                 value={yazilanMesaj}
                 onChange={(e) => setYazilanMesaj(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault(); // input'ta yeni satır oluşturulmasını önler
+                    mesajGondermeButonuHandle();
+                  }
+                }}
                 placeholder="Mesajınızı yazın..."
               />
             </div>

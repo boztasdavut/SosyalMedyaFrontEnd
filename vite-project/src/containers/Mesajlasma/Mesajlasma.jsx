@@ -23,7 +23,7 @@ function Mesajlasma() {
       }
     };
     baslangicMesajlariGetir();
-  }, []);
+  }, [icMesajAcikMi]);
 
   const handleClickMesajlasma = () => {
     setMesajlasmaKutusuAcikMi(!mesajlasmaKutusuAcikMi);
