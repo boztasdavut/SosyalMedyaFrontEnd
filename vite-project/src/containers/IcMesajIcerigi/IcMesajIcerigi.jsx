@@ -32,7 +32,7 @@ function IcMesajIcerigi({
 
   const onMessageReceived = (message) => {
     console.log("Yeni mesaj geldi", message);
-    //setIkiKullaniciArasindakiTumMesajlar((prev) => [...prev, message]);
+    setIkiKullaniciArasindakiTumMesajlar((prev) => [...prev, message]);
   };
 
   useEffect(() => {
