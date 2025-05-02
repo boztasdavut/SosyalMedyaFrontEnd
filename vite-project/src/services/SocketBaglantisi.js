@@ -5,13 +5,15 @@ let stompClient = null;
 export function connect(onMessageReceived) {
   const jwt = localStorage.getItem("jwt");
   const socket = new WebSocket(`wss://bitirmeproje.xyz/ws?token=${jwt}`);
- // ✅ token query parametresinde
+  // ✅ token query parametresinde
 
   stompClient = new Client({
     webSocketFactory: () => socket,
     connectHeaders: {}, // Header gerek yok, çünkü query'de token var
     debug: (str) => console.log(str),
     reconnectDelay: 5000,
+    heartbeatIncoming: 4000,
+    heartbeatOutgoing: 4000,
     onConnect: () => {
       console.log("🔗 STOMP WebSocket bağlantısı kuruldu.");
 
@@ -26,7 +28,7 @@ export function connect(onMessageReceived) {
     },
     onWebSocketClose: () => {
       console.log("❌ WebSocket bağlantısı kapatıldı.");
-    }
+    },
   });
 
   stompClient.activate();
