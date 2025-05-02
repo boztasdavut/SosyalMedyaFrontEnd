@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./SolMenu.css";
-import { GrHomeRounded } from "react-icons/gr";
-import { IoSearchOutline } from "react-icons/io5";
-import { BiMessageRoundedDetail } from "react-icons/bi";
-import { FaRegCircle } from "react-icons/fa";
-import { IoSettingsOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { CiLogout } from "react-icons/ci";
 import { logout } from "../../services/Logout.js";
 import { kullaniciProfilBilgileriGetir } from "../../services/KullaniciProfilBilgileri.js";
 import { ClipLoader } from "react-spinners";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
+import Tooltip from "@mui/material/Tooltip";
 
 function SolMenu() {
   const [kullanicininProfilBilgileri, setKullanicininProfilBilgileri] =
@@ -65,27 +64,37 @@ function SolMenu() {
         </div>
       ) : (
         <div className="solMenu">
-          <div onClick={anasayfaYonlendir}>
-            <GrHomeRounded size={50} />
-          </div>
-          <div>
-            <IoSearchOutline onClick={aramaYap} size={50} />
-          </div>
-          <div>
-            <BiMessageRoundedDetail size={50} />
-          </div>
-          <div>
-            <IoSettingsOutline onClick={ayarlaraGit} size={50} />
-          </div>
-          <div onClick={profilYonlendir} className="solMenu-profilResmi">
-            <img
-              src={kullanicininProfilBilgileri.kullaniciProfilResmi}
-              alt="profil"
-            />
-          </div>
-          <div onClick={cikisYap}>
-            <CiLogout size={50} />
-          </div>
+          <Tooltip title="Anasayfa">
+            <div onClick={anasayfaYonlendir}>
+              <HomeOutlinedIcon
+                style={{ fontSize: "50px", cursor: "pointer" }}
+              />
+            </div>
+          </Tooltip>
+          <Tooltip title="Arama Yap">
+            <div onClick={aramaYap}>
+              <SearchOutlinedIcon style={{ fontSize: "50px" }} />
+            </div>
+          </Tooltip>
+          <Tooltip title="Ayarlar">
+            <div onClick={ayarlaraGit}>
+              <SettingsOutlinedIcon style={{ fontSize: "50px" }} />
+            </div>
+          </Tooltip>
+          <Tooltip title="Profilim">
+            <div onClick={profilYonlendir} className="solMenu-profilResmi">
+              <img
+                src={kullanicininProfilBilgileri.kullaniciProfilResmi}
+                alt="Profilim"
+              />
+            </div>
+          </Tooltip>
+
+          <Tooltip title="Çıkış Yap">
+            <div onClick={cikisYap}>
+              <ExitToAppOutlinedIcon style={{ fontSize: "50px" }} />
+            </div>
+          </Tooltip>
         </div>
       )}
     </div>

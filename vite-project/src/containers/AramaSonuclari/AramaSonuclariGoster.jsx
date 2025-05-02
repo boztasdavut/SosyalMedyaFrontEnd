@@ -7,7 +7,7 @@ import { aramaGecmisiGetir } from "../../services/KullanicininTumAramaGecmisi.js
 import { TiDelete } from "react-icons/ti";
 import { aramaGecmisiSil } from "../../services/KullaniciAramaGecmisiSil.js";
 import { tumAramaGecmisiniSil } from "../../services/TumAramaGecmisiniSil.js";
-
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
   const navigate = useNavigate();
   const [aramaGecmisiSonuclari, setAramaGecmisiSonuclari] = useState([]);
@@ -89,13 +89,12 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
                   <div>{aramaGecmisi.kullaniciTakmaAd}</div>
                 </div>
 
-                <div>
-                  <TiDelete
-                    onClick={() =>
-                      birAramaGecmisiniSil(aramaGecmisi.aramaGecmisiId)
-                    }
-                    size={40}
-                  />
+                <div
+                  onClick={() =>
+                    birAramaGecmisiniSil(aramaGecmisi.aramaGecmisiId)
+                  }
+                >
+                  <DeleteOutlineOutlinedIcon />
                 </div>
               </div>
             ))}

@@ -6,7 +6,10 @@ import { BsSend } from "react-icons/bs";
 import { gonderiBegen } from "../../services/GonderiBegen";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir";
 import { useNavigate } from "react-router-dom";
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 function AnasayfaGonderiler({
   takipEdilenlerinTumGonderileri,
   setTakipEdilenlerinGonderileri,
@@ -111,17 +114,17 @@ function AnasayfaGonderiler({
                 className="begenmeButonu"
               >
                 {gonderi.begenildiMi ? (
-                  <IoIosHeart size={30} color="red" />
+                  <FavoriteIcon style={{ fontSize: "30px", color: "red" }} />
                 ) : (
-                  <IoIosHeartEmpty size={30} />
+                  <FavoriteBorderIcon style={{ fontSize: "30px" }} />
                 )}
                 <span>{gonderi.begeniSayisi}</span>
               </div>
               <div className="yorumButonu">
-                <GoComment size={25} />
+                <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
               </div>
               <div className="gondermeButonu">
-                <BsSend size={25} />
+                <SendOutlinedIcon style={{ fontSize: "30px" }} />
               </div>
             </div>
           </div>

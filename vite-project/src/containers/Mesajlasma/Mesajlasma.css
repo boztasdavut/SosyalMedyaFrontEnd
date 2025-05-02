@@ -134,3 +134,13 @@
     height: 400px;
   }
 }
+
+
+.mesajKutusuIconVeBaslik{
+  display: flex;
+  flex-direction: row;
+}
+
+.mesajKutusuIconVeBaslik>div:first-child{
+  margin-right: 10px;
+}

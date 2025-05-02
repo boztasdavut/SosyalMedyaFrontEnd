@@ -4,7 +4,7 @@ import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { mesajBaslangicSayfasiGetir } from "../../services/MesajlasmaBaslangicSayfasi";
 import IcMesajIcerigi from "../IcMesajIcerigi/IcMesajIcerigi.jsx";
-
+import MarkunreadOutlinedIcon from "@mui/icons-material/MarkunreadOutlined";
 function Mesajlasma() {
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
   const [mesajBaslangicSayfasi, setMesajBaslangicSayfasi] = useState([]);
@@ -52,7 +52,13 @@ function Mesajlasma() {
               onClick={handleClickMesajlasma}
               className="mesajKutusuAcikBaslikVeIcon"
             >
-              <div>Mesajlarım</div>
+              <div className="mesajKutusuIconVeBaslik">
+                <div>
+                  <MarkunreadOutlinedIcon />
+                </div>
+                <div>Mesajlarım</div>
+              </div>
+
               <div>
                 <MdOutlineKeyboardDoubleArrowDown size={50} />
               </div>
@@ -99,7 +105,13 @@ function Mesajlasma() {
             onClick={handleClickMesajlasma}
             className="mesajKutusuKapaliDurum"
           >
-            <div>Mesajlarım</div>
+            <div className="mesajKutusuIconVeBaslik">
+              <div>
+                <MarkunreadOutlinedIcon />
+              </div>
+              <div>Mesajlarım</div>
+            </div>
+
             <div>
               <MdOutlineKeyboardDoubleArrowUp size={50} />
             </div>

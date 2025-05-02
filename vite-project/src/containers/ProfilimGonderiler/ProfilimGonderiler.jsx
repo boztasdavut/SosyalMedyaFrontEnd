@@ -12,7 +12,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 function ProfilimGonderiler({ setGonderiSayisi }) {
   const [kullanicininTumGonderileri, setKullanicininTumGonderileri] = useState(
     []
@@ -199,7 +199,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                     }
                     className="profilimGonderiSecenekleriGiris"
                   >
-                    <PiDotsThreeOutlineThin size={20} />
+                    <MoreVertIcon />
                   </div>
                 )}
               </div>
