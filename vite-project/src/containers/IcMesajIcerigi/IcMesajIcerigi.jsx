@@ -38,9 +38,9 @@ function IcMesajIcerigi({
   useEffect(() => {
     connect(onMessageReceived, karsiTarafAdi);
 
-    return () => {
+    /*return () => {
       disconnect();
-    };
+    };*/
   }, [karsiTarafAdi]);
 
   const mesajGondermeButonuHandle = async () => {
