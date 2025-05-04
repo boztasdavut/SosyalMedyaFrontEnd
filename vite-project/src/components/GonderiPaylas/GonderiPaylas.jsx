@@ -4,24 +4,32 @@ import { FiSend } from "react-icons/fi";
 import { BsPersonCircle } from "react-icons/bs";
 import { MdOutlinePermMedia } from "react-icons/md";
 import { gonderiPaylas } from "../../services/GonderiPaylas";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function GonderiPaylas() {
   const [icerik, setIcerik] = useState("");
   const [mediaFile, setMediaFile] = useState(null);
-  const [mediaPreview, setMediaPreview] = useState(null);
+  const [mediaPreview, setMediaPreview] = useState("");
   const [yükleniyor, setYükleniyor] = useState(false);
 
   const handleGonder = async () => {
-    if (!icerik.trim()) return;
+    if (!icerik.trim() && !mediaFile) return;
 
     try {
       setYükleniyor(true);
-      await gonderiPaylas(icerik, mediaFile); // sadece text gönderimi
+      await gonderiPaylas(icerik, mediaFile);
       setIcerik("");
       setMediaFile(null);
       setMediaPreview(null);
+      toast.success("Gönderi paylaşıldı.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } catch (err) {
       console.error("Gönderi hatası:", err);
+      toast.error("Gönderi paylaşılırken hata oluştu.");
     } finally {
       setYükleniyor(false);
     }
@@ -42,6 +50,8 @@ function GonderiPaylas() {
 
   return (
     <div className="gonderiPaylasContainer">
+      <ToastContainer />
+
       <div className="gonderiFormu">
         <textarea
           className="gonderiInput"
@@ -82,7 +92,7 @@ function GonderiPaylas() {
           <button
             className="gonderButonu"
             onClick={handleGonder}
-            disabled={!icerik.trim() || yükleniyor}
+            disabled={(!icerik.trim() && !mediaFile) || yükleniyor}
           >
             <FiSend /> {yükleniyor ? "Paylaşılıyor..." : "Paylaş"}
           </button>

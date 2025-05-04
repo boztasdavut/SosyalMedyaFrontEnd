@@ -13,6 +13,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { gonderiBegen } from "../../services/GonderiBegen.js";
+import { begeniKaldir } from "../../services/GonderidenBegeniKaldir.js";
+
 function ProfilimGonderiler({ setGonderiSayisi }) {
   const [kullanicininTumGonderileri, setKullanicininTumGonderileri] = useState(
     []
@@ -22,7 +25,6 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
   const [gonderiSilmeLoading, setGonderiSilmeLoading] = useState(false);
   const refs = useRef({});
   const navigate = useNavigate();
-
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = kullanicininTumGonderileri.find(
       (g) => g.gonderiId === gonderiId
@@ -35,7 +37,11 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
         setKullanicininTumGonderileri((prev) =>
           prev.map((g) =>
             g.gonderiId === gonderiId
-              ? { ...g, begenildiMi: true, begeniSayisi: g.begeniSayisi + 1 }
+              ? {
+                  ...g,
+                  begenildiMi: true,
+                  gonderiBegeniSayisi: g.gonderiBegeniSayisi + 1,
+                }
               : g
           )
         );
@@ -45,7 +51,11 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
       setKullanicininTumGonderileri((prev) =>
         prev.map((g) =>
           g.gonderiId === gonderiId
-            ? { ...g, begenildiMi: false, begeniSayisi: g.begeniSayisi - 1 }
+            ? {
+                ...g,
+                begenildiMi: false,
+                gonderiBegeniSayisi: g.gonderiBegeniSayisi - 1,
+              }
             : g
         )
       );
@@ -56,10 +66,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
     const gonderileriGetir = async () => {
       try {
         const gonderiler = await kullanicininTumGonderileriniGetir();
-        console.log(
-          "kullanicinin tum gonderileri= ",
-          kullanicininTumGonderileri
-        );
+        console.log("kullanicinin tum gonderileri= ", gonderiler);
         setGonderiSayisi(gonderiler.length);
         setKullanicininTumGonderileri(gonderiler);
 
@@ -175,7 +182,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                     ) : (
                       <IoIosHeartEmpty size={30} />
                     )}
-                    <span>{gonderi.begeniSayisi}</span>
+                    <span>{gonderi.gonderiBegeniSayisi}</span>
                   </div>
                   <div className="profilimYorumButonu">
                     <GoComment size={25} />

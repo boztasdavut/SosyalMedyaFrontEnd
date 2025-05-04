@@ -62,6 +62,7 @@
 
 .ePostaGuncelleOtpInput {
   width: 100%;
+  text-align: center;
 }
 
 .ePostaGuncelleOtpKutucuguClosedForm {
@@ -75,6 +76,8 @@
 .kutucuklarInputKapsayiciDiv {
   display: flex;
   flex-direction: row;
+  width: 90%;
+ 
 }
 
 .mailOtpOnaylaButonu {

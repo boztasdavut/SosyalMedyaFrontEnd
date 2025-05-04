@@ -1,22 +1,23 @@
 export const gonderiPaylas = async (icerik, mediaFile) => {
-  // video için  => VIDEO
-  // resim için => FOTO
-  // sadece yazı için => YAZI
   const jwt = localStorage.getItem("jwt");
   const formData = new FormData();
-  formData.append("gonderiIcerigi", icerik);
-  formData.append("gonderiMedyaUrl", mediaFile);
 
-  if (
-    mediaFile.name.endsWith(".jpg") ||
-    mediaFile.name.endsWith(".png") ||
-    mediaFile.name.endsWith(".jpeg")
-  ) {
-    formData.append("gonderiMedyaTuru", "FOTO");
-  } else if (mediaFile.name.endsWith(".mp4")) {
-    formData.append("gonderiMedyaTuru", "VIDEO");
+  formData.append("gonderiIcerigi", icerik);
+
+  if (mediaFile) {
+    formData.append("gonderiMedyaUrl", mediaFile);
+
+    const ext = mediaFile.name.split(".").pop().toLowerCase();
+    if (["jpg", "jpeg", "png"].includes(ext)) {
+      formData.append("gonderiMedyaTuru", "FOTO");
+    } else if (ext === "mp4") {
+      formData.append("gonderiMedyaTuru", "VIDEO");
+    } else {
+      throw new Error("Desteklenmeyen medya türü");
+    }
   } else {
     formData.append("gonderiMedyaTuru", "YAZI");
+    // mediaFile olmadığı için gonderiMedyaUrl eklenmiyor
   }
 
   const response = await fetch("https://bitirmeproje.xyz/api/gonderi/ekle", {

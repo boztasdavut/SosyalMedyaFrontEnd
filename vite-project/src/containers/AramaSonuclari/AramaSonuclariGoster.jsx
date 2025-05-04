@@ -69,7 +69,7 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
         return (
           <div>
             <h3 style={{ textAlign: "center" }}>Arama Geçmişi</h3>
-            <h5 onClick={aramaGecmisiTemizle} style={{ textAlign: "center" }}>
+            <h5 className="tumAramaGecmisiniTemizleh5" onClick={aramaGecmisiTemizle} style={{ textAlign: "center" }}>
               Tüm Arama Geçmişini Temizle
             </h5>
             {aramaGecmisiSonuclari.map((aramaGecmisi) => (
@@ -85,8 +85,10 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
                   }
                   className="aramaGecmisiProfilResmiVeTakmaAdDiv"
                 >
-                  <img src={aramaGecmisi.kullaniciProfilResmi} />
-                  <div>{aramaGecmisi.kullaniciTakmaAd}</div>
+                  <div>
+                    <img src={aramaGecmisi.kullaniciProfilResmi} />
+                  </div>
+                  <div>@{aramaGecmisi.kullaniciTakmaAd}</div>
                 </div>
 
                 <div

@@ -83,3 +83,14 @@
 }
 
 
+.aramaGecmisiProfilResmiVeTakmaAdDiv{
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.tumAramaGecmisiniTemizleh5:hover{
+  cursor: pointer;
+}
