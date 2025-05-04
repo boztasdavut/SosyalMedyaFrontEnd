@@ -6,8 +6,6 @@ export const gonderiPaylas = async (icerik, mediaFile) => {
   const formData = new FormData();
   formData.append("gonderiIcerigi", icerik);
   formData.append("gonderiMedyaUrl", mediaFile);
-  console.log("Servis media= ", mediaFile);
-  console.log("sadece dosya ismi servis media= ", mediaFile.name);
 
   if (
     mediaFile.name.endsWith(".jpg") ||
