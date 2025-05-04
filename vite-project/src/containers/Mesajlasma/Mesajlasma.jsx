@@ -92,7 +92,7 @@ function Mesajlasma() {
                         <div>@{mesaj.karsiTarafAdi}</div>
                       </div>
                       <div className="mesajVeGonderenDiv">
-                        <div>{mesaj.mesajIcerigi}</div>
+                        <div className="lastMessage">{mesaj.mesajIcerigi}</div>
                       </div>
                     </div>
                   ))

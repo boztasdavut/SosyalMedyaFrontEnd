@@ -176,12 +176,13 @@ function IcMesajIcerigi({
           {/* Sabit Input */}
           <div className="inputContainer">
             <div className="mesajGondermeDivi">
-              <input
+              <textarea
+                className="mesajTextarea"
                 type="text"
                 value={yazilanMesaj}
                 onChange={(e) => setYazilanMesaj(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
+                  if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault(); // input'ta yeni satır oluşturulmasını önler
                     mesajGondermeButonuHandle();
                   }
