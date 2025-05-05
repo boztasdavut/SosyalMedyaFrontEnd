@@ -60,11 +60,19 @@ function AnasayfaGonderiler({
     navigate(yonlendirilecekUrlAdresi);
   };
 
+  const gonderiIcineTiklandi = () => {
+    console.log("Gönderi içine tiklandi.");
+  };
+
   return (
     <div>
       <div>
         {takipEdilenlerinTumGonderileri.map((gonderi) => (
-          <div key={gonderi.gonderiId} className="gonderCardDiv">
+          <div
+            key={gonderi.gonderiId}
+            onClick={gonderiIcineTiklandi}
+            className="gonderCardDiv"
+          >
             <div className="profilResmiVeTakmaAdDiv">
               <div>
                 <img
@@ -143,11 +151,7 @@ function AnasayfaGonderiler({
           className="lightbox-overlay"
           onClick={() => setLightboxImage(null)}
         >
-          <img
-            src={lightboxImage}
-            alt=""
-            className="lightbox-image"
-          />
+          <img src={lightboxImage} alt="" className="lightbox-image" />
         </div>
       )}
     </div>
