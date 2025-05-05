@@ -1,17 +1,17 @@
 .gonderi-karti {
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 600px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .gonderi-karti:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    transform: translateY(-4px);
-  }
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+.gonderi-karti:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
   
   .gonderi-baslik {
     display: flex;
@@ -82,14 +82,33 @@
   }
 
   
-  .baskasininProfiliResim {
-    width: 100%;
-     border-radius: 8px; /* İstersen kenarları da yuvarlatırız */
-   }
+/* başkasının profili kartındaki medya */
+.baskasininProfiliResim,
+.baskasininProfiliVideo {
+  max-width: 100%;      /* kartın genişliğini aşmasın */
+  height: auto;         /* orantıyı korusun */
+  max-height: 400px;    /* en fazla 400px yükseklik */
+  object-fit: contain;  /* taşan kısmı gizleyip tamamını göster */
+  display: block;
+  margin: 10px auto;
+}
 
-   .baskasininProfiliVideo{
-    width: 100%;
-    border-radius: 8px;
-    max-height: 750px;
-   }
-   
+/* Lightbox */
+.lightbox-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}

@@ -15,6 +15,8 @@ function AnasayfaGonderiler({
   setTakipEdilenlerinGonderileri,
 }) {
   const navigate = useNavigate();
+  const [lightboxImage, setLightboxImage] = useState(null);
+
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = takipEdilenlerinTumGonderileri.find(
       (g) => g.gonderiId === gonderiId
@@ -102,6 +104,10 @@ function AnasayfaGonderiler({
                         className="anasayfaMedyaResim"
                         src={gonderi.gonderiMedyaUrl}
                         alt="gonderi"
+                        onClick={() =>
+                          setLightboxImage(gonderi.gonderiMedyaUrl)
+                        }
+                        style={{ cursor: "pointer" }}
                       />
                     )}
                   </>
@@ -130,6 +136,20 @@ function AnasayfaGonderiler({
           </div>
         ))}
       </div>
+
+      {/* Lightbox Overlay */}
+      {lightboxImage && (
+        <div
+          className="lightbox-overlay"
+          onClick={() => setLightboxImage(null)}
+        >
+          <img
+            src={lightboxImage}
+            alt=""
+            className="lightbox-image"
+          />
+        </div>
+      )}
     </div>
   );
 }

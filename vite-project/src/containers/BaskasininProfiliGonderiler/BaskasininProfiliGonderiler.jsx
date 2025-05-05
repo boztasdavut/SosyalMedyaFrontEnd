@@ -8,6 +8,7 @@ import { BsSend } from "react-icons/bs";
 
 function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
     setIsLoading(false);
@@ -57,6 +58,8 @@ function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
                           className="baskasininProfiliResim"
                           src={gonderi.gonderiMedyaUrl}
                           alt="gonderi"
+                          onClick={() => setLightboxImage(gonderi.gonderiMedyaUrl)}
+                          style={{ cursor: "pointer" }}
                         />
                       )}
                     </>
@@ -85,6 +88,16 @@ function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* → Lightbox Overlay */}
+      {lightboxImage && (
+        <div
+          className="lightbox-overlay"
+          onClick={() => setLightboxImage(null)}
+        >
+          <img src={lightboxImage} alt="" className="lightbox-image" />
         </div>
       )}
     </div>

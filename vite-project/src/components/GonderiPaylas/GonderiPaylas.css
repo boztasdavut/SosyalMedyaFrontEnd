@@ -7,7 +7,7 @@
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   margin: 20px auto;
-  max-width: 690px; /* daha büyük hale getirdik */
+  max-width: 640px; /* daha büyük hale getirdik */
   box-sizing: border-box;
   transition: all 0.3s ease-in-out;
 }

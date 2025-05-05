@@ -22,13 +22,18 @@
 }
 
 .profilimGonderiCardDiv {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgb(221, 214, 214);
-  border-radius: 5px;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
   padding: 20px;
-  width: 75%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+.profilimGonderiCardDiv:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
 }
 
 .profilimProfilResmiVeTakmaAdVeAyarlarDiv {
@@ -64,41 +69,75 @@
   gap: 20px;
 }
 
-.profilimGonderiMedya {
-  width: 100%;
-  border-radius: 5px;
-}
-
-.profilimGonderiSecenekleri {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  border-radius: 5px;
+.profilimGonderiMedya,
+.profilimGonderiMedya img,
+.profilimGonderiMedya video {
+  max-width: 100%;      /* kartın genişliğini aşmasın */
+  height: auto;         /* orantıyı korusun */
+  max-height: 400px;    /* en fazla 400px yükseklik */
+  object-fit: contain;  /* taşan kısmı gizleyip tamamını göster */
+  display: block;
+  margin: 10px auto;
 }
 
 .profilimGonderiSecenekleriGiris {
   position: absolute;
   top: 10px;
   right: 10px;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
 }
 
 .profilimGonderiSecenekleriGiris:hover {
+  background-color: rgba(0,0,0,0.05);
   cursor: pointer;
 }
 
 .profilimGonderiSecenekleri {
-  background-color: rgb(234, 231, 231);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  z-index: 50;
 }
 
 .profilimGonderiSecenekleri > div {
-  margin-bottom: 20px;
-  padding: 20px;
+  padding: 8px 12px;
+  margin: 0;
+  font-size: 14px;
+  color: #000000;
 }
+
+.profilimGonderiSecenekleri > div + div {
+  border-top: 1px solid #f5f5f5;
+}
+
 .profilimGonderiSecenekleri > div:hover {
-  background-color: blanchedalmond;
+  background-color: #f9f9f9;
   cursor: pointer;
 }
 
-.profilimGonderiSecenekleri > div:last-child {
-  margin-bottom: 0px;
+/* Lightbox */
+.lightbox-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }

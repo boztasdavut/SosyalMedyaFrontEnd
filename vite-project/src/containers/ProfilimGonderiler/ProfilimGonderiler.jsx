@@ -10,7 +10,6 @@ import { kullaniciProfilBilgileriGetir } from "../../services/KullaniciProfilBil
 import { belirtilenGonderiyiSil } from "../../services/GonderiSil.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { gonderiBegen } from "../../services/GonderiBegen.js";
@@ -25,6 +24,8 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
   const [gonderiSilmeLoading, setGonderiSilmeLoading] = useState(false);
   const refs = useRef({});
   const navigate = useNavigate();
+  const [lightboxImage, setLightboxImage] = useState(null);
+
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = kullanicininTumGonderileri.find(
       (g) => g.gonderiId === gonderiId
@@ -116,7 +117,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
       setKullanicininTumGonderileri((prevGonderiler) => {
         const yeniListe = prevGonderiler.filter(
           (gonderi) => gonderi.gonderiId !== gonderiId
-        );
+      );
         setGonderiSayisi(yeniListe.length); // burada yeni state üzerinden hesaplama yapıyoruz
         return yeniListe;
       });
@@ -149,11 +150,11 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                 <div className="profilimProfilResmiVeTakmaAdVeAyarlarDiv">
                   <div className="profilimProfilResmiVeTakmaAdDiv">
                     <div>
-                      <img
-                        id="profilimGonderilerProfilResmi"
-                        src={kullaniciProfilBilgileri.kullaniciProfilResmi}
-                        alt="Profil Resmi"
-                      />
+                    <img
+                      id="profilimGonderilerProfilResmi"
+                      src={kullaniciProfilBilgileri.kullaniciProfilResmi}
+                      alt="Profil Resmi"
+                    />
                     </div>
                     <div>@{gonderi.kullaniciTakmaAd}</div>
                   </div>
@@ -167,6 +168,8 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                         src={gonderi.gonderiMedyaUrl}
                         className="profilimGonderiMedya"
                         alt="Gönderi Medya"
+                        onClick={() => setLightboxImage(gonderi.gonderiMedyaUrl)}
+                        style={{ cursor: "pointer" }}
                       />
                     )}
                   </div>
@@ -212,6 +215,16 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Lightbox Overlay */}
+      {lightboxImage && (
+        <div
+          className="lightbox-overlay"
+          onClick={() => setLightboxImage(null)}
+        >
+          <img src={lightboxImage} alt="" className="lightbox-image" />
         </div>
       )}
     </div>
