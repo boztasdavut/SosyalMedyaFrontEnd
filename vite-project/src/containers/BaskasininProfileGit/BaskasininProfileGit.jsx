@@ -36,6 +36,7 @@ function BaskasininProfileGit() {
       />
       <BaskasininProfiliGonderiler
         baskasininProfiliBilgileri={baskasininProfiliBilgileri}
+        setBaskasininProfiliBilgileri={setBaskasininProfiliBilgileri}
       />
       <Mesajlasma />
     </div>

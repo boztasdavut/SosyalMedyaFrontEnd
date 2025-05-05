@@ -5,8 +5,12 @@ import { PiDotsThreeOutlineThin } from "react-icons/pi";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { GoComment } from "react-icons/go";
 import { BsSend } from "react-icons/bs";
-
-function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
+import { gonderiBegen } from "../../services/GonderiBegen.js";
+import { begeniKaldir } from "../../services/GonderidenBegeniKaldir.js";
+function BaskasininProfiliGonderiler({
+  baskasininProfiliBilgileri,
+  setBaskasininProfiliBilgileri,
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxImage, setLightboxImage] = useState(null);
 
@@ -14,6 +18,45 @@ function BaskasininProfiliGonderiler({ baskasininProfiliBilgileri }) {
     setIsLoading(false);
     console.log("baskasinin profil bilgileri= ", baskasininProfiliBilgileri);
   }, [baskasininProfiliBilgileri]);
+
+  const birGonderiyiBegen = async (gonderiId) => {
+    const gonderi = baskasininProfiliBilgileri.gonderiler.find(
+      (g) => g.gonderiId === gonderiId
+    );
+    if (!gonderi) return;
+
+    if (!gonderi.begenildiMi) {
+      const gelenVeri = await gonderiBegen(gonderiId);
+      if (gelenVeri === "Beğeni eklendi!") {
+        setBaskasininProfiliBilgileri((prev) => ({
+          ...prev,
+          gonderiler: prev.gonderiler.map((g) =>
+            g.gonderiId === gonderiId
+              ? {
+                  ...g,
+                  begenildiMi: true,
+                  gonderiBegeniSayisi: g.gonderiBegeniSayisi + 1,
+                }
+              : g
+          ),
+        }));
+      }
+    } else {
+      await begeniKaldir(gonderiId);
+      setBaskasininProfiliBilgileri((prev) => ({
+        ...prev,
+        gonderiler: prev.gonderiler.map((g) =>
+          g.gonderiId === gonderiId
+            ? {
+                ...g,
+                begenildiMi: false,
+                gonderiBegeniSayisi: g.gonderiBegeniSayisi - 1,
+              }
+            : g
+        ),
+      }));
+    }
+  };
 
   return (
     <div>
