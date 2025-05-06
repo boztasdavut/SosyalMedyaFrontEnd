@@ -26,16 +26,13 @@ function GonderiIcerigi() {
         const gelenVeri = await belirliBirGonderiyiGetir(gonderiId);
         console.log("Gelen veri= ", gelenVeri);
         setGonderiBilgisi(gelenVeri);
+        setIsLoading(false);
       } catch (err) {
         console.log("Bir hata meydana geldi= ", err);
       }
     };
     gonderiIcerigineTiklandi();
   }, [gonderiId]);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, [gonderiBilgisi]);
 
   const birGonderiyiBegen = async (gonderiId) => {
     if (!gonderiBilgisi) return;
@@ -78,7 +75,7 @@ function GonderiIcerigi() {
                     gonderiPaylasanProfilineGit(gonderiBilgisi.kullaniciTakmaAd)
                   }
                   id="anasayfaProfilResim"
-                  src={gonderiBilgisi.kullaniciFoto}
+                  src={gonderiBilgisi.gonderiAtanKullaniciFoto}
                 />
               </div>
               <div
