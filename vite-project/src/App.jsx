@@ -9,6 +9,7 @@ import AramaGecmisi from "./containers/AramaGecmisi/AramaGecmisi.jsx";
 import GonderiPaylas from "./components/GonderiPaylas/GonderiPaylas.jsx";
 import BaskasininProfileGit from "./containers/BaskasininProfileGit/BaskasininProfileGit.jsx";
 import ProfilAyarlari from "./containers/ProfilAyarlari/ProfilAyarlari.jsx";
+import GonderiIcerigi from "./containers/GonderiIcerigi/GonderiIcerigi.jsx";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
           <Route path="/gonderiPaylas" element={<GonderiPaylas />} />
           <Route path="/profil/:takmaAd" element={<BaskasininProfileGit />} />
           <Route path="/ayarlar" element={<ProfilAyarlari />} />
+          <Route
+            path="/gonderiler/:takmaAd/:gonderiId"
+            element={<GonderiIcerigi />}
+          />
         </Routes>
       </Router>
     </>

@@ -10,6 +10,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+
 function AnasayfaGonderiler({
   takipEdilenlerinTumGonderileri,
   setTakipEdilenlerinGonderileri,
@@ -60,8 +61,13 @@ function AnasayfaGonderiler({
     navigate(yonlendirilecekUrlAdresi);
   };
 
-  const gonderiIcineTiklandi = () => {
+  const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
     console.log("Gönderi içine tiklandi.");
+    try {
+      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}`);
+    } catch (err) {
+      console.log("Bir hata meydana geldi= ", err);
+    }
   };
 
   return (
@@ -70,7 +76,12 @@ function AnasayfaGonderiler({
         {takipEdilenlerinTumGonderileri.map((gonderi) => (
           <div
             key={gonderi.gonderiId}
-            onClick={gonderiIcineTiklandi}
+            onClick={() =>
+              gonderiIcineTiklandi(
+                gonderi.gonderiId,
+                gonderi.takipEdilenKullaniciTakmaAd
+              )
+            }
             className="gonderCardDiv"
           >
             <div className="profilResmiVeTakmaAdDiv">
