@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./BaskasininProfiliGonderiler.css";
 import { ClipLoader } from "react-spinners";
 import { PiDotsThreeOutlineThin } from "react-icons/pi";
@@ -7,12 +7,15 @@ import { GoComment } from "react-icons/go";
 import { BsSend } from "react-icons/bs";
 import { gonderiBegen } from "../../services/GonderiBegen.js";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir.js";
+import { BiSend } from "react-icons/bi";
+
 function BaskasininProfiliGonderiler({
   baskasininProfiliBilgileri,
   setBaskasininProfiliBilgileri,
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxImage, setLightboxImage] = useState(null);
+  const inputRefs = useRef({});
 
   useEffect(() => {
     setIsLoading(false);
@@ -58,6 +61,14 @@ function BaskasininProfiliGonderiler({
     }
   };
 
+  const yorumGonderHandle = async (gonderiId) => {
+    const kullaniciId = await jwtDecode();
+    const yorumIcerigi = inputRefs.current[gonderiId].value;
+    console.log("Yorum yapan kullanici id= ", kullaniciId);
+    console.log("Yorum icerigi= ", yorumIcerigi);
+    console.log("Yorum yapilan gonderi id= ", gonderiId);
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -101,7 +112,9 @@ function BaskasininProfiliGonderiler({
                           className="baskasininProfiliResim"
                           src={gonderi.gonderiMedyaUrl}
                           alt="gonderi"
-                          onClick={() => setLightboxImage(gonderi.gonderiMedyaUrl)}
+                          onClick={() =>
+                            setLightboxImage(gonderi.gonderiMedyaUrl)
+                          }
                           style={{ cursor: "pointer" }}
                         />
                       )}
@@ -127,6 +140,21 @@ function BaskasininProfiliGonderiler({
                 </div>
                 <div className="gonderi-paylas">
                   <BsSend size={25} />
+                </div>
+              </div>
+              <div className="anasayfaGonderiYorumYazmaDivi">
+                <div className="anasayfaYorumYazmaInputDiv">
+                  <input
+                    ref={(el) => (inputRefs.current[gonderi.gonderiId] = el)}
+                    type="text"
+                    placeholder="Yorumunuzu yazın..."
+                  />
+                </div>
+                <div
+                  onClick={() => yorumGonderHandle(gonderi.gonderiId)}
+                  className="anasayfaYorumYazmaGonderDiv"
+                >
+                  <BiSend size={25} />
                 </div>
               </div>
             </div>

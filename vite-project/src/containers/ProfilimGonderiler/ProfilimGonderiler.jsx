@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./ProfilimGonderiler.css";
-import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
-import { GoComment } from "react-icons/go";
-import { BsSend } from "react-icons/bs";
 import { kullanicininTumGonderileriniGetir } from "../../services/KullaniciTumGonderileri.js";
 import { useNavigate } from "react-router-dom";
-import { PiDotsThreeOutlineThin } from "react-icons/pi";
 import { kullaniciProfilBilgileriGetir } from "../../services/KullaniciProfilBilgileri.js";
 import { belirtilenGonderiyiSil } from "../../services/GonderiSil.js";
 import { ToastContainer } from "react-toastify";
@@ -14,6 +10,10 @@ import { ClipLoader } from "react-spinners";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { gonderiBegen } from "../../services/GonderiBegen.js";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir.js";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 
 function ProfilimGonderiler({ setGonderiSayisi }) {
   const [kullanicininTumGonderileri, setKullanicininTumGonderileri] = useState(
@@ -117,7 +117,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
       setKullanicininTumGonderileri((prevGonderiler) => {
         const yeniListe = prevGonderiler.filter(
           (gonderi) => gonderi.gonderiId !== gonderiId
-      );
+        );
         setGonderiSayisi(yeniListe.length); // burada yeni state üzerinden hesaplama yapıyoruz
         return yeniListe;
       });
@@ -150,11 +150,11 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                 <div className="profilimProfilResmiVeTakmaAdVeAyarlarDiv">
                   <div className="profilimProfilResmiVeTakmaAdDiv">
                     <div>
-                    <img
-                      id="profilimGonderilerProfilResmi"
-                      src={kullaniciProfilBilgileri.kullaniciProfilResmi}
-                      alt="Profil Resmi"
-                    />
+                      <img
+                        id="profilimGonderilerProfilResmi"
+                        src={kullaniciProfilBilgileri.kullaniciProfilResmi}
+                        alt="Profil Resmi"
+                      />
                     </div>
                     <div>@{gonderi.kullaniciTakmaAd}</div>
                   </div>
@@ -168,7 +168,9 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                         src={gonderi.gonderiMedyaUrl}
                         className="profilimGonderiMedya"
                         alt="Gönderi Medya"
-                        onClick={() => setLightboxImage(gonderi.gonderiMedyaUrl)}
+                        onClick={() =>
+                          setLightboxImage(gonderi.gonderiMedyaUrl)
+                        }
                         style={{ cursor: "pointer" }}
                       />
                     )}
@@ -181,17 +183,20 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                     className="profilimBegenmeButonu"
                   >
                     {gonderi.begenildiMi ? (
-                      <IoIosHeart size={30} color="red" />
+                      <FavoriteIcon
+                        style={{ fontSize: "30px", color: "red" }}
+                      />
                     ) : (
-                      <IoIosHeartEmpty size={30} />
+                      <FavoriteBorderIcon style={{ fontSize: "30px" }} />
                     )}
                     <span>{gonderi.gonderiBegeniSayisi}</span>
                   </div>
                   <div className="profilimYorumButonu">
-                    <GoComment size={25} />
+                    <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
+                    <span>{gonderi.gonderiYorumSayisi}</span>
                   </div>
                   <div className="profilimGondermeButonu">
-                    <BsSend size={25} />
+                    <SendOutlinedIcon style={{ fontSize: "30px" }} />
                   </div>
                 </div>
 

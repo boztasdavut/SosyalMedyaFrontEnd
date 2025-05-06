@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./GonderiIcerigi.css";
 import { useParams } from "react-router-dom";
 import { belirliBirGonderiyiGetir } from "../../services/BelirliBirGonderiyiGetir.js";
@@ -13,12 +13,16 @@ import { gonderiBegen } from "../../services/GonderiBegen";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir";
 import SolMenu from "../SolMenu/SolMenu.jsx";
 import Mesajlasma from "../Mesajlasma/Mesajlasma.jsx";
+import { BiSend } from "react-icons/bi";
+import { jwtDecode } from "../../services/JwtDecode";
 
 function GonderiIcerigi() {
   const { gonderiId, takmaAd } = useParams();
   const [gonderiBilgisi, setGonderiBilgisi] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxImage, setLightboxImage] = useState(null);
+  const [yazilanYorum, setYazilanYorum] = useState("");
+  const inputRefs = useRef({});
 
   useEffect(() => {
     const gonderiIcerigineTiklandi = async () => {
@@ -54,6 +58,14 @@ function GonderiIcerigi() {
         gonderiBegeniSayisi: prev.gonderiBegeniSayisi - 1,
       }));
     }
+  };
+
+  const yorumGonderHandle = async (gonderiId) => {
+    const kullaniciId = await jwtDecode();
+    const yorumIcerigi = inputRefs.current[gonderiId].value;
+    console.log("Yorum yapan kullanici id= ", kullaniciId);
+    console.log("Yorum icerigi=", yorumIcerigi);
+    console.log("Yorum yapılan gönderi id= ", gonderiId);
   };
 
   return (
@@ -132,6 +144,21 @@ function GonderiIcerigi() {
               </div>
               <div className="gondermeButonu">
                 <SendOutlinedIcon style={{ fontSize: "30px" }} />
+              </div>
+            </div>
+            <div className="anasayfaGonderiYorumYazmaDivi">
+              <div className="anasayfaYorumYazmaInputDiv">
+                <input
+                  ref={(el) => (inputRefs.current[gonderiId] = el)}
+                  type="text"
+                  placeholder="Yorumunuzu yazın..."
+                />
+              </div>
+              <div
+                onClick={() => yorumGonderHandle(gonderiId)}
+                className="anasayfaYorumYazmaGonderDiv"
+              >
+                <BiSend size={25} />
               </div>
             </div>
           </div>

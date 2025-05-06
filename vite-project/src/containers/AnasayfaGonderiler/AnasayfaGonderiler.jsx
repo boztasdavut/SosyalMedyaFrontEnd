@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AnasayfaGonderiler.css";
-import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
-import { GoComment } from "react-icons/go";
-import { BsSend } from "react-icons/bs";
 import { gonderiBegen } from "../../services/GonderiBegen";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +7,10 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import { BiSend } from "react-icons/bi";
+import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";
+import PaylasimTakipciler from "../../components/PaylasimTakipciler/PaylasimTakipciler.jsx";
+import { birGonderiyeYorumYap } from "../../services/BirGonderiyeYorumYap.js";
 
 function AnasayfaGonderiler({
   takipEdilenlerinTumGonderileri,
@@ -17,6 +18,10 @@ function AnasayfaGonderiler({
 }) {
   const navigate = useNavigate();
   const [lightboxImage, setLightboxImage] = useState(null);
+  const inputRefs = useRef({});
+  const [gonderiyiPaylasModalAcikMi, setGonderiyiPaylasModalAcikMi] =
+    useState(false);
+  const [tumTakipciler, setTumTakipciler] = useState({});
 
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = takipEdilenlerinTumGonderileri.find(
@@ -70,91 +75,145 @@ function AnasayfaGonderiler({
     }
   };
 
+  const yorumGonderHandle = async (gonderiId) => {
+    const yorumIcerigi = inputRefs.current[gonderiId].value;
+    const yorumBilgisi = {
+      gonderiId: gonderiId,
+      yorumIcerigi: yorumIcerigi,
+    };
+    const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
+    console.log("Yorum yapma durumu sonuc= ", yorumYapmaGelenVeri);
+  };
+
+  const gonderiyiBaskalariylaPaylasModalHandle = async () => {
+    try {
+      const gelenVeri = await kullanicininTumTakipcileriniGetir();
+      console.log("Tum takipciler= ", gelenVeri);
+      setTumTakipciler(gelenVeri);
+      console.log("Paylasma modal aktif edildi.!");
+    } catch (err) {
+      console.log("Gonderme baskalariyla paylas hatasi= ", err);
+    }
+  };
+
+  useEffect(() => {
+    if (Object.keys(tumTakipciler).length > 0) {
+      setGonderiyiPaylasModalAcikMi(true);
+    }
+  }, [tumTakipciler]);
+
   return (
     <div>
-      <div>
-        {takipEdilenlerinTumGonderileri.map((gonderi) => (
-          <div
-            key={gonderi.gonderiId}
-            onClick={() =>
-              gonderiIcineTiklandi(
-                gonderi.gonderiId,
-                gonderi.takipEdilenKullaniciTakmaAd
-              )
-            }
-            className="gonderCardDiv"
-          >
-            <div className="profilResmiVeTakmaAdDiv">
-              <div>
-                <img
+      {gonderiyiPaylasModalAcikMi ? (
+        <PaylasimTakipciler
+          setGonderiyiPaylasModalAcikMi={setGonderiyiPaylasModalAcikMi}
+          tumTakipciler={tumTakipciler.follow}
+        />
+      ) : (
+        <div>
+          {takipEdilenlerinTumGonderileri.map((gonderi) => (
+            <div key={gonderi.gonderiId} className="gonderCardDiv">
+              <div
+                className="profilResmiVeTakmaAdDiv"
+                onClick={() =>
+                  gonderiIcineTiklandi(
+                    gonderi.gonderiId,
+                    gonderi.takipEdilenKullaniciTakmaAd
+                  )
+                }
+              >
+                <div>
+                  <img
+                    onClick={() =>
+                      gonderiPaylasanProfilineGit(
+                        gonderi.takipEdilenKullaniciTakmaAd
+                      )
+                    }
+                    id="anasayfaProfilResim"
+                    src={gonderi.kullaniciResim}
+                  />
+                </div>
+                <div
                   onClick={() =>
                     gonderiPaylasanProfilineGit(
                       gonderi.takipEdilenKullaniciTakmaAd
                     )
                   }
-                  id="anasayfaProfilResim"
-                  src={gonderi.kullaniciResim}
-                />
+                  id="anasayfaGonderiPaylasanTakmaAd"
+                >
+                  @{gonderi.takipEdilenKullaniciTakmaAd}
+                </div>
               </div>
-              <div
-                onClick={() =>
-                  gonderiPaylasanProfilineGit(
-                    gonderi.takipEdilenKullaniciTakmaAd
-                  )
-                }
-                id="anasayfaGonderiPaylasanTakmaAd"
-              >
-                @{gonderi.takipEdilenKullaniciTakmaAd}
+              <div className="gonderiIcerigi">
+                <div>{gonderi.gonderiIcerigi}</div>
+                <div>
+                  {gonderi.gonderiMedyaUrl && (
+                    <>
+                      {gonderi.gonderiMedyaUrl
+                        .toLowerCase()
+                        .endsWith(".mp4") ? (
+                        <video
+                          className="anasayfaMedyaVideo"
+                          src={gonderi.gonderiMedyaUrl}
+                          controls
+                        />
+                      ) : (
+                        <img
+                          className="anasayfaMedyaResim"
+                          src={gonderi.gonderiMedyaUrl}
+                          alt="gonderi"
+                          onClick={() =>
+                            setLightboxImage(gonderi.gonderiMedyaUrl)
+                          }
+                          style={{ cursor: "pointer" }}
+                        />
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="gonderiAksiyonlariDiv">
+                <div
+                  onClick={() => birGonderiyiBegen(gonderi.gonderiId)}
+                  className="begenmeButonu"
+                >
+                  {gonderi.begenildiMi ? (
+                    <FavoriteIcon style={{ fontSize: "30px", color: "red" }} />
+                  ) : (
+                    <FavoriteBorderIcon style={{ fontSize: "30px" }} />
+                  )}
+                  <span>{gonderi.begeniSayisi}</span>
+                </div>
+                <div className="yorumButonu">
+                  <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
+                  <span>{gonderi.gonderiYorumSayisi}</span>
+                </div>
+                <div
+                  onClick={gonderiyiBaskalariylaPaylasModalHandle}
+                  className="gondermeButonu"
+                >
+                  <SendOutlinedIcon style={{ fontSize: "30px" }} />
+                </div>
+              </div>
+              <div className="anasayfaGonderiYorumYazmaDivi">
+                <div className="anasayfaYorumYazmaInputDiv">
+                  <input
+                    ref={(el) => (inputRefs.current[gonderi.gonderiId] = el)}
+                    type="text"
+                    placeholder="Yorumunuzu yazın..."
+                  />
+                </div>
+                <div
+                  onClick={() => yorumGonderHandle(gonderi.gonderiId)}
+                  className="anasayfaYorumYazmaGonderDiv"
+                >
+                  <BiSend size={25} />
+                </div>
               </div>
             </div>
-            <div className="gonderiIcerigi">
-              <div>{gonderi.gonderiIcerigi}</div>
-              <div>
-                {gonderi.gonderiMedyaUrl && (
-                  <>
-                    {gonderi.gonderiMedyaUrl.toLowerCase().endsWith(".mp4") ? (
-                      <video
-                        className="anasayfaMedyaVideo"
-                        src={gonderi.gonderiMedyaUrl}
-                        controls
-                      />
-                    ) : (
-                      <img
-                        className="anasayfaMedyaResim"
-                        src={gonderi.gonderiMedyaUrl}
-                        alt="gonderi"
-                        onClick={() =>
-                          setLightboxImage(gonderi.gonderiMedyaUrl)
-                        }
-                        style={{ cursor: "pointer" }}
-                      />
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="gonderiAksiyonlariDiv">
-              <div
-                onClick={() => birGonderiyiBegen(gonderi.gonderiId)}
-                className="begenmeButonu"
-              >
-                {gonderi.begenildiMi ? (
-                  <FavoriteIcon style={{ fontSize: "30px", color: "red" }} />
-                ) : (
-                  <FavoriteBorderIcon style={{ fontSize: "30px" }} />
-                )}
-                <span>{gonderi.begeniSayisi}</span>
-              </div>
-              <div className="yorumButonu">
-                <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
-              </div>
-              <div className="gondermeButonu">
-                <SendOutlinedIcon style={{ fontSize: "30px" }} />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Lightbox Overlay */}
       {lightboxImage && (
