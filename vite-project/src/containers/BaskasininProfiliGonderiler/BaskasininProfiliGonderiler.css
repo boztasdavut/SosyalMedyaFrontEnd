@@ -19,6 +19,10 @@
     justify-content: space-between;
     margin-bottom: 10px;
   }
+
+  .gonderi-baslik:hover{
+    cursor: pointer;
+  }
   
   .gonderi-kullanici {
     display: flex;

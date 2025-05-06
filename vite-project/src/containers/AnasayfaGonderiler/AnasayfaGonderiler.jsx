@@ -22,7 +22,7 @@ function AnasayfaGonderiler({
   const [gonderiyiPaylasModalAcikMi, setGonderiyiPaylasModalAcikMi] =
     useState(false);
   const [tumTakipciler, setTumTakipciler] = useState({});
-
+  const [yorumlariGorAcikMi, setYorumlarAcikMi] = useState(false);
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = takipEdilenlerinTumGonderileri.find(
       (g) => g.gonderiId === gonderiId
@@ -81,8 +81,12 @@ function AnasayfaGonderiler({
       gonderiId: gonderiId,
       yorumIcerigi: yorumIcerigi,
     };
-    const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
-    console.log("Yorum yapma durumu sonuc= ", yorumYapmaGelenVeri);
+    try {
+      const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
+      console.log("Anasayfa Yorum yapma durumu sonuc= ", yorumYapmaGelenVeri);
+    } catch (err) {
+      console.log("Bir hata meydana geldi= ", err);
+    }
   };
 
   const gonderiyiBaskalariylaPaylasModalHandle = async () => {
@@ -101,6 +105,8 @@ function AnasayfaGonderiler({
       setGonderiyiPaylasModalAcikMi(true);
     }
   }, [tumTakipciler]);
+
+  
 
   return (
     <div>

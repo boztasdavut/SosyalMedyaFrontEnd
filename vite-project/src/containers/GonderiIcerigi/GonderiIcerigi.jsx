@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./GonderiIcerigi.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { belirliBirGonderiyiGetir } from "../../services/BelirliBirGonderiyiGetir.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,22 +15,24 @@ import SolMenu from "../SolMenu/SolMenu.jsx";
 import Mesajlasma from "../Mesajlasma/Mesajlasma.jsx";
 import { BiSend } from "react-icons/bi";
 import { jwtDecode } from "../../services/JwtDecode";
+import YorumlariGor from "../../components/YorumlariGor/YorumlariGor.jsx";
+import { birGonderiyeYorumYap } from "../../services/BirGonderiyeYorumYap.js";
 
 function GonderiIcerigi() {
   const { gonderiId, takmaAd } = useParams();
   const [gonderiBilgisi, setGonderiBilgisi] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxImage, setLightboxImage] = useState(null);
-  const [yazilanYorum, setYazilanYorum] = useState("");
   const inputRefs = useRef({});
-
+  const [yorumlariGorAcikMi, setYorumlariGorAcikMi] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     const gonderiIcerigineTiklandi = async () => {
       try {
+        setIsLoading(true);
         const gelenVeri = await belirliBirGonderiyiGetir(gonderiId);
         console.log("Gelen veri= ", gelenVeri);
         setGonderiBilgisi(gelenVeri);
-        setIsLoading(false);
       } catch (err) {
         console.log("Bir hata meydana geldi= ", err);
       }
@@ -61,11 +63,51 @@ function GonderiIcerigi() {
   };
 
   const yorumGonderHandle = async (gonderiId) => {
-    const kullaniciId = await jwtDecode();
     const yorumIcerigi = inputRefs.current[gonderiId].value;
-    console.log("Yorum yapan kullanici id= ", kullaniciId);
-    console.log("Yorum icerigi=", yorumIcerigi);
-    console.log("Yorum yapılan gönderi id= ", gonderiId);
+    if (!yorumIcerigi.trim()) return; // boş yorumları engelle
+
+    const yorumBilgisi = {
+      gonderiId: gonderiId,
+      yorumIcerigi: yorumIcerigi,
+    };
+
+    try {
+      const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
+
+      if (yorumYapmaGelenVeri && yorumYapmaGelenVeri.yeniYorumIcerigi) {
+        setIsLoading(true);
+        inputRefs.current[gonderiId].value = "";
+
+        setGonderiBilgisi((prev) => ({
+          ...prev,
+          yorumlar: [yorumYapmaGelenVeri, ...prev.yorumlar],
+        }));
+
+        // Yorumlar listesini güncelle
+      }
+    } catch (err) {
+      console.log("Yorum gönderme hatası: ", err);
+    }
+  };
+
+  useEffect(() => {
+    if (Object.keys(gonderiBilgisi).length > 0) {
+      setIsLoading(false);
+    }
+  }, [gonderiBilgisi]);
+
+  const yorumlariAc = () => {
+    console.log("yorumları gör butonuna tiklandi");
+    setYorumlariGorAcikMi(true);
+  };
+
+  const yorumlariKapat = () => {
+    setYorumlariGorAcikMi(false);
+  };
+
+  const gonderiPaylasanProfilineGit = async (takmaAd) => {
+    const yonlendirilecekUrlAdresi = `/profil/${takmaAd}`;
+    navigate(yonlendirilecekUrlAdresi);
   };
 
   return (
@@ -141,6 +183,7 @@ function GonderiIcerigi() {
               </div>
               <div className="yorumButonu">
                 <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
+                <span>{gonderiBilgisi.yorumlar.length}</span>
               </div>
               <div className="gondermeButonu">
                 <SendOutlinedIcon style={{ fontSize: "30px" }} />
@@ -154,12 +197,29 @@ function GonderiIcerigi() {
                   placeholder="Yorumunuzu yazın..."
                 />
               </div>
+
               <div
                 onClick={() => yorumGonderHandle(gonderiId)}
                 className="anasayfaYorumYazmaGonderDiv"
               >
                 <BiSend size={25} />
               </div>
+            </div>
+            <div>
+              {yorumlariGorAcikMi === true ? (
+                <div onClick={yorumlariKapat} className="yorumlariGorBolumu">
+                  Yorumları Gizle
+                </div>
+              ) : (
+                <div onClick={yorumlariAc} className="yorumlariGorBolumu">
+                  Yorumları Gör
+                </div>
+              )}
+            </div>
+            <div>
+              {yorumlariGorAcikMi === true && (
+                <YorumlariGor yorumlar={gonderiBilgisi.yorumlar} />
+              )}
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import { BsSend } from "react-icons/bs";
 import { gonderiBegen } from "../../services/GonderiBegen.js";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir.js";
 import { BiSend } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 function BaskasininProfiliGonderiler({
   baskasininProfiliBilgileri,
@@ -16,7 +17,7 @@ function BaskasininProfiliGonderiler({
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxImage, setLightboxImage] = useState(null);
   const inputRefs = useRef({});
-
+  const navigate = useNavigate();
   useEffect(() => {
     setIsLoading(false);
     console.log("baskasinin profil bilgileri= ", baskasininProfiliBilgileri);
@@ -69,6 +70,15 @@ function BaskasininProfiliGonderiler({
     console.log("Yorum yapilan gonderi id= ", gonderiId);
   };
 
+  const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
+    console.log("Gönderi içine tiklandi.");
+    try {
+      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}`);
+    } catch (err) {
+      console.log("Bir hata meydana geldi= ", err);
+    }
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -79,7 +89,15 @@ function BaskasininProfiliGonderiler({
         <div>
           {baskasininProfiliBilgileri?.gonderiler?.map((gonderi) => (
             <div key={gonderi.gonderiId} className="gonderi-karti">
-              <div className="gonderi-baslik">
+              <div
+                className="gonderi-baslik"
+                onClick={() =>
+                  gonderiIcineTiklandi(
+                    gonderi.gonderiId,
+                    baskasininProfiliBilgileri.kullaniciTakmaAd
+                  )
+                }
+              >
                 <div className="gonderi-kullanici">
                   <img
                     className="gonderi-profil-resmi"

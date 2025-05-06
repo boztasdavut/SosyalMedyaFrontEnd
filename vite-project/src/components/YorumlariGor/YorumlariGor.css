@@ -1,0 +1,22 @@
+.yorumlarAnaDiv{
+border: 1px solid wheat;
+   padding: 20px;
+   height: 100px;
+   display: flex;
+   justify-content: space-around;
+   flex-direction: column;
+   margin-bottom: 20px;
+   border-radius: 10px;
+}
+
+.yorumlarAnaDiv:hover{
+    background-color: rgb(235, 235, 227);
+    transform: scale(1.05);
+}
+
+
+.yorumlarinAksiyonlari{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

@@ -1,0 +1,10 @@
+.yorumlariGorBolumu{
+    text-decoration: underline;
+    font-size: medium;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.yorumlariGorBolumu:hover{
+    cursor: pointer;
+}

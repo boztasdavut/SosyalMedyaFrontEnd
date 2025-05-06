@@ -15,7 +15,7 @@ export const birGonderiyeYorumYap = async (yorumBilgisi) => {
       console.log(errorText);
       throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);
     }
-    const responseData = await response.text();
+    const responseData = await response.json();
     return responseData;
   } catch (err) {
     console.error("İstek hatası:", err);
