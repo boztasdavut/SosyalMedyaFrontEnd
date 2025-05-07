@@ -3,7 +3,7 @@ import "./BaskasininProfileGit.css";
 import BaskasininProfiliHeader from "../BaskasininProfiliHeader/BaskasininProfiliHeader.jsx";
 import BaskasininProfiliGonderiler from "../BaskasininProfiliGonderiler/BaskasininProfiliGonderiler.jsx";
 import { baskasininProfiliniGetir } from "../../services/BaskasininProfiliniGetir.js";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Mesajlasma from "../Mesajlasma/Mesajlasma.jsx";
 import SolMenu from "../SolMenu/SolMenu.jsx";
 import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";

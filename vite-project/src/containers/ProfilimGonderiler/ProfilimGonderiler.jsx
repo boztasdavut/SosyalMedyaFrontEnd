@@ -127,6 +127,15 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
     }
   };
 
+  const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
+    console.log("Gönderi içine tiklandi.");
+    try {
+      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}`);
+    } catch (err) {
+      console.log("Bir hata meydana geldi= ", err);
+    }
+  };
+
   return (
     <div className="profilimTumGonderiYapisiAnaDiv">
       <ToastContainer position="top-center" />
@@ -140,6 +149,12 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
             <div
               key={gonderi.gonderiId}
               className="profilimGonderiCardVeGonderiAyarlari"
+              onClick={() =>
+                gonderiIcineTiklandi(
+                  gonderi.gonderiId,
+                  gonderi.kullaniciTakmaAd
+                )
+              }
             >
               <div
                 ref={(el) => {

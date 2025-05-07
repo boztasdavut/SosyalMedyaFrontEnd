@@ -106,8 +106,6 @@ function AnasayfaGonderiler({
     }
   }, [tumTakipciler]);
 
-  
-
   return (
     <div>
       {gonderiyiPaylasModalAcikMi ? (
@@ -130,21 +128,23 @@ function AnasayfaGonderiler({
               >
                 <div>
                   <img
-                    onClick={() =>
+                    onClick={(e) => {
+                      e.stopPropagation();
                       gonderiPaylasanProfilineGit(
                         gonderi.takipEdilenKullaniciTakmaAd
-                      )
-                    }
+                      );
+                    }}
                     id="anasayfaProfilResim"
                     src={gonderi.kullaniciResim}
                   />
                 </div>
                 <div
-                  onClick={() =>
+                  onClick={(e) => {
+                    e.stopPropagation();
                     gonderiPaylasanProfilineGit(
                       gonderi.takipEdilenKullaniciTakmaAd
-                    )
-                  }
+                    );
+                  }}
                   id="anasayfaGonderiPaylasanTakmaAd"
                 >
                   @{gonderi.takipEdilenKullaniciTakmaAd}
@@ -190,7 +190,15 @@ function AnasayfaGonderiler({
                   )}
                   <span>{gonderi.begeniSayisi}</span>
                 </div>
-                <div className="yorumButonu">
+                <div
+                  onClick={() =>
+                    gonderiIcineTiklandi(
+                      gonderi.gonderiId,
+                      gonderi.takipEdilenKullaniciTakmaAd
+                    )
+                  }
+                  className="yorumButonu"
+                >
                   <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
                   <span>{gonderi.gonderiYorumSayisi}</span>
                 </div>

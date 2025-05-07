@@ -14,17 +14,16 @@ import { begeniKaldir } from "../../services/GonderidenBegeniKaldir";
 import SolMenu from "../SolMenu/SolMenu.jsx";
 import Mesajlasma from "../Mesajlasma/Mesajlasma.jsx";
 import { BiSend } from "react-icons/bi";
-import { jwtDecode } from "../../services/JwtDecode";
 import YorumlariGor from "../../components/YorumlariGor/YorumlariGor.jsx";
 import { birGonderiyeYorumYap } from "../../services/BirGonderiyeYorumYap.js";
-
+import { jwtDecode } from "../../services/JwtDecode.js";
 function GonderiIcerigi() {
   const { gonderiId, takmaAd } = useParams();
   const [gonderiBilgisi, setGonderiBilgisi] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxImage, setLightboxImage] = useState(null);
   const inputRefs = useRef({});
-  const [yorumlariGorAcikMi, setYorumlariGorAcikMi] = useState(false);
+  const [yorumlariGorAcikMi, setYorumlariGorAcikMi] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     const gonderiIcerigineTiklandi = async () => {
@@ -105,9 +104,16 @@ function GonderiIcerigi() {
     setYorumlariGorAcikMi(false);
   };
 
-  const gonderiPaylasanProfilineGit = async (takmaAd) => {
-    const yonlendirilecekUrlAdresi = `/profil/${takmaAd}`;
-    navigate(yonlendirilecekUrlAdresi);
+  const gonderiPaylasanProfilineGit = async (takmaAd, kullaniciId) => {
+    const kullaniciIdBilgisi = await jwtDecode();
+    console.log("Kullanici id bilgisi= ", kullaniciIdBilgisi);
+    if (kullaniciIdBilgisi === kullaniciId) {
+      const yonlendirilecekUrlAdresi = "/profilim";
+      navigate(yonlendirilecekUrlAdresi);
+    } else {
+      const yonlendirilecekUrlAdresi = `/profil/${takmaAd}`;
+      navigate(yonlendirilecekUrlAdresi);
+    }
   };
 
   return (
@@ -126,7 +132,10 @@ function GonderiIcerigi() {
               <div>
                 <img
                   onClick={() =>
-                    gonderiPaylasanProfilineGit(gonderiBilgisi.kullaniciTakmaAd)
+                    gonderiPaylasanProfilineGit(
+                      gonderiBilgisi.kullaniciTakmaAd,
+                      gonderiBilgisi.kullaniciId
+                    )
                   }
                   id="anasayfaProfilResim"
                   src={gonderiBilgisi.gonderiAtanKullaniciFoto}
@@ -134,7 +143,10 @@ function GonderiIcerigi() {
               </div>
               <div
                 onClick={() =>
-                  gonderiPaylasanProfilineGit(gonderiBilgisi.kullaniciTakmaAd)
+                  gonderiPaylasanProfilineGit(
+                    gonderiBilgisi.kullaniciTakmaAd,
+                    gonderiBilgisi.kullaniciId
+                  )
                 }
                 id="anasayfaGonderiPaylasanTakmaAd"
               >
@@ -218,7 +230,10 @@ function GonderiIcerigi() {
             </div>
             <div>
               {yorumlariGorAcikMi === true && (
-                <YorumlariGor yorumlar={gonderiBilgisi.yorumlar} />
+                <YorumlariGor
+                  gonderiBilgisi={gonderiBilgisi}
+                  gonderiId={gonderiId}
+                />
               )}
             </div>
           </div>

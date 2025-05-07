@@ -23,7 +23,7 @@
   color: #2c3e50;
 }
 
-.profilResmiVeTakmaAdDiv:hover{
+.profilResmiVeTakmaAdDiv:hover {
   cursor: pointer;
 }
 
@@ -159,4 +159,8 @@
 
 .anasayfaYorumYazmaGonderDiv:hover {
   transform: scale(1.1);
+}
+
+.sagBoslukDivi {
+  width: 100%;
 }
