@@ -72,14 +72,23 @@ function GonderiIcerigi() {
 
     try {
       const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
-
+      console.log("Yorum yapma gelen veri= ", yorumYapmaGelenVeri);
+      const yorumlarListesineEklenecekObje = {
+        altYorumlar: [],
+        yeniYorumBegeniSayisi: 0,
+        yeniYorumIcerigi: yorumIcerigi,
+        yeniYorumOlusturulmaTarihi:
+          yorumYapmaGelenVeri.yeniYorumOlusturulmaTarihi,
+        yorumId: yorumYapmaGelenVeri.yorumId,
+        yorumuBegendimMi: false,
+      };
       if (yorumYapmaGelenVeri && yorumYapmaGelenVeri.yeniYorumIcerigi) {
         setIsLoading(true);
         inputRefs.current[gonderiId].value = "";
 
         setGonderiBilgisi((prev) => ({
           ...prev,
-          yorumlar: [yorumYapmaGelenVeri, ...prev.yorumlar],
+          yorumlar: [...prev.yorumlar, yorumlarListesineEklenecekObje],
         }));
 
         // Yorumlar listesini güncelle
@@ -230,10 +239,7 @@ function GonderiIcerigi() {
             </div>
             <div>
               {yorumlariGorAcikMi === true && (
-                <YorumlariGor
-                  gonderiBilgisi={gonderiBilgisi}
-                  gonderiId={gonderiId}
-                />
+                <YorumlariGor gonderiBilgisi={gonderiBilgisi} />
               )}
             </div>
           </div>

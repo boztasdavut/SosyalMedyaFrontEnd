@@ -1,21 +1,86 @@
+/* Yorumları Gör - Genel Stil */
 .yorumlarAnaDiv {
-  border: 1px solid wheat;
-  padding: 20px;
-  height: 200px;
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
-  margin-bottom: 20px;
-  border-radius: 10px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
 }
 
 .yorumlarAnaDiv:hover {
-  background-color: rgb(235, 235, 227);
-  transform: scale(1.05);
+  background-color: #f1f1f1;
 }
 
+/* Kullanıcı Fotoğrafı */
+.yorumlarAnaDiv > div:first-child img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* Yorum İçeriği */
+.yorumlarAnaDiv > div:nth-child(2) {
+  font-size: 18px;
+  color: #333;
+  margin-top: 5px;
+}
+
+/* Yorumlar Aksiyonları */
 .yorumlarinAksiyonlari {
   display: flex;
-  flex-direction: row;
-  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-top: 8px;
+}
+
+
+
+/* Yorum Yazma Alanı */
+.yorumlariGorYorumYazmaDivi {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+  position: relative; /* Gonder div'inin doğru pozisyonda olabilmesi için */
+}
+
+.yorumlariGorYorumYazmaInputDiv {
+  flex-grow: 1;
+  max-width: calc(100% - 40px); /* Gönder butonunun alanını hesaba katarak input'un genişliğini ayarladık */
+}
+
+.yorumlariGorYorumYazmaInputDiv input {
+  width: 100%;
+  padding: 12px 40px 12px 12px; /* Sağda ikon için yer bırakıldı */
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  transition: border 0.3s;
+  font-size: 16px;
+}
+
+.yorumlariGorYorumYazmaInputDiv input:focus {
+  border-color: #4a90e2;
+}
+
+/* Gönder Butonu */
+.yorumlariGorYorumYazmaGonderDiv {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4a90e2;
+  cursor: pointer;
+  transition: transform 0.3s;
+  z-index: 2; /* Buton input'un üstünde görünsün diye z-index artırıldı */
+}
+
+.yorumlariGorYorumYazmaGonderDiv:hover {
+  transform: scale(1.1);
 }
