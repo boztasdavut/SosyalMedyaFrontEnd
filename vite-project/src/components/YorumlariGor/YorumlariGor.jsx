@@ -8,6 +8,7 @@ import { birYorumdanBegeniKaldir } from "../../services/BirYorumBegeniKaldir.js"
 import { BiSend } from "react-icons/bi";
 import { birYorumaYorumYap } from "../../services/BirYorumaYorumYap.js";
 import { ClipLoader } from "react-spinners";
+import AltYorum from "../AltYorum/AltYorum.jsx";
 
 function YorumlariGor({ gonderiBilgisi }) {
   const [yorumBegeniBilgisi, setYorumBegeniBilgisi] = useState({});
@@ -82,6 +83,10 @@ function YorumlariGor({ gonderiBilgisi }) {
         yorumIcerigiObje
       );
       yorumaYorumYapGelenVeri = JSON.parse(yorumaYorumYapGelenVeri);
+      console.log(
+        "yeni yoruma yorum yap gelen veri= ",
+        yorumaYorumYapGelenVeri
+      );
       setYorumlarState((prev) =>
         prev.map((yorum) => {
           if (yorum.yorumId === yorumId) {
@@ -183,10 +188,9 @@ function YorumlariGor({ gonderiBilgisi }) {
               )}
             </div>
             <div>
-              {altYorumlariGor[yorum.yorumId] &&
-                yorum.altYorumlar.map((altYorum) => (
-                  <div>{altYorum.yeniYorumIcerigi}</div>
-                ))}
+              {altYorumlariGor[yorum.yorumId] && (
+                <AltYorum altYorumlar={yorum.altYorumlar} />
+              )}
             </div>
           </div>
         ))
