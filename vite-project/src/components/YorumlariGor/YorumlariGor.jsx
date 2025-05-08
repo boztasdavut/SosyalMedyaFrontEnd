@@ -37,8 +37,9 @@ function YorumlariGor({ gonderiBilgisi }) {
     if (
       Object.keys(yorumBegeniBilgisi).length > 0 &&
       Object.keys(yorumBegeniSayisi).length > 0 &&
-      yorumlarState.length > 0
+      yorumlarState !== undefined
     ) {
+      console.log("veri= ", yorumlarState);
       setIsLoading(false);
     }
   }, [yorumBegeniBilgisi, yorumBegeniSayisi, yorumlarState]);
@@ -75,14 +76,28 @@ function YorumlariGor({ gonderiBilgisi }) {
       yorumIcerigi: yapilanYorum,
     };
 
-    // Burada yorumlarState güncellemesi gerçekleştirilecek...
-
     try {
-      const yorumaYorumYapGelenVeri = await birYorumaYorumYap(
+      let yorumaYorumYapGelenVeri = await birYorumaYorumYap(
         yorumId,
         yorumIcerigiObje
       );
-      setIsLoading(false);
+      yorumaYorumYapGelenVeri = JSON.parse(yorumaYorumYapGelenVeri);
+      setYorumlarState((prev) =>
+        prev.map((yorum) => {
+          if (yorum.yorumId === yorumId) {
+            // Alt yorumları yeni bir dizi olarak ayarlıyoruz
+            const yeniAltYorumlar = [
+              ...(yorum.altYorumlar || []),
+              yorumaYorumYapGelenVeri,
+            ];
+            return {
+              ...yorum,
+              altYorumlar: yeniAltYorumlar,
+            };
+          }
+          return yorum;
+        })
+      );
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     }
@@ -166,6 +181,12 @@ function YorumlariGor({ gonderiBilgisi }) {
                   Yorumları Gör
                 </div>
               )}
+            </div>
+            <div>
+              {altYorumlariGor[yorum.yorumId] &&
+                yorum.altYorumlar.map((altYorum) => (
+                  <div>{altYorum.yeniYorumIcerigi}</div>
+                ))}
             </div>
           </div>
         ))

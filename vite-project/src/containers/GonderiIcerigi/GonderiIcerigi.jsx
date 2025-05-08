@@ -19,10 +19,10 @@ import { birGonderiyeYorumYap } from "../../services/BirGonderiyeYorumYap.js";
 import { jwtDecode } from "../../services/JwtDecode.js";
 function GonderiIcerigi() {
   const { gonderiId, takmaAd } = useParams();
-  const [gonderiBilgisi, setGonderiBilgisi] = useState({});
+  const [gonderiBilgisi, setGonderiBilgisi] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxImage, setLightboxImage] = useState(null);
-  const inputRefs = useRef({});
+  const [yapilanYorum, setYapilanYorum] = useState("");
   const [yorumlariGorAcikMi, setYorumlariGorAcikMi] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
@@ -62,36 +62,33 @@ function GonderiIcerigi() {
   };
 
   const yorumGonderHandle = async (gonderiId) => {
-    const yorumIcerigi = inputRefs.current[gonderiId].value;
-    if (!yorumIcerigi.trim()) return; // boş yorumları engelle
+    if (!yapilanYorum.trim()) return; // boş yorumları engelle
 
     const yorumBilgisi = {
       gonderiId: gonderiId,
-      yorumIcerigi: yorumIcerigi,
+      yorumIcerigi: yapilanYorum,
     };
 
     try {
+      setIsLoading(true);
+
       const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
       console.log("Yorum yapma gelen veri= ", yorumYapmaGelenVeri);
       const yorumlarListesineEklenecekObje = {
         altYorumlar: [],
         yeniYorumBegeniSayisi: 0,
-        yeniYorumIcerigi: yorumIcerigi,
+        yeniYorumIcerigi: yapilanYorum,
         yeniYorumOlusturulmaTarihi:
           yorumYapmaGelenVeri.yeniYorumOlusturulmaTarihi,
         yorumId: yorumYapmaGelenVeri.yorumId,
         yorumuBegendimMi: false,
       };
-      if (yorumYapmaGelenVeri && yorumYapmaGelenVeri.yeniYorumIcerigi) {
-        setIsLoading(true);
-        inputRefs.current[gonderiId].value = "";
-
+      if (yorumYapmaGelenVeri) {
+        setYapilanYorum("");
         setGonderiBilgisi((prev) => ({
           ...prev,
           yorumlar: [...prev.yorumlar, yorumlarListesineEklenecekObje],
         }));
-
-        // Yorumlar listesini güncelle
       }
     } catch (err) {
       console.log("Yorum gönderme hatası: ", err);
@@ -99,8 +96,26 @@ function GonderiIcerigi() {
   };
 
   useEffect(() => {
-    if (Object.keys(gonderiBilgisi).length > 0) {
+    console.log("Kontrol yapan useEffect'e giriş yapıldı");
+    if (
+      gonderiBilgisi?.begenildiMi !== undefined &&
+      gonderiBilgisi?.gonderiAtanKullaniciFoto !== undefined &&
+      gonderiBilgisi?.gonderiBegeniSayisi !== undefined &&
+      gonderiBilgisi?.gonderiIcerigi !== undefined &&
+      gonderiBilgisi?.gonderiId !== undefined &&
+      gonderiBilgisi?.gonderiMedyaUrl !== undefined &&
+      gonderiBilgisi?.gonderiTarihi !== undefined &&
+      gonderiBilgisi?.gonderiYorumSayisi !== undefined &&
+      gonderiBilgisi?.kullaniciFoto !== undefined &&
+      gonderiBilgisi?.kullaniciId !== undefined &&
+      gonderiBilgisi?.kullaniciTakmaAd !== undefined &&
+      gonderiBilgisi?.yorumlar?.length
+    ) {
+      console.log("Loading false olarak ayarlandı.");
       setIsLoading(false);
+    } else {
+      console.log("UseEffectte else bölümüne girildi.");
+      console.log("else bölümü gelen veri= ", gonderiBilgisi);
     }
   }, [gonderiBilgisi]);
 
@@ -213,7 +228,8 @@ function GonderiIcerigi() {
             <div className="anasayfaGonderiYorumYazmaDivi">
               <div className="anasayfaYorumYazmaInputDiv">
                 <input
-                  ref={(el) => (inputRefs.current[gonderiId] = el)}
+                  value={yapilanYorum}
+                  onChange={(e) => setYapilanYorum(e.target.value)}
                   type="text"
                   placeholder="Yorumunuzu yazın..."
                 />
