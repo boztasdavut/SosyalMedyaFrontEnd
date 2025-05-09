@@ -18,6 +18,9 @@ function YorumlariGor({ gonderiBilgisi }) {
   const inputRefs = useRef({});
   const [yorumlarState, setYorumlarState] = useState([]);
   const [girisYapanKullaniciFoto, setGirisYapanKullaniciFoto] = useState("");
+  const [girilenYorum, setGirilenYorum] = useState(-1);
+  const [yorumaYapilanYorum, setYorumaYapilanYorum] = useState("");
+
   useEffect(() => {
     setIsLoading(true);
     if (gonderiBilgisi.yorumlar.length > 0) {
@@ -71,10 +74,9 @@ function YorumlariGor({ gonderiBilgisi }) {
 
   const yorumaYorumYapHandle = async (yorumId) => {
     setIsLoading(true);
-    const yapilanYorum = inputRefs.current[yorumId].value;
-
+    //const yapilanYorum = inputRefs.current[yorumId].value;
     const yorumIcerigiObje = {
-      yorumIcerigi: yapilanYorum,
+      yorumIcerigi: yorumaYapilanYorum,
     };
 
     try {
@@ -82,11 +84,13 @@ function YorumlariGor({ gonderiBilgisi }) {
         yorumId,
         yorumIcerigiObje
       );
+      setYorumaYapilanYorum("");
       yorumaYorumYapGelenVeri = JSON.parse(yorumaYorumYapGelenVeri);
       console.log(
         "yeni yoruma yorum yap gelen veri= ",
         yorumaYorumYapGelenVeri
       );
+      yorumaYorumYapGelenVeri.altYorumlar = [];
       setYorumlarState((prev) =>
         prev.map((yorum) => {
           if (yorum.yorumId === yorumId) {
@@ -122,6 +126,18 @@ function YorumlariGor({ gonderiBilgisi }) {
     }));
   };
 
+  const yorumaTiklandi = (yorumId) => {
+    console.log("Tiklanan yorum id= ", yorumId);
+    console.log("Tipi= ", typeof yorumId);
+    setGirilenYorum(yorumId);
+  };
+
+  useEffect(() => {
+    if (girilenYorum !== -1) {
+      setIsLoading(false);
+    }
+  }, [girilenYorum]);
+
   return (
     <div>
       {isLoading ? (
@@ -129,71 +145,90 @@ function YorumlariGor({ gonderiBilgisi }) {
           <ClipLoader size={100} color="#4a90e2" />
         </div>
       ) : (
-        yorumlarState.map((yorum) => (
-          <div className="yorumlarAnaDiv" key={yorum.yorumId}>
-            <div>
-              <img src={girisYapanKullaniciFoto} alt="" />
-            </div>
-            <div style={{ fontSize: "20px" }}>{yorum.yeniYorumIcerigi}</div>
-            <div className="yorumlarinAksiyonlari">
-              <div className="begenmeButonu">
-                {yorumBegeniBilgisi[yorum.yorumId] === false ? (
-                  <FavoriteBorderIcon
-                    onClick={() => birYorumuBegenHandle(yorum.yorumId)}
-                    style={{ fontSize: "30px" }}
-                  />
-                ) : (
-                  <FavoriteIcon
-                    onClick={() => birYorumdanBegeniKaldirHandle(yorum.yorumId)}
-                    style={{ fontSize: "30px", color: "red" }}
-                  />
+        yorumlarState.map(
+          (yorum) =>
+            (girilenYorum === -1 || girilenYorum === yorum.yorumId) && (
+              <div
+                onClick={() => yorumaTiklandi(yorum.yorumId)}
+                className="yorumlarAnaDiv"
+                key={yorum.yorumId}
+              >
+                <div>
+                  <img src={girisYapanKullaniciFoto} alt="" />
+                </div>
+                <div style={{ fontSize: "20px" }}>{yorum.yeniYorumIcerigi}</div>
+                <div className="yorumlarinAksiyonlari">
+                  <div className="begenmeButonu">
+                    {yorumBegeniBilgisi[yorum.yorumId] === false ? (
+                      <FavoriteBorderIcon
+                        onClick={() => birYorumuBegenHandle(yorum.yorumId)}
+                        style={{ fontSize: "30px" }}
+                      />
+                    ) : (
+                      <FavoriteIcon
+                        onClick={() =>
+                          birYorumdanBegeniKaldirHandle(yorum.yorumId)
+                        }
+                        style={{ fontSize: "30px", color: "red" }}
+                      />
+                    )}
+                    <span>{yorumBegeniSayisi[yorum.yorumId] ?? 0}</span>
+                  </div>
+                  <div className="yorumButonu">
+                    <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
+                    <span>{yorum.altYorumlar?.length ?? 0}</span>
+                  </div>
+                </div>
+                {yorum.yorumId === girilenYorum && (
+                  <div className="yorumlariGorYorumYazmaDivi">
+                    <div className="yorumlariGorYorumYazmaInputDiv">
+                      <input
+                        value={yorumaYapilanYorum}
+                        onChange={(e) => {
+                          setYorumaYapilanYorum(e.target.value);
+                        }}
+                        type="text"
+                        placeholder="Yorumunuzu yazın... "
+                      />
+                    </div>
+                    <div className="yorumlariGorYorumYazmaGonderDiv">
+                      <BiSend
+                        onClick={() => yorumaYorumYapHandle(yorum.yorumId)}
+                        size={25}
+                      />
+                    </div>
+                  </div>
                 )}
-                <span>{yorumBegeniSayisi[yorum.yorumId] ?? 0}</span>
+                {yorum.yorumId === girilenYorum && (
+                  <div>
+                    {altYorumlariGor[yorum.yorumId] ? (
+                      <div
+                        onClick={() => yorumlariGizleHandle(yorum.yorumId)}
+                        className="yorumlariGorBolumu"
+                      >
+                        Yanıtları Gizle
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() => yorumlariGosterHandle(yorum.yorumId)}
+                        className="yorumlariGorBolumu"
+                      >
+                        Yanıtları Gör
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {yorum.yorumId === girilenYorum && (
+                  <div>
+                    {altYorumlariGor[yorum.yorumId] && (
+                      <AltYorum altYorumlar={yorum.altYorumlar} />
+                    )}
+                  </div>
+                )}
               </div>
-              <div className="yorumButonu">
-                <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
-                <span>{yorum.altYorumlar?.length ?? 0}</span>
-              </div>
-            </div>
-            <div className="yorumlariGorYorumYazmaDivi">
-              <div className="yorumlariGorYorumYazmaInputDiv">
-                <input
-                  ref={(el) => (inputRefs.current[yorum.yorumId] = el)}
-                  type="text"
-                  placeholder="Yorumunuzu yazın..."
-                />
-              </div>
-              <div className="yorumlariGorYorumYazmaGonderDiv">
-                <BiSend
-                  onClick={() => yorumaYorumYapHandle(yorum.yorumId)}
-                  size={25}
-                />
-              </div>
-            </div>
-            <div>
-              {altYorumlariGor[yorum.yorumId] ? (
-                <div
-                  onClick={() => yorumlariGizleHandle(yorum.yorumId)}
-                  className="yorumlariGorBolumu"
-                >
-                  Yorumları Gizle
-                </div>
-              ) : (
-                <div
-                  onClick={() => yorumlariGosterHandle(yorum.yorumId)}
-                  className="yorumlariGorBolumu"
-                >
-                  Yorumları Gör
-                </div>
-              )}
-            </div>
-            <div>
-              {altYorumlariGor[yorum.yorumId] && (
-                <AltYorum altYorumlar={yorum.altYorumlar} />
-              )}
-            </div>
-          </div>
-        ))
+            )
+        )
       )}
     </div>
   );

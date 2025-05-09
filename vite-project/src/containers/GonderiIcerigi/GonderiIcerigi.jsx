@@ -32,6 +32,7 @@ function GonderiIcerigi() {
         const gelenVeri = await belirliBirGonderiyiGetir(gonderiId);
         console.log("Gelen veri= ", gelenVeri);
         setGonderiBilgisi(gelenVeri);
+        console.log(gonderiBilgisi);
       } catch (err) {
         console.log("Bir hata meydana geldi= ", err);
       }

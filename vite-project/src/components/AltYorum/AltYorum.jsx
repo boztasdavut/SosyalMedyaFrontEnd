@@ -6,10 +6,14 @@ import { ClipLoader } from "react-spinners";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { birYorumuBegen } from "../../services/BirYorumuBegen.js";
 import { birYorumdanBegeniKaldir } from "../../services/BirYorumBegeniKaldir.js";
+import { BiSend } from "react-icons/bi";
+
 function AltYorum({ altYorumlar }) {
   const [isLoading, setIsLoading] = useState(true);
   const [begeniBilgisi, setBegeniBilgisi] = useState({});
   const [begeniSayisi, setBegeniSayisi] = useState({});
+  const [girilenAltYorum, setGirilenAltYorum] = useState(-1);
+  const [altYorum, setAltYorum] = useState("");
   useEffect(() => {
     if (Object.keys(altYorumlar).length > 0) {
       setIsLoading(false);
@@ -59,6 +63,15 @@ function AltYorum({ altYorumlar }) {
     birYorumdanBegeniKaldir(yorumId);
   };
 
+  const altYorumTiklandi = (yorumId) => {
+    setGirilenAltYorum(yorumId);
+  };
+
+  const altYorumYapildi = () => {
+    console.log("alt yorum icerigi= ", altYorum);
+    setAltYorum("");
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -67,43 +80,67 @@ function AltYorum({ altYorumlar }) {
         </div>
       ) : (
         <div className="alt-yorum-container">
-          {altYorumlar.map((yorum) => (
-            <div key={yorum.yorumId} className="alt-yorum-card">
-              <img
-                src={yorum.yorumYapanResim}
-                alt={yorum.yorumYapanTakmaAd}
-                className="profile-image"
-              />
-              <div className="yorum-content">
-                <p className="yorum-username">{yorum.yorumYapanTakmaAd}</p>
-                <p className="yorum-text">{yorum.yeniYorumIcerigi}</p>
-                <div className="yorum-actions">
-                  {begeniBilgisi[yorum.yorumId] ? (
-                    <div>
-                      <FavoriteIcon
-                        onClick={() =>
-                          yorumaYorumBegeniKaldirHandle(yorum.yorumId)
-                        }
-                        style={{ fontSize: "30px", color: "red" }}
-                      />
-                      <span>{begeniSayisi[yorum.yorumId]}</span>
-                    </div>
-                  ) : (
-                    <div>
-                      <FavoriteBorderIcon
-                        onClick={() => yorumaYorumBegenHandle(yorum.yorumId)}
-                        style={{ fontSize: "30px" }}
-                      />
-                      <span>{begeniSayisi[yorum.yorumId]}</span>
-                    </div>
-                  )}
+          {altYorumlar.map(
+            (yorum) =>
+              (girilenAltYorum === -1 || girilenAltYorum === yorum.yorumId) && (
+                <div
+                  onClick={() => altYorumTiklandi(yorum.yorumId)}
+                  key={yorum.yorumId}
+                  className="alt-yorum-card"
+                >
+                  <img
+                    src={yorum.yorumYapanResim}
+                    alt={yorum.yorumYapanTakmaAd}
+                    className="profile-image"
+                  />
+                  <div className="yorum-content">
+                    <p className="yorum-username">@{yorum.yorumYapanTakmaAd}</p>
+                    <p className="yorum-text">{yorum.yeniYorumIcerigi}</p>
+                    <div className="yorum-actions">
+                      {begeniBilgisi[yorum.yorumId] ? (
+                        <div className="begenmeButonu">
+                          <FavoriteIcon
+                            onClick={() =>
+                              yorumaYorumBegeniKaldirHandle(yorum.yorumId)
+                            }
+                            style={{ fontSize: "30px", color: "red" }}
+                          />
+                          <span>{begeniSayisi[yorum.yorumId]}</span>
+                        </div>
+                      ) : (
+                        <div className="yorumButonu">
+                          <FavoriteBorderIcon
+                            onClick={() =>
+                              yorumaYorumBegenHandle(yorum.yorumId)
+                            }
+                            style={{ fontSize: "30px" }}
+                          />
+                          <span>{begeniSayisi[yorum.yorumId]}</span>
+                        </div>
+                      )}
 
-                  <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
-                  <span>{yorum.altYorumlar.length}</span>
+                      <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
+                      <span>{yorum.altYorumlar.length}</span>
+                    </div>
+                    {girilenAltYorum === yorum.yorumId && (
+                      <div className="yorumlariGorYorumYazmaDivi">
+                        <div className="yorumlariGorYorumYazmaInputDiv">
+                          <input
+                            type="text"
+                            placeholder="Yorumunuzu yazın... "
+                            value={altYorum}
+                            onChange={(e) => setAltYorum(e.target.value)}
+                          />
+                        </div>
+                        <div className="yorumlariGorYorumYazmaGonderDiv">
+                          <BiSend onClick={altYorumYapildi} size={25} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              )
+          )}
         </div>
       )}
     </div>

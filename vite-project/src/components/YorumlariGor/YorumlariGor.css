@@ -12,6 +12,7 @@
 
 .yorumlarAnaDiv:hover {
   background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 /* Kullanıcı Fotoğrafı */
@@ -39,8 +40,6 @@
   margin-top: 8px;
 }
 
-
-
 /* Yorum Yazma Alanı */
 .yorumlariGorYorumYazmaDivi {
   display: flex;
@@ -52,7 +51,9 @@
 
 .yorumlariGorYorumYazmaInputDiv {
   flex-grow: 1;
-  max-width: calc(100% - 40px); /* Gönder butonunun alanını hesaba katarak input'un genişliğini ayarladık */
+  max-width: calc(
+    100% - 40px
+  ); /* Gönder butonunun alanını hesaba katarak input'un genişliğini ayarladık */
 }
 
 .yorumlariGorYorumYazmaInputDiv input {
