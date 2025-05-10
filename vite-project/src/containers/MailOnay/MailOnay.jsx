@@ -55,16 +55,12 @@ function MailOnay() {
   };
 
   const mailOnayHandle = async () => {
-    console.log("mail adresi = ", location.state?.ePosta);
-    console.log("girilen kod = ", girilenKod);
 
     if (girilenKod.length === 6) {
       try {
         const gelenVeri = await mailOnay(location.state?.ePosta, girilenKod);
-        console.log("Gelen veri = ", gelenVeri);
         navigate("/girisYap");
       } catch (err) {
-        console.error("Kod doğrulama hatası:", err);
         toast.error("Yanlış Onay Kodu");
       }
     } else {

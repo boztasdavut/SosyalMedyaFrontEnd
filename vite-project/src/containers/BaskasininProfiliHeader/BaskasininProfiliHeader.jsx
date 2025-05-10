@@ -20,7 +20,6 @@ function BaskasininProfiliHeader({
   const kullaniciyiTakipEt = async (takipEdilenId) => {
     try {
       const gelenVeri = await birKullaniciyiTakipEt(takipEdilenId);
-      console.log("Kullanici takip etme dönüş= ", gelenVeri);
 
       // local state güncellemesi
       setBaskasininProfiliBilgileri((prev) => ({
@@ -35,7 +34,6 @@ function BaskasininProfiliHeader({
 
   const kullaniciTakiptenCik = async (takipEdilenId) => {
     const gelenVeri = await birKullaniciyiTakiptenCik(takipEdilenId);
-    console.log("Kullanici takipten cikildi. = ", gelenVeri);
     setBaskasininProfiliBilgileri((prev) => ({
       ...prev,
       kullaniciyiTakipEdiyorMuyum: false,

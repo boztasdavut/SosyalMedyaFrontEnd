@@ -31,7 +31,6 @@ function IcMesajIcerigi({
   const [yazilanMesaj, setYazilanMesaj] = useState("");
 
   const onMessageReceived = (message) => {
-    console.log("Yeni mesaj geldi", message);
     setIkiKullaniciArasindakiTumMesajlar((prev) => [...prev, message]);
   };
 
@@ -52,7 +51,6 @@ function IcMesajIcerigi({
     try {
       let nesne = {};
       for (const obj of ikiKullaniciArasindakiTumMesajlar) {
-        console.log("Deger= ", obj["mesajGonderenKullaniciAdi"]);
         if (obj["gonderenKullaniciId"] === oturumSahibiKullaniciId) {
           nesne["aliciKullaniciId"] = karsiTarafIdBilgisi;
           nesne["gonderenKullaniciId"] = oturumSahibiKullaniciId;

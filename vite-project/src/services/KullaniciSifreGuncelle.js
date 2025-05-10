@@ -20,7 +20,6 @@ export const sifreGuncelle = async (sifreDTO) => {
       throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);
     }
 
-    console.log("JWT dogrulama basarili.");
     const responseData = await response.text();
     return responseData;
   } catch (err) {

@@ -16,7 +16,6 @@ function Mesajlasma() {
     const baslangicMesajlariGetir = async () => {
       try {
         const mesajBaslangic = await mesajBaslangicSayfasiGetir();
-        console.log("Mesajlar verisi= ", mesajBaslangic);
         setMesajBaslangicSayfasi(mesajBaslangic);
       } catch (err) {
         console.log("Mesajlasma sayfasinda bir hata meydana geldi= ", err);

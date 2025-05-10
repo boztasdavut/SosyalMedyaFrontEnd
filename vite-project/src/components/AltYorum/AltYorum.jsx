@@ -7,6 +7,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { birYorumuBegen } from "../../services/BirYorumuBegen.js";
 import { birYorumdanBegeniKaldir } from "../../services/BirYorumBegeniKaldir.js";
 import { BiSend } from "react-icons/bi";
+import { birYorumaYorumYap } from "../../services/BirYorumaYorumYap.js";
 
 function AltYorum({ altYorumlar }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,8 +15,10 @@ function AltYorum({ altYorumlar }) {
   const [begeniSayisi, setBegeniSayisi] = useState({});
   const [girilenAltYorum, setGirilenAltYorum] = useState(-1);
   const [altYorum, setAltYorum] = useState("");
+  const [altYorumlarState, setAltYorumlarState] = useState([]);
+  const [altYorumGorunecekMi, setAltYorumGorunecekMi] = useState(false);
   useEffect(() => {
-    if (Object.keys(altYorumlar).length > 0) {
+    if (altYorumlar.length > 0) {
       setIsLoading(false);
       const yeniBegeniBilgisi = {};
       const yeniBegeniSayisi = {};
@@ -26,7 +29,7 @@ function AltYorum({ altYorumlar }) {
       setBegeniBilgisi(yeniBegeniBilgisi);
       setBegeniSayisi(yeniBegeniSayisi);
     }
-    console.log("Altyorum componentine gelen veri= ", altYorumlar);
+    setAltYorumlarState(altYorumlar);
   }, [altYorumlar]);
 
   useEffect(() => {
@@ -67,9 +70,48 @@ function AltYorum({ altYorumlar }) {
     setGirilenAltYorum(yorumId);
   };
 
-  const altYorumYapildi = () => {
-    console.log("alt yorum icerigi= ", altYorum);
-    setAltYorum("");
+  useEffect(() => {
+    if (altYorumlarState.length > 0) {
+      console.log(altYorumlarState);
+      setIsLoading(false);
+    }
+  }, [altYorumlarState]);
+
+  useEffect(() => {
+    if (altYorum.length > 0) {
+      setIsLoading(false);
+    }
+  }, [altYorum]);
+
+  const altYorumYapildi = async (parentYorumId) => {
+    setIsLoading(true);
+    const gonderilecekObje = {
+      yorumIcerigi: altYorum,
+    };
+    try {
+      let yorumaYorumYapGelenVeri = await birYorumaYorumYap(
+        parentYorumId,
+        gonderilecekObje
+      );
+      yorumaYorumYapGelenVeri = JSON.parse(yorumaYorumYapGelenVeri);
+      yorumaYorumYapGelenVeri.altYorumlar = [];
+      console.log("Yorum objesi: ", yorumaYorumYapGelenVeri);
+      setAltYorumlarState((prev) => {
+        return [...prev, yorumaYorumYapGelenVeri];
+      });
+
+      setAltYorum("");
+    } catch (err) {
+      console.log("Bir hata meydana geldi= ", err);
+    }
+  };
+
+  const altYorumlariGosterHandle = () => {
+    setAltYorumGorunecekMi(true);
+  };
+
+  const altYorumlariGizleHandle = () => {
+    setAltYorumGorunecekMi(false);
   };
 
   return (
@@ -80,7 +122,7 @@ function AltYorum({ altYorumlar }) {
         </div>
       ) : (
         <div className="alt-yorum-container">
-          {altYorumlar.map(
+          {altYorumlarState.map(
             (yorum) =>
               (girilenAltYorum === -1 || girilenAltYorum === yorum.yorumId) && (
                 <div
@@ -133,9 +175,30 @@ function AltYorum({ altYorumlar }) {
                           />
                         </div>
                         <div className="yorumlariGorYorumYazmaGonderDiv">
-                          <BiSend onClick={altYorumYapildi} size={25} />
+                          <BiSend
+                            onClick={() => altYorumYapildi(yorum.yorumId)}
+                            size={25}
+                          />
                         </div>
                       </div>
+                    )}
+                    {altYorumGorunecekMi ? (
+                      <div
+                        onClick={altYorumlariGizleHandle}
+                        className="yorumlariGorBolumu"
+                      >
+                        Yanıtları Gizle
+                      </div>
+                    ) : (
+                      <div
+                        onClick={altYorumlariGosterHandle}
+                        className="yorumlariGorBolumu"
+                      >
+                        Yanıtları Gör
+                      </div>
+                    )}
+                    {altYorumGorunecekMi && (
+                      <AltYorum altYorumlar={yorum.altYorumlar} />
                     )}
                   </div>
                 </div>

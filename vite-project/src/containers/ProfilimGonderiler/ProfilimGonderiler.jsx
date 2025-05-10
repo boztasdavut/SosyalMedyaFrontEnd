@@ -67,7 +67,6 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
     const gonderileriGetir = async () => {
       try {
         const gonderiler = await kullanicininTumGonderileriniGetir();
-        console.log("kullanicinin tum gonderileri= ", gonderiler);
         setGonderiSayisi(gonderiler.length);
         setKullanicininTumGonderileri(gonderiler);
 
@@ -109,10 +108,8 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
 
   const handleGonderiSil = async (gonderiId) => {
     setGonderiSilmeLoading(true);
-    console.log("Gonderi sil butonuna tiklandi.", gonderiId);
     try {
       const gelenVeri = await belirtilenGonderiyiSil(gonderiId);
-      console.log("Gönderi silme bilgisi= ", gelenVeri);
       setAktifGonderiId(null);
       setKullanicininTumGonderileri((prevGonderiler) => {
         const yeniListe = prevGonderiler.filter(
@@ -128,7 +125,6 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
   };
 
   const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
-    console.log("Gönderi içine tiklandi.");
     try {
       navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}`);
     } catch (err) {

@@ -43,7 +43,6 @@ function YorumlariGor({ gonderiBilgisi }) {
       Object.keys(yorumBegeniSayisi).length > 0 &&
       yorumlarState !== undefined
     ) {
-      console.log("veri= ", yorumlarState);
       setIsLoading(false);
     }
   }, [yorumBegeniBilgisi, yorumBegeniSayisi, yorumlarState]);
@@ -127,8 +126,6 @@ function YorumlariGor({ gonderiBilgisi }) {
   };
 
   const yorumaTiklandi = (yorumId) => {
-    console.log("Tiklanan yorum id= ", yorumId);
-    console.log("Tipi= ", typeof yorumId);
     setGirilenYorum(yorumId);
   };
 

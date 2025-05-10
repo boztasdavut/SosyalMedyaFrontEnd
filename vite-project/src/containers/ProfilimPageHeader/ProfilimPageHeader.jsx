@@ -53,7 +53,6 @@ function ProfilimPageHeader({ gonderiSayisi }) {
     setIsEditing(false);
     try {
       const gelenVeri = await bioGuncelle(bio);
-      console.log("Bio basariyla güncellendi.");
       toast.success("Bio Başarıyla Güncellendi", {
         style: {
           width: "500px",

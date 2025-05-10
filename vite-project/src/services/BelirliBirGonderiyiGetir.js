@@ -15,7 +15,6 @@ export const belirliBirGonderiyiGetir = async (gonderiId) => {
       const errorText = await response.text();
       throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);
     }
-    console.log("JWT dogrulama basarili.");
     const responseData = await response.json();
     return responseData;
   } catch (err) {

@@ -65,17 +65,13 @@ function BaskasininProfiliGonderiler({
   const yorumGonderHandle = async (gonderiId) => {
     const kullaniciId = await jwtDecode();
     const yorumIcerigi = inputRefs.current[gonderiId].value;
-    console.log("Yorum yapan kullanici id= ", kullaniciId);
-    console.log("Yorum icerigi= ", yorumIcerigi);
-    console.log("Yorum yapilan gonderi id= ", gonderiId);
+
   };
 
   const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
-    console.log("Gönderi içine tiklandi.");
     try {
       navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}`);
     } catch (err) {
-      console.log("Bir hata meydana geldi= ", err);
     }
   };
 

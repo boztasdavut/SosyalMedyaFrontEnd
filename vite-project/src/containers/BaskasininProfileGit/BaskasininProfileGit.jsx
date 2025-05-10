@@ -18,7 +18,6 @@ function BaskasininProfileGit() {
     const baskasininProfiliGetirDemo = async (takmaAd) => {
       try {
         const gelenVeri = await baskasininProfiliniGetir(takmaAd);
-        //console.log("baskasinin profili gelen veri= ", gelenVeri);
         setBaskasininProfiliBilgileri(gelenVeri);
       } catch (err) {
         console.log("Bir hata meydana geldi", err);

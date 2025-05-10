@@ -22,7 +22,6 @@ function GirisYap() {
 
     try {
       const apidenGelenCevap = await login(kullanicininGirdigiBilgiler);
-      console.log("Apiden gelen cevap= " + apidenGelenCevap);
       navigate("/anasayfa");
     } catch (error) {
       console.log("Giriş yapılamadı:", error.message);

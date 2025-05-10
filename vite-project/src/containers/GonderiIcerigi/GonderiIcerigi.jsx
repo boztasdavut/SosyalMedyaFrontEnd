@@ -30,9 +30,7 @@ function GonderiIcerigi() {
       try {
         setIsLoading(true);
         const gelenVeri = await belirliBirGonderiyiGetir(gonderiId);
-        console.log("Gelen veri= ", gelenVeri);
         setGonderiBilgisi(gelenVeri);
-        console.log(gonderiBilgisi);
       } catch (err) {
         console.log("Bir hata meydana geldi= ", err);
       }
@@ -74,7 +72,6 @@ function GonderiIcerigi() {
       setIsLoading(true);
 
       const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
-      console.log("Yorum yapma gelen veri= ", yorumYapmaGelenVeri);
       const yorumlarListesineEklenecekObje = {
         altYorumlar: [],
         yeniYorumBegeniSayisi: 0,
@@ -97,7 +94,6 @@ function GonderiIcerigi() {
   };
 
   useEffect(() => {
-    console.log("Kontrol yapan useEffect'e giriş yapıldı");
     if (
       gonderiBilgisi?.begenildiMi !== undefined &&
       gonderiBilgisi?.gonderiAtanKullaniciFoto !== undefined &&
@@ -112,12 +108,8 @@ function GonderiIcerigi() {
       gonderiBilgisi?.kullaniciTakmaAd !== undefined &&
       gonderiBilgisi?.yorumlar?.length
     ) {
-      console.log("Loading false olarak ayarlandı.");
       setIsLoading(false);
-    } else {
-      console.log("UseEffectte else bölümüne girildi.");
-      console.log("else bölümü gelen veri= ", gonderiBilgisi);
-    }
+    } 
   }, [gonderiBilgisi]);
 
   const yorumlariAc = () => {
@@ -131,7 +123,6 @@ function GonderiIcerigi() {
 
   const gonderiPaylasanProfilineGit = async (takmaAd, kullaniciId) => {
     const kullaniciIdBilgisi = await jwtDecode();
-    console.log("Kullanici id bilgisi= ", kullaniciIdBilgisi);
     if (kullaniciIdBilgisi === kullaniciId) {
       const yonlendirilecekUrlAdresi = "/profilim";
       navigate(yonlendirilecekUrlAdresi);

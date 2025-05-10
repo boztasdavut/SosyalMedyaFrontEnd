@@ -27,7 +27,6 @@ function KayitOl() {
       kullaniciDogumTarihi: kullaniciDogumTarihi,
     };
     const donenVeri = await register(kullanicininGirdigiBilgiler);
-    console.log("donen veri= ", donenVeri);
     navigate("/mailOnay", {
       state: { ePosta: kullaniciEPosta },
     });
