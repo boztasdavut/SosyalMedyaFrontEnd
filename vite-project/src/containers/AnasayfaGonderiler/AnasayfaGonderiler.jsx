@@ -69,7 +69,7 @@ function AnasayfaGonderiler({
   const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
     console.log("Gönderi içine tiklandi.");
     try {
-      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}`);
+      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}?comments=all`);
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     }

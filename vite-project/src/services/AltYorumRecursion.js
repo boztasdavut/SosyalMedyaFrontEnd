@@ -15,7 +15,7 @@ export const recursiveAltYorumGetir = (altYorumObjesi) => {
     altYorumObjesi.altYorumlar.forEach((altYorum) => collectComments(altYorum));
   }
 
-  collectComments(comment);
+  collectComments(altYorumObjesi);
 
   return allComments;
 };

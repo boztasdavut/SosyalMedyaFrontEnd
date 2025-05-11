@@ -8,19 +8,18 @@ import { birYorumdanBegeniKaldir } from "../../services/BirYorumBegeniKaldir.js"
 import { BiSend } from "react-icons/bi";
 import { birYorumaYorumYap } from "../../services/BirYorumaYorumYap.js";
 import { ClipLoader } from "react-spinners";
+import { useSearchParams } from "react-router-dom";
 import AltYorum from "../AltYorum/AltYorum.jsx";
-
 function YorumlariGor({ gonderiBilgisi }) {
   const [yorumBegeniBilgisi, setYorumBegeniBilgisi] = useState({});
   const [yorumBegeniSayisi, setYorumBegeniSayisi] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [altYorumlariGor, setAltYorumlariGor] = useState({});
-  const inputRefs = useRef({});
   const [yorumlarState, setYorumlarState] = useState([]);
   const [girisYapanKullaniciFoto, setGirisYapanKullaniciFoto] = useState("");
-  const [girilenYorum, setGirilenYorum] = useState(-1);
   const [yorumaYapilanYorum, setYorumaYapilanYorum] = useState("");
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [acikCevapVerId, setAcikCevapVerId] = useState(null);
   useEffect(() => {
     setIsLoading(true);
     if (gonderiBilgisi.yorumlar.length > 0) {
@@ -73,7 +72,6 @@ function YorumlariGor({ gonderiBilgisi }) {
 
   const yorumaYorumYapHandle = async (yorumId) => {
     setIsLoading(true);
-    //const yapilanYorum = inputRefs.current[yorumId].value;
     const yorumIcerigiObje = {
       yorumIcerigi: yorumaYapilanYorum,
     };
@@ -85,15 +83,10 @@ function YorumlariGor({ gonderiBilgisi }) {
       );
       setYorumaYapilanYorum("");
       yorumaYorumYapGelenVeri = JSON.parse(yorumaYorumYapGelenVeri);
-      console.log(
-        "yeni yoruma yorum yap gelen veri= ",
-        yorumaYorumYapGelenVeri
-      );
       yorumaYorumYapGelenVeri.altYorumlar = [];
       setYorumlarState((prev) =>
         prev.map((yorum) => {
           if (yorum.yorumId === yorumId) {
-            // Alt yorumları yeni bir dizi olarak ayarlıyoruz
             const yeniAltYorumlar = [
               ...(yorum.altYorumlar || []),
               yorumaYorumYapGelenVeri,
@@ -111,29 +104,33 @@ function YorumlariGor({ gonderiBilgisi }) {
     }
   };
 
-  const yorumlariGizleHandle = (yorumId) => {
-    setAltYorumlariGor((prev) => ({
-      ...prev,
-      [yorumId]: false,
-    }));
+  const belirliYorumaOdaklan = (yorumId) => {
+    console.log("yorum id= ", yorumId.toString());
+    console.log(typeof yorumId.toString());
+    setIsLoading(true);
+    setSearchParams({ comments: yorumId.toString() });
+    console.log("Search params= ", searchParams.get("comments"));
   };
 
-  const yorumlariGosterHandle = (yorumId) => {
-    setAltYorumlariGor((prev) => ({
-      ...prev,
-      [yorumId]: true,
-    }));
-  };
-
-  const yorumaTiklandi = (yorumId) => {
-    setGirilenYorum(yorumId);
+  const yorumaCevapVer = (yorumId) => {
+    setIsLoading(true);
+    setAcikCevapVerId(yorumId);
   };
 
   useEffect(() => {
-    if (girilenYorum !== -1) {
+    if (acikCevapVerId !== null) {
       setIsLoading(false);
     }
-  }, [girilenYorum]);
+  }, [acikCevapVerId]);
+
+  useEffect(() => {
+    console.log("useEffect içerisine girildi.");
+    const yorumId = searchParams.get("comments");
+    if (yorumId) {
+      console.log("useEffect yorum id bilgisi= ", yorumId);
+      setIsLoading(false); // URL değişimi tamamlandığında loading'i kapat
+    }
+  }, [searchParams]); // searchParams her değiştiğinde kontrol et
 
   return (
     <div>
@@ -142,30 +139,41 @@ function YorumlariGor({ gonderiBilgisi }) {
           <ClipLoader size={100} color="#4a90e2" />
         </div>
       ) : (
-        yorumlarState.map(
-          (yorum) =>
-            (girilenYorum === -1 || girilenYorum === yorum.yorumId) && (
+        yorumlarState.map((yorum) => {
+          // Fixed the conditional rendering
+          if (
+            searchParams.get("comments") === "all" ||
+            searchParams.get("comments") === yorum.yorumId.toString()
+          ) {
+            return (
               <div
-                onClick={() => yorumaTiklandi(yorum.yorumId)}
+                {...(searchParams.get("comments") === yorum.yorumId.toString()
+                  ? {}
+                  : { onClick: () => belirliYorumaOdaklan(yorum.yorumId) })}
                 className="yorumlarAnaDiv"
                 key={yorum.yorumId}
               >
                 <div>
                   <img src={girisYapanKullaniciFoto} alt="" />
+                  <span>@{yorum.yorumYapanTakmaAd}</span>
                 </div>
                 <div style={{ fontSize: "20px" }}>{yorum.yeniYorumIcerigi}</div>
                 <div className="yorumlarinAksiyonlari">
                   <div className="begenmeButonu">
                     {yorumBegeniBilgisi[yorum.yorumId] === false ? (
                       <FavoriteBorderIcon
-                        onClick={() => birYorumuBegenHandle(yorum.yorumId)}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          birYorumuBegenHandle(yorum.yorumId);
+                        }}
                         style={{ fontSize: "30px" }}
                       />
                     ) : (
                       <FavoriteIcon
-                        onClick={() =>
-                          birYorumdanBegeniKaldirHandle(yorum.yorumId)
-                        }
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          birYorumdanBegeniKaldirHandle(yorum.yorumId);
+                        }}
                         style={{ fontSize: "30px", color: "red" }}
                       />
                     )}
@@ -176,7 +184,7 @@ function YorumlariGor({ gonderiBilgisi }) {
                     <span>{yorum.altYorumlar?.length ?? 0}</span>
                   </div>
                 </div>
-                {yorum.yorumId === girilenYorum && (
+                {acikCevapVerId === yorum.yorumId ? (
                   <div className="yorumlariGorYorumYazmaDivi">
                     <div className="yorumlariGorYorumYazmaInputDiv">
                       <input
@@ -190,42 +198,28 @@ function YorumlariGor({ gonderiBilgisi }) {
                     </div>
                     <div className="yorumlariGorYorumYazmaGonderDiv">
                       <BiSend
-                        onClick={() => yorumaYorumYapHandle(yorum.yorumId)}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          yorumaYorumYapHandle(yorum.yorumId);
+                        }}
                         size={25}
                       />
                     </div>
                   </div>
-                )}
-                {yorum.yorumId === girilenYorum && (
-                  <div>
-                    {altYorumlariGor[yorum.yorumId] ? (
-                      <div
-                        onClick={() => yorumlariGizleHandle(yorum.yorumId)}
-                        className="yorumlariGorBolumu"
-                      >
-                        Yanıtları Gizle
-                      </div>
-                    ) : (
-                      <div
-                        onClick={() => yorumlariGosterHandle(yorum.yorumId)}
-                        className="yorumlariGorBolumu"
-                      >
-                        Yanıtları Gör
-                      </div>
-                    )}
-                  </div>
+                ) : (
+                  <p onClick={() => yorumaCevapVer(yorum.yorumId)}>Yanıt Ver</p>
                 )}
 
-                {yorum.yorumId === girilenYorum && (
+                {searchParams.get("comments") === yorum.yorumId.toString() && (
                   <div>
-                    {altYorumlariGor[yorum.yorumId] && (
-                      <AltYorum altYorumlar={yorum.altYorumlar} />
-                    )}
+                    <AltYorum altYorumlar={yorum.altYorumlar} />
                   </div>
                 )}
               </div>
-            )
-        )
+            );
+          }
+          return null;
+        })
       )}
     </div>
   );

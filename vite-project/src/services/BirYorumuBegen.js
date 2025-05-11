@@ -1,18 +1,17 @@
-export const birYorumuBegen = (yorumId) => {
+export const birYorumuBegen = async (yorumId) => {
   try {
     const jwt = localStorage.getItem("jwt");
-    const response = fetch(
+    const response = await fetch(
       `https://bitirmeproje.xyz/api/yorumBegeniler/${yorumId}/begeni`,
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${jwt}`,
         },
       }
     );
     if (!response.ok) {
-      const errorText = response.text();
+      const errorText = await response.text();
       console.log("JWT dogrulama basarisiz");
       console.log(errorText);
       throw new Error(`Hata mesajı: ${response.status} - ${errorText}`);

@@ -17,8 +17,13 @@ import { BiSend } from "react-icons/bi";
 import YorumlariGor from "../../components/YorumlariGor/YorumlariGor.jsx";
 import { birGonderiyeYorumYap } from "../../services/BirGonderiyeYorumYap.js";
 import { jwtDecode } from "../../services/JwtDecode.js";
+import { useSearchParams } from "react-router-dom";
+
 function GonderiIcerigi() {
   const { gonderiId, takmaAd } = useParams();
+  const [searchParams] = useSearchParams();
+  const comments = searchParams.get("comments"); // Örneğin "all" veya "10"
+
   const [gonderiBilgisi, setGonderiBilgisi] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [lightboxImage, setLightboxImage] = useState(null);
@@ -30,6 +35,7 @@ function GonderiIcerigi() {
       try {
         setIsLoading(true);
         const gelenVeri = await belirliBirGonderiyiGetir(gonderiId);
+        console.log("GönderiBilgisi verisi= ", gelenVeri);
         setGonderiBilgisi(gelenVeri);
       } catch (err) {
         console.log("Bir hata meydana geldi= ", err);
@@ -109,7 +115,7 @@ function GonderiIcerigi() {
       gonderiBilgisi?.yorumlar?.length
     ) {
       setIsLoading(false);
-    } 
+    }
   }, [gonderiBilgisi]);
 
   const yorumlariAc = () => {
@@ -235,20 +241,7 @@ function GonderiIcerigi() {
               </div>
             </div>
             <div>
-              {yorumlariGorAcikMi === true ? (
-                <div onClick={yorumlariKapat} className="yorumlariGorBolumu">
-                  Yorumları Gizle
-                </div>
-              ) : (
-                <div onClick={yorumlariAc} className="yorumlariGorBolumu">
-                  Yorumları Gör
-                </div>
-              )}
-            </div>
-            <div>
-              {yorumlariGorAcikMi === true && (
-                <YorumlariGor gonderiBilgisi={gonderiBilgisi} />
-              )}
+              <YorumlariGor gonderiBilgisi={gonderiBilgisi}  />
             </div>
           </div>
         </div>

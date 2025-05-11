@@ -1,48 +1,50 @@
-.alt-yorum-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 10px;
-  }
+.altYorum{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+
+.altYorumHeader{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   
-  .alt-yorum-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .yorum-content {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .yorum-username {
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  .yorum-text {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #333;
-  }
-  
-  .yorum-actions {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 5px;
-  }
-  
+}
+
+.altYorumAvatar{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.yorumBegenmeDivi{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.altYorumLikeCount{
+  margin-left: 5px;
+}
+
+.yorumYorumDivi{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.altYorumActions{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 15px;
+
+
+}
+
+.altYorumCevapVerAnaDiv{
+  display: flex;
+  flex-direction: row;
+}
