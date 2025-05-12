@@ -75,7 +75,7 @@ function AnasayfaGonderiler({
     }
   };
 
-  const yorumGonderHandle = async (gonderiId) => {
+  const yorumGonderHandle = async (gonderiId, kullaniciTakmaAd) => {
     const yorumIcerigi = inputRefs.current[gonderiId].value;
     const yorumBilgisi = {
       gonderiId: gonderiId,
@@ -84,6 +84,8 @@ function AnasayfaGonderiler({
     try {
       const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
       console.log("Anasayfa Yorum yapma durumu sonuc= ", yorumYapmaGelenVeri);
+      inputRefs.current[gonderiId].value = "";
+      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}?comments=all`);
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     }
@@ -218,7 +220,12 @@ function AnasayfaGonderiler({
                   />
                 </div>
                 <div
-                  onClick={() => yorumGonderHandle(gonderi.gonderiId)}
+                  onClick={() =>
+                    yorumGonderHandle(
+                      gonderi.gonderiId,
+                      gonderi.takipEdilenKullaniciTakmaAd
+                    )
+                  }
                   className="anasayfaYorumYazmaGonderDiv"
                 >
                   <BiSend size={25} />

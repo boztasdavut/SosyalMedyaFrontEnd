@@ -42,7 +42,7 @@ function GonderiIcerigi() {
       }
     };
     gonderiIcerigineTiklandi();
-  }, [gonderiId]);
+  }, []);
 
   const birGonderiyiBegen = async (gonderiId) => {
     if (!gonderiBilgisi) return;
@@ -78,6 +78,7 @@ function GonderiIcerigi() {
       setIsLoading(true);
 
       const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
+      console.log("yorumYapmaGelenVeri= ", yorumYapmaGelenVeri);
       const yorumlarListesineEklenecekObje = {
         altYorumlar: [],
         yeniYorumBegeniSayisi: 0,
@@ -86,8 +87,10 @@ function GonderiIcerigi() {
           yorumYapmaGelenVeri.yeniYorumOlusturulmaTarihi,
         yorumId: yorumYapmaGelenVeri.yorumId,
         yorumuBegendimMi: false,
+        yorumYapanTakmaAd: takmaAd,
       };
       if (yorumYapmaGelenVeri) {
+        console.log("gonderi bilgisi= ", gonderiBilgisi);
         setYapilanYorum("");
         setGonderiBilgisi((prev) => ({
           ...prev,
@@ -111,21 +114,12 @@ function GonderiIcerigi() {
       gonderiBilgisi?.gonderiYorumSayisi !== undefined &&
       gonderiBilgisi?.kullaniciFoto !== undefined &&
       gonderiBilgisi?.kullaniciId !== undefined &&
-      gonderiBilgisi?.kullaniciTakmaAd !== undefined &&
-      gonderiBilgisi?.yorumlar?.length
+      gonderiBilgisi?.kullaniciTakmaAd !== undefined
+      //gonderiBilgisi?.yorumlar?.length
     ) {
       setIsLoading(false);
     }
   }, [gonderiBilgisi]);
-
-  const yorumlariAc = () => {
-    console.log("yorumları gör butonuna tiklandi");
-    setYorumlariGorAcikMi(true);
-  };
-
-  const yorumlariKapat = () => {
-    setYorumlariGorAcikMi(false);
-  };
 
   const gonderiPaylasanProfilineGit = async (takmaAd, kullaniciId) => {
     const kullaniciIdBilgisi = await jwtDecode();
@@ -228,6 +222,7 @@ function GonderiIcerigi() {
                 <input
                   value={yapilanYorum}
                   onChange={(e) => setYapilanYorum(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
                   type="text"
                   placeholder="Yorumunuzu yazın..."
                 />
@@ -241,7 +236,7 @@ function GonderiIcerigi() {
               </div>
             </div>
             <div>
-              <YorumlariGor gonderiBilgisi={gonderiBilgisi}  />
+              <YorumlariGor gonderiBilgisi={gonderiBilgisi} />
             </div>
           </div>
         </div>

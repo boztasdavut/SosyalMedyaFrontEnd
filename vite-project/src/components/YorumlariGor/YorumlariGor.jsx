@@ -8,21 +8,25 @@ import { birYorumdanBegeniKaldir } from "../../services/BirYorumBegeniKaldir.js"
 import { BiSend } from "react-icons/bi";
 import { birYorumaYorumYap } from "../../services/BirYorumaYorumYap.js";
 import { ClipLoader } from "react-spinners";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import AltYorum from "../AltYorum/AltYorum.jsx";
 function YorumlariGor({ gonderiBilgisi }) {
   const [yorumBegeniBilgisi, setYorumBegeniBilgisi] = useState({});
   const [yorumBegeniSayisi, setYorumBegeniSayisi] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [altYorumlariGor, setAltYorumlariGor] = useState({});
   const [yorumlarState, setYorumlarState] = useState([]);
   const [girisYapanKullaniciFoto, setGirisYapanKullaniciFoto] = useState("");
   const [yorumaYapilanYorum, setYorumaYapilanYorum] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const [acikCevapVerId, setAcikCevapVerId] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
-    setIsLoading(true);
+    console.log("yorumlariGor useEffect icerisine girildi.");
     if (gonderiBilgisi.yorumlar.length > 0) {
+      console.log("if kosulu icerisine girildi.");
+      setIsLoading(true);
       const yeniBegeniBilgisi = {};
       const yeniBegeniSayisi = {};
       gonderiBilgisi.yorumlar.forEach((yorum) => {
@@ -33,6 +37,8 @@ function YorumlariGor({ gonderiBilgisi }) {
       setYorumBegeniSayisi(yeniBegeniSayisi);
       setYorumlarState(gonderiBilgisi.yorumlar);
       setGirisYapanKullaniciFoto(gonderiBilgisi.kullaniciFoto);
+    } else {
+      console.log("else bölümüne girildi.");
     }
   }, []);
 
@@ -105,11 +111,17 @@ function YorumlariGor({ gonderiBilgisi }) {
   };
 
   const belirliYorumaOdaklan = (yorumId) => {
-    console.log("yorum id= ", yorumId.toString());
-    console.log(typeof yorumId.toString());
-    setIsLoading(true);
-    setSearchParams({ comments: yorumId.toString() });
-    console.log("Search params= ", searchParams.get("comments"));
+    const mevcutYorumId = searchParams.get("comments");
+
+    // Eğer mevcut yorum ID'si ile aynıysa çık, değilse gir
+    if (mevcutYorumId === yorumId.toString()) {
+      const baseUrl = location.pathname + "?comments=all";
+      navigate(baseUrl);
+    } else {
+      console.log("else kısmına giris yapildi.");
+      const baseUrl = location.pathname + `?comments=${yorumId}`;
+      navigate(baseUrl);
+    }
   };
 
   const yorumaCevapVer = (yorumId) => {
@@ -147,9 +159,7 @@ function YorumlariGor({ gonderiBilgisi }) {
           ) {
             return (
               <div
-                {...(searchParams.get("comments") === yorum.yorumId.toString()
-                  ? {}
-                  : { onClick: () => belirliYorumaOdaklan(yorum.yorumId) })}
+                onClick={() => belirliYorumaOdaklan(yorum.yorumId)}
                 className="yorumlarAnaDiv"
                 key={yorum.yorumId}
               >
@@ -184,7 +194,7 @@ function YorumlariGor({ gonderiBilgisi }) {
                     <span>{yorum.altYorumlar?.length ?? 0}</span>
                   </div>
                 </div>
-                {acikCevapVerId === yorum.yorumId ? (
+                {searchParams.get("comments") === yorum.yorumId.toString() && (
                   <div className="yorumlariGorYorumYazmaDivi">
                     <div className="yorumlariGorYorumYazmaInputDiv">
                       <input
@@ -192,22 +202,21 @@ function YorumlariGor({ gonderiBilgisi }) {
                         onChange={(e) => {
                           setYorumaYapilanYorum(e.target.value);
                         }}
+                        onClick={(event) => event.stopPropagation()}
                         type="text"
                         placeholder="Yorumunuzu yazın... "
                       />
                     </div>
-                    <div className="yorumlariGorYorumYazmaGonderDiv">
-                      <BiSend
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          yorumaYorumYapHandle(yorum.yorumId);
-                        }}
-                        size={25}
-                      />
+                    <div
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        yorumaYorumYapHandle(yorum.yorumId);
+                      }}
+                      className="yorumlariGorYorumYazmaGonderDiv"
+                    >
+                      <BiSend size={25} />
                     </div>
                   </div>
-                ) : (
-                  <p onClick={() => yorumaCevapVer(yorum.yorumId)}>Yanıt Ver</p>
                 )}
 
                 {searchParams.get("comments") === yorum.yorumId.toString() && (

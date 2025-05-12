@@ -92,19 +92,28 @@ function AltYorum({ altYorumlar }) {
     setAcikCevapVerId(yorumId);
   };
 
-  const yanitlariGosterHandle = (yorumId) => {
-    setYorumlariGoster([...yorumlariGoster, yorumId]);
-  };
-
-  const yanitlariGizleHandle = (yorumId) => {
-    let filtrelenmis = yorumlariGoster.filter((id) => id !== yorumId);
-    setYorumlariGoster(filtrelenmis);
+  const yanitlariGostermeStateHandle = (yorumId) => {
+    setYorumlariGoster((prevState) => {
+      if (prevState.includes(yorumId)) {
+        return prevState.filter((id) => id !== yorumId);
+      } else {
+        return [...prevState, yorumId];
+      }
+    });
+    setAcikCevapVerId("");
   };
 
   return (
     <div className="altYorumlarContainer">
       {altYorumlarState.map((altYorum) => (
-        <div className="altYorum" key={altYorum.yorumId}>
+        <div
+          onClick={(event) => {
+            event.stopPropagation();
+            yanitlariGostermeStateHandle(altYorum.yorumId);
+          }}
+          className="altYorum"
+          key={altYorum.yorumId}
+        >
           <div className="altYorumHeader">
             <div>
               <img
@@ -169,6 +178,7 @@ function AltYorum({ altYorumlar }) {
                   onChange={(e) => setYanitVer(e.target.value)}
                   type="text"
                   placeholder="Yorumunuzu yazın... "
+                  onClick={(event) => event.stopPropagation()}
                 />
               </div>
               <div className="altYorumCevapVerSendDiv">
@@ -179,19 +189,17 @@ function AltYorum({ altYorumlar }) {
               </div>
             </div>
           ) : (
-            <p onClick={() => yorumaCevapVer(altYorum.yorumId)}>Yanıt Ver</p>
-          )}
-          {yorumlariGoster.includes(altYorum.yorumId) ? (
-            <div>
-              <p onClick={() => yanitlariGizleHandle(altYorum.yorumId)}>
-                Yanıtları Gizle
-              </p>
-              <AltYorum altYorumlar={altYorum.altYorumlar} />
-            </div>
-          ) : (
-            <p onClick={() => yanitlariGosterHandle(altYorum.yorumId)}>
-              Yanıtları Goster
+            <p
+              onClick={(event) => {
+                event.stopPropagation();
+                yorumaCevapVer(altYorum.yorumId);
+              }}
+            >
+              Yanıt Ver
             </p>
+          )}
+          {yorumlariGoster.includes(altYorum.yorumId) && (
+            <AltYorum altYorumlar={altYorum.altYorumlar} />
           )}
         </div>
       ))}
