@@ -10,6 +10,7 @@ import GonderiPaylas from "./components/GonderiPaylas/GonderiPaylas.jsx";
 import BaskasininProfileGit from "./containers/BaskasininProfileGit/BaskasininProfileGit.jsx";
 import ProfilAyarlari from "./containers/ProfilAyarlari/ProfilAyarlari.jsx";
 import GonderiIcerigi from "./containers/GonderiIcerigi/GonderiIcerigi.jsx";
+import AnketlerimGenel from "./containers/AnketlerimGenel/AnketlerimGenel.jsx";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             path="/gonderiler/:takmaAd/:gonderiId"
             element={<GonderiIcerigi />}
           />
+          <Route path="/anketlerim" element={<AnketlerimGenel />} />
         </Routes>
       </Router>
     </>

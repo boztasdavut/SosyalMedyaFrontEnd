@@ -9,7 +9,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import Tooltip from "@mui/material/Tooltip";
-
+import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
 function SolMenu() {
   const [kullanicininProfilBilgileri, setKullanicininProfilBilgileri] =
     useState({});
@@ -49,6 +49,10 @@ function SolMenu() {
     navigate("/ayarlar");
   };
 
+  const anketlereGit = async () => {
+    navigate("/anketlerim");
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -74,6 +78,11 @@ function SolMenu() {
           <Tooltip title="Arama Yap">
             <div onClick={aramaYap}>
               <SearchOutlinedIcon style={{ fontSize: "50px" }} />
+            </div>
+          </Tooltip>
+          <Tooltip title="Anketler">
+            <div onClick={anketlereGit}>
+              <PollOutlinedIcon style={{ fontSize: "50px" }} />
             </div>
           </Tooltip>
           <Tooltip title="Ayarlar">
