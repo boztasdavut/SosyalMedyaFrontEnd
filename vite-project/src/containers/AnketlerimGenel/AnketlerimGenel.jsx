@@ -9,44 +9,47 @@ function AnketlerimGenel() {
   const [seciliAlan, setSeciliAlan] = useState(1);
 
   return (
-    <div className="anketlerimGenelDiv">
+    <div className="anketlerimDiv">
       <SolMenu />
       <Mesajlasma />
-      <div className="anketlerimUstMenuAnaDiv">
-        <div
-          onClick={() => setSeciliAlan(1)}
-          className={clsx(
-            "anketlerimUstMenu",
-            seciliAlan === 1
-              ? "anketlerimSeciliUstMenuBackgroundColor"
-              : "anketlerimSecisizUstMenuBackgroundColor"
-          )}
-        >
-          Anket Keşfet
-        </div>
-        <div
-          onClick={() => setSeciliAlan(2)}
-          className={clsx(
-            "anketlerimUstMenu",
-            seciliAlan === 2
-              ? "anketlerimSeciliUstMenuBackgroundColor"
-              : "anketlerimSecisizUstMenuBackgroundColor"
-          )}
-        >
-          Anket Oluştur
-        </div>
-        <div
-          onClick={() => setSeciliAlan(3)}
-          className={clsx(
-            "anketlerimUstMenu",
-            seciliAlan === 3
-              ? "anketlerimSeciliUstMenuBackgroundColor"
-              : "anketlerimSecisizUstMenuBackgroundColor"
-          )}
-        >
-          Anketlerim
+      <div className="anketlerimGenelDiv">
+        <div className="anketlerimUstMenuAnaDiv">
+          <div
+            onClick={() => setSeciliAlan(1)}
+            className={clsx(
+              "anketlerimUstMenu",
+              seciliAlan === 1
+                ? "anketlerimSeciliUstMenuBackgroundColor"
+                : "anketlerimSecisizUstMenuBackgroundColor"
+            )}
+          >
+            Anket Keşfet
+          </div>
+          <div
+            onClick={() => setSeciliAlan(2)}
+            className={clsx(
+              "anketlerimUstMenu",
+              seciliAlan === 2
+                ? "anketlerimSeciliUstMenuBackgroundColor"
+                : "anketlerimSecisizUstMenuBackgroundColor"
+            )}
+          >
+            Anket Oluştur
+          </div>
+          <div
+            onClick={() => setSeciliAlan(3)}
+            className={clsx(
+              "anketlerimUstMenu",
+              seciliAlan === 3
+                ? "anketlerimSeciliUstMenuBackgroundColor"
+                : "anketlerimSecisizUstMenuBackgroundColor"
+            )}
+          >
+            Anketlerim
+          </div>
         </div>
       </div>
+
       {seciliAlan === 1 && <div>Anket keşfet bölümü açıldı.</div>}
       {seciliAlan === 2 && (
         <div>

@@ -1,31 +1,35 @@
-.anketlerimGenelDiv{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 20px;
+.anketlerimGenelDiv {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
 }
 
-.anketlerimUstMenuAnaDiv{
-    display: flex;
-    flex-direction: row;
+.anketlerimUstMenuAnaDiv {
+  display: flex;
+  flex-direction: row;
 }
 
-.anketlerimUstMenu{
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 15px;
-    
+.anketlerimUstMenu {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 15px;
 }
 
-.anketlerimUstMenu:hover{
-    cursor: pointer;
+.anketlerimUstMenu:hover {
+  cursor: pointer;
 }
 
-.anketlerimSeciliUstMenuBackgroundColor{
-    background-color: aquamarine;
+.anketlerimSeciliUstMenuBackgroundColor {
+  background-color: aquamarine;
 }
 
-.anketlerimSecisizUstMenuBackgroundColor{
-    background-color: rgb(238, 236, 236);
+.anketlerimSecisizUstMenuBackgroundColor {
+  background-color: rgb(238, 236, 236);
 }
 
+.anketlerimDiv {
+  width: 100%;
+  margin: auto;
+}

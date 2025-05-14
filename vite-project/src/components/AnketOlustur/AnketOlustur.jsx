@@ -1,42 +1,61 @@
 import React, { useState } from "react";
 import "./AnketOlustur.css";
-import ControlPointOutlinedIcon from "@mui/icons-material/ControlPointOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 function AnketOlustur() {
   const [secenekSayisi, setSecenekSayisi] = useState(1);
   const [soruYazisi, setSoruYazisi] = useState("");
-  const [seceneklerinBilgisi, setSeceneklerinBilgisi] = useState({});
+  const [seceneklerinBilgisi, setSeceneklerinBilgisi] = useState([""]);
+  const [editableList, setEditableList] = useState({});
 
-  const secenekInputChange = (event, index) => {
-    const gelenVeri = event.target.value;
-    setSeceneklerinBilgisi((prevSecenekler) => ({
-      ...prevSecenekler, // Copy previous values
-      [index]: gelenVeri, // Update the value for the specific index
-    }));
+  const secenekGirisiYapildi = (secenekGirisi) => {
+    setSeceneklerinBilgisi([...seceneklerinBilgisi, secenekGirisi]);
+    setEditableList({ ...editableList, [secenekGirisi]: true });
   };
 
-  const consoldaGoster = () => {
-    console.log(seceneklerinBilgisi);
+  const consoldaGoster = () => {};
+
+  const birSecenegiSil = (value) => {
+    seceneklerinBilgisi((prevItem) => prevItem.filter((_, i) => i !== value));
+  };
+
+  const yeniBirSecenekEkle = () => {
+    setSeceneklerinBilgisi([...seceneklerinBilgisi, ""]);
   };
 
   return (
-    <div>
-      <div>
-        <textarea
+    <div className="anketOlusturAnaDiv">
+      <h3>Soru</h3>
+      <div className="soruGirisAlaniDiv">
+        <input
+          className="soruGirisAlaniInput"
+          type="text"
           value={soruYazisi}
           onChange={(e) => setSoruYazisi(e.target.value)}
         />
       </div>
+      <h4>Seçenekler</h4>
       <div className="anketSecenekleriAnaDiv">
-        {Array.from({ length: secenekSayisi }).map((veri, index) => (
-          <div key={index}>
-            <input type="text" onChange={(e) => secenekInputChange(e, index)} />
+        {seceneklerinBilgisi.map((veri, index) => (
+          <div key={index} className="secenekGirmeDiv">
+            <input
+              disabled={editableList.veri}
+              className="secenekGirmeInput"
+              type="text"
+            />
+            <div className="birSecenegiOnaylamaDiv">
+              <CheckOutlinedIcon onClick={secenekGirisiYapildi} />
+            </div>
+            <div className="birSecenegiSilmeDiv">
+              <DeleteOutlineOutlinedIcon />
+            </div>
           </div>
         ))}
       </div>
-      <div onClick={() => setSecenekSayisi(secenekSayisi + 1)}>
+      <div onClick={yeniBirSecenekEkle} className="yeniSecenekEkleDiv">
         Yeni Seçenek Ekle
       </div>
-      <div onClick={consoldaGoster}>Anketi Kaydet</div>
+      <div className="anketiKaydetDiv">Anketi Kaydet</div>
     </div>
   );
 }

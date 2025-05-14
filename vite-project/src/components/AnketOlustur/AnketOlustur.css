@@ -1,0 +1,72 @@
+.soruGirisAlaniInput {
+  font-size: 20px;
+  padding: 5px;
+  width: 25%;
+}
+
+.soruGirisAlaniDiv {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.anketOlusturAnaDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.anketSecenekleriAnaDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.secenekGirmeDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.secenekGirmeInput {
+  width: 20%;
+  font-size: 15px;
+  padding: 5px;
+  margin: 10px;
+}
+
+.yeniSecenekEkleDiv {
+  background-color: blueviolet;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.yeniSecenekEkleDiv:hover {
+  cursor: pointer;
+}
+
+.anketiKaydetDiv {
+  margin-top: 10px;
+  background-color: cornflowerblue;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.birSecenegiSilmeDiv {
+  display: flex;
+  align-items: center;
+}
+
+.birSecenegiSilmeDiv:hover {
+  cursor: pointer;
+}
+
+.birSecenegiOnaylamaDiv {
+  display: flex;
+  align-items: center;
+}
+
+.birSecenegiOnaylamaDiv:hover {
+  cursor: pointer;
+}
