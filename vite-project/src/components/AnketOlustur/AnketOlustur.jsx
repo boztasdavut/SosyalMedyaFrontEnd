@@ -2,25 +2,32 @@ import React, { useState } from "react";
 import "./AnketOlustur.css";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
+
 function AnketOlustur() {
-  const [secenekSayisi, setSecenekSayisi] = useState(1);
   const [soruYazisi, setSoruYazisi] = useState("");
   const [seceneklerinBilgisi, setSeceneklerinBilgisi] = useState([""]);
-  const [editableList, setEditableList] = useState({});
 
-  const secenekGirisiYapildi = (secenekGirisi) => {
-    setSeceneklerinBilgisi([...seceneklerinBilgisi, secenekGirisi]);
-    setEditableList({ ...editableList, [secenekGirisi]: true });
+  const secenekGirisiYapildi = (index, value) => {
+    const yeniSecenekler = [...seceneklerinBilgisi];
+    yeniSecenekler[index] = value;
+    setSeceneklerinBilgisi(yeniSecenekler);
   };
 
-  const consoldaGoster = () => {};
-
-  const birSecenegiSil = (value) => {
-    seceneklerinBilgisi((prevItem) => prevItem.filter((_, i) => i !== value));
+  const birSecenegiSil = (index) => {
+    setSeceneklerinBilgisi((prev) => prev.filter((_, i) => i !== index));
   };
 
   const yeniBirSecenekEkle = () => {
     setSeceneklerinBilgisi([...seceneklerinBilgisi, ""]);
+  };
+
+  const anketTotalVeriKaydetmeyeHazir = () => {
+    const totalAnketVerisi = {
+      soruYazisi: soruYazisi,
+      soruSecenekleri: seceneklerinBilgisi,
+    };
+
+    console.log("Gönderilecek veri= ", totalAnketVerisi);
   };
 
   return (
@@ -39,14 +46,14 @@ function AnketOlustur() {
         {seceneklerinBilgisi.map((veri, index) => (
           <div key={index} className="secenekGirmeDiv">
             <input
-              disabled={editableList.veri}
+              value={veri}
               className="secenekGirmeInput"
-              type="text"
+              onChange={(e) => secenekGirisiYapildi(index, e.target.value)}
             />
-            <div className="birSecenegiOnaylamaDiv">
-              <CheckOutlinedIcon onClick={secenekGirisiYapildi} />
-            </div>
-            <div className="birSecenegiSilmeDiv">
+            <div
+              onClick={() => birSecenegiSil(index)}
+              className="birSecenegiSilmeDiv"
+            >
               <DeleteOutlineOutlinedIcon />
             </div>
           </div>
@@ -55,7 +62,9 @@ function AnketOlustur() {
       <div onClick={yeniBirSecenekEkle} className="yeniSecenekEkleDiv">
         Yeni Seçenek Ekle
       </div>
-      <div className="anketiKaydetDiv">Anketi Kaydet</div>
+      <div className="anketiKaydetDiv" onClick={anketTotalVeriKaydetmeyeHazir}>
+        Anketi Kaydet
+      </div>
     </div>
   );
 }

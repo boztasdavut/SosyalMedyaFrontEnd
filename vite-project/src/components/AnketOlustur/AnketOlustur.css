@@ -40,6 +40,7 @@
   background-color: blueviolet;
   padding: 10px;
   border-radius: 5px;
+  color: white;
 }
 
 .yeniSecenekEkleDiv:hover {
@@ -51,15 +52,25 @@
   background-color: cornflowerblue;
   padding: 10px;
   border-radius: 5px;
+  color: white;
+}
+
+.anketiKaydetDiv:hover{
+  cursor: pointer;
 }
 
 .birSecenegiSilmeDiv {
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: 1s;
+  width: 50px;
 }
 
 .birSecenegiSilmeDiv:hover {
   cursor: pointer;
+  border-radius: 50%;
+  background-color: rgb(241, 231, 231);
 }
 
 .birSecenegiOnaylamaDiv {
