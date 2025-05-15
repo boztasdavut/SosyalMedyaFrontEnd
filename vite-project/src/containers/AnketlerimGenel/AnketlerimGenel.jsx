@@ -4,9 +4,23 @@ import SolMenu from "../SolMenu/SolMenu";
 import Mesajlasma from "../Mesajlasma/Mesajlasma";
 import clsx from "clsx";
 import AnketOlustur from "../../components/AnketOlustur/AnketOlustur";
+import Anketlerim from "../../components/Anketlerim/Anketlerim";
+import { useNavigate } from "react-router-dom";
 
-function AnketlerimGenel() {
-  const [seciliAlan, setSeciliAlan] = useState(1);
+function AnketlerimGenel({ seciliAlan = 1 }) {
+  const navigate = useNavigate();
+
+  const anketlerimSecenegi = () => {
+    navigate(`/anketlerim/anketlerimiGor?anketId=all`);
+  };
+
+  const anketOlusturSecenegi = () => {
+    navigate(`/anketlerim/anketOlustur`);
+  };
+
+  const anketOnerileriSecenegi = () => {
+    navigate(`/anketlerim/anketOnerileri`);
+  };
 
   return (
     <div className="anketlerimDiv">
@@ -15,7 +29,7 @@ function AnketlerimGenel() {
       <div className="anketlerimGenelDiv">
         <div className="anketlerimUstMenuAnaDiv">
           <div
-            onClick={() => setSeciliAlan(1)}
+            onClick={anketOnerileriSecenegi}
             className={clsx(
               "anketlerimUstMenu",
               seciliAlan === 1
@@ -26,7 +40,7 @@ function AnketlerimGenel() {
             Anket Keşfet
           </div>
           <div
-            onClick={() => setSeciliAlan(2)}
+            onClick={anketOlusturSecenegi}
             className={clsx(
               "anketlerimUstMenu",
               seciliAlan === 2
@@ -37,7 +51,7 @@ function AnketlerimGenel() {
             Anket Oluştur
           </div>
           <div
-            onClick={() => setSeciliAlan(3)}
+            onClick={anketlerimSecenegi}
             className={clsx(
               "anketlerimUstMenu",
               seciliAlan === 3
@@ -49,14 +63,6 @@ function AnketlerimGenel() {
           </div>
         </div>
       </div>
-
-      {seciliAlan === 1 && <div>Anket keşfet bölümü açıldı.</div>}
-      {seciliAlan === 2 && (
-        <div>
-          <AnketOlustur />
-        </div>
-      )}
-      {seciliAlan === 3 && <div>Olusturduğum anketler bölümü açıldı.</div>}
     </div>
   );
 }

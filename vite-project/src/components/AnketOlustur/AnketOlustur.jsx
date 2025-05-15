@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./AnketOlustur.css";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
+import { anketiKaydet } from "../../services/AnketKaydet.js";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Anketlerim from "../Anketlerim/Anketlerim.jsx";
+import AnketlerimGenel from "../../containers/AnketlerimGenel/AnketlerimGenel.jsx";
 
 function AnketOlustur() {
   const [soruYazisi, setSoruYazisi] = useState("");
@@ -21,17 +25,27 @@ function AnketOlustur() {
     setSeceneklerinBilgisi([...seceneklerinBilgisi, ""]);
   };
 
-  const anketTotalVeriKaydetmeyeHazir = () => {
+  const anketTotalVeriKaydetmeyeHazir = async () => {
     const totalAnketVerisi = {
       soruYazisi: soruYazisi,
       soruSecenekleri: seceneklerinBilgisi,
     };
 
-    console.log("Gönderilecek veri= ", totalAnketVerisi);
+    try {
+      const gelenCevap = await anketiKaydet(totalAnketVerisi);
+      toast.success("Anket Başarıyla Kaydedildi.");
+      setSoruYazisi("");
+      setSeceneklerinBilgisi([""]);
+    } catch (err) {
+      toast.error("Anket oluşturulurken bir hata meydana geldi.");
+      console.log("Bir hata meydana geldi= ", err);
+    }
   };
 
   return (
     <div className="anketOlusturAnaDiv">
+      <AnketlerimGenel seciliAlan={2} />
+      <ToastContainer position="top-right" autoClose={3000} />
       <h3>Soru</h3>
       <div className="soruGirisAlaniDiv">
         <input
@@ -43,8 +57,12 @@ function AnketOlustur() {
       </div>
       <h4>Seçenekler</h4>
       <div className="anketSecenekleriAnaDiv">
-        {seceneklerinBilgisi.map((veri, index) => (
+        {seceneklerinBilgisi?.map((veri, index) => (
           <div key={index} className="secenekGirmeDiv">
+            <div className="secenekNumarasi">
+              <span style={{ fontSize: "20px" }}>{index + 1})</span>
+            </div>
+
             <input
               value={veri}
               className="secenekGirmeInput"

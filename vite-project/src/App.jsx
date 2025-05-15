@@ -11,7 +11,9 @@ import BaskasininProfileGit from "./containers/BaskasininProfileGit/BaskasininPr
 import ProfilAyarlari from "./containers/ProfilAyarlari/ProfilAyarlari.jsx";
 import GonderiIcerigi from "./containers/GonderiIcerigi/GonderiIcerigi.jsx";
 import AnketlerimGenel from "./containers/AnketlerimGenel/AnketlerimGenel.jsx";
-
+import Anketlerim from "./components/Anketlerim/Anketlerim.jsx";
+import AnketOlustur from "./components/AnketOlustur/AnketOlustur.jsx";
+import AnketKesfet from "./components/AnketKesfet/AnketKesfet.jsx";
 function App() {
   return (
     <>
@@ -31,6 +33,9 @@ function App() {
             element={<GonderiIcerigi />}
           />
           <Route path="/anketlerim" element={<AnketlerimGenel />} />
+          <Route path="/anketlerim/anketlerimiGor" element={<Anketlerim />} />
+          <Route path="/anketlerim/anketOlustur" element={<AnketOlustur />} />
+          <Route path="/anketlerim/anketOnerileri" element={<AnketKesfet />} />
         </Routes>
       </Router>
     </>

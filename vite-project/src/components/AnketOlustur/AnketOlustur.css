@@ -1,7 +1,7 @@
 .soruGirisAlaniInput {
   font-size: 20px;
-  padding: 5px;
-  width: 25%;
+  padding: 15px;
+  width: 50%;
 }
 
 .soruGirisAlaniDiv {
@@ -32,7 +32,7 @@
 .secenekGirmeInput {
   width: 20%;
   font-size: 15px;
-  padding: 5px;
+  padding: 15px;
   margin: 10px;
 }
 
@@ -55,7 +55,7 @@
   color: white;
 }
 
-.anketiKaydetDiv:hover{
+.anketiKaydetDiv:hover {
   cursor: pointer;
 }
 
@@ -80,4 +80,10 @@
 
 .birSecenegiOnaylamaDiv:hover {
   cursor: pointer;
+}
+
+.secenekNumarasi {
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
