@@ -4,7 +4,7 @@ import { anketlerimiGetir } from "../../services/AnketlerimServis.js";
 import { ClipLoader } from "react-spinners";
 import { useLocation, useNavigate } from "react-router-dom";
 import AnketlerimGenel from "../../containers/AnketlerimGenel/AnketlerimGenel.jsx";
-import AnketSilmeEminMisin from "../AnketSilmeEminMisin/AnketSilmeEminMisin.jsx";
+import AnketSilmeOnayModal from "../AnketSilmeOnayModal/AnketSilmeOnayModal.jsx";
 
 function Anketlerim() {
   const [kullanicininTumAnketleri, setKullanicininTumAnketleri] =
@@ -13,7 +13,9 @@ function Anketlerim() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  useEffect(() => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [silinecekAnketBilgisi, setSilinecekAnketBilgisi] = useState(null);
+  /*useEffect(() => {
     const tumAnketleriminBilgisi = async () => {
       const gelenVeri = await anketlerimiGetir();
       setKullanicininTumAnketleri(gelenVeri);
@@ -21,7 +23,7 @@ function Anketlerim() {
     };
 
     tumAnketleriminBilgisi();
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     if (kullanicininTumAnketleri !== null) {
@@ -36,17 +38,34 @@ function Anketlerim() {
     navigate(`${path}?anketId=${stringAnketId}`);
   };
 
-  useEffect(() => {
+  /*
+    
+    useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const filtre = queryParams.get("anketId");
     console.log(typeof filtre, " degeri: ", filtre);
     setFiltreBilgisi(filtre);
   }, [location.search]);
+    */
 
-  const anketSilmeButonu = (e) => {
-    // burada modal alt yapısı entegre edilecek.
-    e.stopPropagation();
-    return <AnketSilmeEminMisin />;
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const filtre = queryParams.get("anketId");
+    setFiltreBilgisi(filtre);
+
+    const tumAnketleriminBilgisi = async () => {
+      setLoading(true); // veri gelirken loading göstermek için
+      const gelenVeri = await anketlerimiGetir();
+      setKullanicininTumAnketleri(gelenVeri);
+      setLoading(false);
+    };
+
+    tumAnketleriminBilgisi();
+  }, [location.search]);
+
+  const anketSilmeOnaylama = (anketId) => {
+    setModalIsOpen(true);
+    setSilinecekAnketBilgisi(anketId);
   };
 
   return (
@@ -64,6 +83,13 @@ function Anketlerim() {
         </div>
       ) : (
         <div>
+          {modalIsOpen && (
+            <AnketSilmeOnayModal
+              modalControl={setModalIsOpen}
+              anketId={silinecekAnketBilgisi}
+            />
+          )}
+
           <AnketlerimGenel seciliAlan={3} />
           <div className="tumAnketSorularDiv">
             {kullanicininTumAnketleri.map(
@@ -87,17 +113,19 @@ function Anketlerim() {
                         {e.secenekMetni}
                       </div>
                     ))}
-                    <div className="soruCardFooterAnaDiv">
-                      <div className="istatistikleriGorButonu">
-                        İstatistikleri Gör
+                    {element.anketId.toString() === filtreBilgisi && (
+                      <div className="soruCardFooterAnaDiv">
+                        <div className="istatistikleriGorButonu">
+                          İstatistikleri Gör
+                        </div>
+                        <div
+                          onClick={() => anketSilmeOnaylama(element.anketId)}
+                          className="anketiSilDiv"
+                        >
+                          Anketi Sil
+                        </div>
                       </div>
-                      <div
-                        onClick={(e) => anketSilmeButonu(e)}
-                        className="anketiSilDiv"
-                      >
-                        Anketi Sil
-                      </div>
-                    </div>
+                    )}
                   </div>
                 )
             )}
