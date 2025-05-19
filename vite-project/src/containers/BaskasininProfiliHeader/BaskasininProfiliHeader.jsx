@@ -12,6 +12,7 @@ function BaskasininProfiliHeader({
   const [isLoading, setIsLoading] = useState(true);
   const [kullaniciyiTakipEdiyorMuyum, setKullaniciyiTakipEdiyorMuyum] =
     useState(null);
+    
 
   useEffect(() => {
     setIsLoading(false);

@@ -18,7 +18,8 @@ function AltYorum({ altYorumlar }) {
     console.log("alt yorumlar= ", altYorumlar);
   }, [altYorumlar]);
 
-  const birYorumuBegenHandle = (yorumId) => {
+  const birYorumuBegenHandle = (yorumId, e) => {
+    e.stopPropagation();
     setAltYorumlarState((prev) =>
       prev.map((yorum) =>
         yorum.yorumId === yorumId
@@ -34,7 +35,8 @@ function AltYorum({ altYorumlar }) {
     birYorumuBegen(yorumId);
   };
 
-  const birYorumdanBegeniKaldirHandle = (yorumId) => {
+  const birYorumdanBegeniKaldirHandle = (yorumId, e) => {
+    e.stopPropagation();
     setAltYorumlarState((prev) =>
       prev.map((yorum) =>
         yorum.yorumId === yorumId
@@ -134,8 +136,8 @@ function AltYorum({ altYorumlar }) {
               {altYorum.yorumuBegendimMi ? (
                 <div>
                   <FavoriteIcon
-                    onClick={() =>
-                      birYorumdanBegeniKaldirHandle(altYorum.yorumId)
+                    onClick={(e) =>
+                      birYorumdanBegeniKaldirHandle(altYorum.yorumId, e)
                     }
                     className="altYorumLikedIcon altYorumActionIcon"
                     style={{ fontSize: "30px", color: "red" }}
@@ -144,7 +146,7 @@ function AltYorum({ altYorumlar }) {
               ) : (
                 <div>
                   <FavoriteBorderIcon
-                    onClick={() => birYorumuBegenHandle(altYorum.yorumId)}
+                    onClick={(e) => birYorumuBegenHandle(altYorum.yorumId, e)}
                     className="altYorumLikeIcon altYorumActionIcon"
                     style={{ fontSize: "30px" }}
                   />

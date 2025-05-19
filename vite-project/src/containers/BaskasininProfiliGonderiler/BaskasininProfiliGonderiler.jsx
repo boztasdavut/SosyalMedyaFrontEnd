@@ -65,14 +65,12 @@ function BaskasininProfiliGonderiler({
   const yorumGonderHandle = async (gonderiId) => {
     const kullaniciId = await jwtDecode();
     const yorumIcerigi = inputRefs.current[gonderiId].value;
-
   };
 
   const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
     try {
-      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}`);
-    } catch (err) {
-    }
+      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}?comments=all`);
+    } catch (err) {}
   };
 
   return (

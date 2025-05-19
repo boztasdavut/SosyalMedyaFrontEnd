@@ -26,7 +26,8 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
   const navigate = useNavigate();
   const [lightboxImage, setLightboxImage] = useState(null);
 
-  const birGonderiyiBegen = async (gonderiId) => {
+  const birGonderiyiBegen = async (gonderiId, e) => {
+    e.stopPropagation();
     const gonderi = kullanicininTumGonderileri.find(
       (g) => g.gonderiId === gonderiId
     );
@@ -126,7 +127,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
 
   const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
     try {
-      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}`);
+      navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}?comments=all`);
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     }
@@ -190,7 +191,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
 
                 <div className="profilimGonderiAksiyonlariDiv">
                   <div
-                    onClick={() => birGonderiyiBegen(gonderi.gonderiId)}
+                    onClick={(e) => birGonderiyiBegen(gonderi.gonderiId, e)}
                     className="profilimBegenmeButonu"
                   >
                     {gonderi.begenildiMi ? (
@@ -200,6 +201,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                     ) : (
                       <FavoriteBorderIcon style={{ fontSize: "30px" }} />
                     )}
+
                     <span>{gonderi.gonderiBegeniSayisi}</span>
                   </div>
                   <div className="profilimYorumButonu">
@@ -210,24 +212,6 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                     <SendOutlinedIcon style={{ fontSize: "30px" }} />
                   </div>
                 </div>
-
-                {aktifGonderiId === gonderi.gonderiId ? (
-                  <div className="profilimGonderiSecenekleri">
-                    <div onClick={() => handleGonderiSil(gonderi.gonderiId)}>
-                      Gönderiyi Sil
-                    </div>
-                    <div>Gönderi İstatistikleri</div>
-                  </div>
-                ) : (
-                  <div
-                    onClick={() =>
-                      gonderiSeceneklerineTiklandi(gonderi.gonderiId)
-                    }
-                    className="profilimGonderiSecenekleriGiris"
-                  >
-                    <MoreVertIcon />
-                  </div>
-                )}
               </div>
             </div>
           ))}

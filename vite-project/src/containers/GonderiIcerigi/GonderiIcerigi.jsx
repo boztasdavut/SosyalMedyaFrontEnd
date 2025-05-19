@@ -18,6 +18,8 @@ import YorumlariGor from "../../components/YorumlariGor/YorumlariGor.jsx";
 import { birGonderiyeYorumYap } from "../../services/BirGonderiyeYorumYap.js";
 import { jwtDecode } from "../../services/JwtDecode.js";
 import { useSearchParams } from "react-router-dom";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import { jwtTakmaAdAl } from "../../services/MevcutTakmaAdAl.js";
 
 function GonderiIcerigi() {
   const { gonderiId, takmaAd } = useParams();
@@ -76,7 +78,7 @@ function GonderiIcerigi() {
 
     try {
       setIsLoading(true);
-
+      const kullaniciTakmaAdiBilgisi = await jwtTakmaAdAl();
       const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
       console.log("yorumYapmaGelenVeri= ", yorumYapmaGelenVeri);
       const yorumlarListesineEklenecekObje = {
@@ -87,7 +89,8 @@ function GonderiIcerigi() {
           yorumYapmaGelenVeri.yeniYorumOlusturulmaTarihi,
         yorumId: yorumYapmaGelenVeri.yorumId,
         yorumuBegendimMi: false,
-        yorumYapanTakmaAd: takmaAd,
+        yorumYapanTakmaAd: kullaniciTakmaAdiBilgisi,
+        yorumYapanResim: gonderiBilgisi.kullaniciFoto,
       };
       if (yorumYapmaGelenVeri) {
         console.log("gonderi bilgisi= ", gonderiBilgisi);
@@ -132,6 +135,10 @@ function GonderiIcerigi() {
     }
   };
 
+  const geriDon = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
       <SolMenu />
@@ -144,6 +151,9 @@ function GonderiIcerigi() {
       ) : (
         <div>
           <div key={gonderiId} className="gonderCardDiv">
+            <div onClick={geriDon}>
+              <ArrowBackOutlinedIcon className="gonderidenGeriDon" />
+            </div>
             <div className="profilResmiVeTakmaAdDiv">
               <div>
                 <img

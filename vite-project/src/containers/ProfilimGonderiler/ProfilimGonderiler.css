@@ -9,6 +9,8 @@
   margin-bottom: 10px;
 }
 
+
+
 .profilimGonderiCardVeGonderiAyarlari div {
   margin-bottom: 10px;
 }
@@ -40,6 +42,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.profilimProfilResmiVeTakmaAdVeAyarlarDiv:hover{
+  cursor: pointer;
 }
 
 .profilimProfilResmiVeTakmaAdDiv {
@@ -140,4 +146,22 @@
   object-fit: contain;
   border-radius: 6px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.profilimBegenmeButonu{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.profilimBegenmeButonu:hover{
+  cursor: pointer;
+}
+
+.profilimYorumButonu{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 6px;
 }

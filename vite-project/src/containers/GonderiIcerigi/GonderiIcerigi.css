@@ -8,3 +8,12 @@
 .yorumlariGorBolumu:hover{
     cursor: pointer;
 }
+
+.gonderidenGeriDon{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.gonderidenGeriDon:hover{
+    cursor: pointer;
+}

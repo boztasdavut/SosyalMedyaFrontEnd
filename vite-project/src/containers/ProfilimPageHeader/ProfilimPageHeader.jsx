@@ -12,8 +12,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { bioGuncelle } from "../../services/BioGuncelle.js";
+import TakipcileriGosterModal from "../../components/TakipcileriGosterModal/TakipcileriGosterModal.jsx";
 
-function ProfilimPageHeader({ gonderiSayisi }) {
+function ProfilimPageHeader({
+  gonderiSayisi,
+  setIsTakipcilerModalOpen,
+  setTakipcilerListesi,
+  setTakipEdilenlerListesi,
+  setIsTakipEdilenlerModalOpen,
+}) {
   const [kullaniciProfilBilgileri, setKullaniciProfilBilgileri] = useState({});
   const [kullaniciTakipcileri, setKullaniciTakipcileri] = useState({});
   const [kullaniciTakipEttikleri, setKullaniciTakipEttikleri] = useState({});
@@ -31,6 +38,8 @@ function ProfilimPageHeader({ gonderiSayisi }) {
         setKullaniciProfilBilgileri(profilBilgileri);
         setKullaniciTakipcileri(takipciler);
         setKullaniciTakipEttikleri(takipEdilenler);
+        console.log("Takipciler bilgisi= ", takipciler);
+        console.log("Takip edilenler= ", takipEdilenler);
       } catch (err) {
         console.log("Bir hata oluştu: ", err);
       } finally {
@@ -100,6 +109,16 @@ function ProfilimPageHeader({ gonderiSayisi }) {
     }
   };
 
+  const takipcilerModalHandle = () => {
+    setTakipcilerListesi(kullaniciTakipcileri);
+    setIsTakipcilerModalOpen(true);
+  };
+
+  const takipEdilenlerModalHandle = () => {
+    setTakipEdilenlerListesi(kullaniciTakipEttikleri);
+    setIsTakipEdilenlerModalOpen(true);
+  };
+
   return (
     <div>
       <ToastContainer position="top-center" />
@@ -142,10 +161,10 @@ function ProfilimPageHeader({ gonderiSayisi }) {
                 <div>
                   <strong>{gonderiSayisi}</strong> gönderi
                 </div>
-                <div>
+                <div onClick={takipcilerModalHandle}>
                   <strong>{kullaniciTakipcileri.followCount}</strong> takipçi
                 </div>
-                <div>
+                <div onClick={takipEdilenlerModalHandle}>
                   <strong>{kullaniciTakipEttikleri.followCount}</strong> takip
                 </div>
               </div>

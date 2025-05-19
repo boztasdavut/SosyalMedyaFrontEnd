@@ -24,6 +24,7 @@ function YorumlariGor({ gonderiBilgisi }) {
   const location = useLocation();
   useEffect(() => {
     console.log("yorumlariGor useEffect icerisine girildi.");
+    console.log("gonderi bilgisi= ", gonderiBilgisi);
     if (gonderiBilgisi.yorumlar.length > 0) {
       console.log("if kosulu icerisine girildi.");
       setIsLoading(true);
@@ -90,6 +91,11 @@ function YorumlariGor({ gonderiBilgisi }) {
       setYorumaYapilanYorum("");
       yorumaYorumYapGelenVeri = JSON.parse(yorumaYorumYapGelenVeri);
       yorumaYorumYapGelenVeri.altYorumlar = [];
+      yorumaYorumYapGelenVeri.yorumYapanResim = gonderiBilgisi.kullaniciFoto;
+      yorumaYorumYapGelenVeri.yorumYapanTakmaAd =
+        gonderiBilgisi.kullaniciTakmaAd;
+      console.log("Yorum yap gelen veri= ", yorumaYorumYapGelenVeri);
+
       setYorumlarState((prev) =>
         prev.map((yorum) => {
           if (yorum.yorumId === yorumId) {
@@ -163,9 +169,13 @@ function YorumlariGor({ gonderiBilgisi }) {
                 className="yorumlarAnaDiv"
                 key={yorum.yorumId}
               >
-                <div>
-                  <img src={girisYapanKullaniciFoto} alt="" />
-                  <span>@{yorum.yorumYapanTakmaAd}</span>
+                <div className="anaYorumFotoVeTakmaAd">
+                  <div>
+                    <img src={yorum.yorumYapanResim} alt="" />
+                  </div>
+                  <div>
+                    <span>@{yorum.yorumYapanTakmaAd}</span>
+                  </div>
                 </div>
                 <div style={{ fontSize: "20px" }}>{yorum.yeniYorumIcerigi}</div>
                 <div className="yorumlarinAksiyonlari">
