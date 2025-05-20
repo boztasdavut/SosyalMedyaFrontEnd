@@ -73,6 +73,8 @@
 /* Gönder Butonu */
 .yorumlariGorYorumYazmaGonderDiv {
   position: absolute;
+  display: flex;
+  align-items: center;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
@@ -82,9 +84,6 @@
   z-index: 2; /* Buton input'un üstünde görünsün diye z-index artırıldı */
 }
 
-.yorumlariGorYorumYazmaGonderDiv:hover {
-  transform: scale(1.1);
-}
 
 .anaYorumFotoVeTakmaAd{
   display: flex;

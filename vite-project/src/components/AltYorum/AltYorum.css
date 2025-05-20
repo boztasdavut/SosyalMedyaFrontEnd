@@ -48,3 +48,69 @@
   display: flex;
   flex-direction: row;
 }
+/* —— Wrapper: artık VERTİKAL padding YOK ——  sadece sağa yer açıyoruz —— */
+.altYorumCevapVerAnaDiv {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #fff;
+  padding: 0 44px 0 0;           /* üst/alt padding = 0, sağda 44px for ikon */
+  transition: border-color 0.2s;
+  max-width: calc(100% - 40px);
+
+}
+
+/* focus olunca wrapper’ın border’ı mavi olsun */
+.altYorumCevapVerAnaDiv:focus-within {
+  border-color: #4a90e2;
+}
+
+/* —— Input: artık padding-top/bottom 0, sabit height veriyoruz —— */
+.altYorumCevapVerInputDiv input {
+  width: 100%;
+  height: 40px;                  /* orijinal istediğin yüksekliğe ayarla */
+  border: none;
+  outline: none;
+  padding: 0 16px;               /* dikey boşluk 0, yatay 16px */
+  font-size: 16px;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+/* —— Ok butonu aynı kaldı —— */
+.altYorumCevapVerSendDiv {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4a90e2;
+  font-size: 22px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.altYorumCevapVerBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;           /* tıklanabilir alanı biraz büyüttük */
+  font-size: 14px;
+  font-weight: 500;
+  color: #4a90e2;             /* vurgu rengi */
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.altYorumCevapVerBtn:hover {
+  background-color: rgba(74, 144, 226, 0.1);
+  color: #2f78c2;
+}

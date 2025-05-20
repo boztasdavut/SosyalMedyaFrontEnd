@@ -195,6 +195,7 @@ function AltYorum({ altYorumlar }) {
             </div>
           ) : (
             <p
+              className="altYorumCevapVerBtn"
               onClick={(event) => {
                 event.stopPropagation();
                 yorumaCevapVer(altYorum.yorumId);
