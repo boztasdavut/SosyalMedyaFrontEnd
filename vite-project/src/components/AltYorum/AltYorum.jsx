@@ -7,12 +7,14 @@ import { birYorumuBegen } from "../../services/BirYorumuBegen.js";
 import { birYorumdanBegeniKaldir } from "../../services/BirYorumBegeniKaldir.js";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { birYorumaYorumYap } from "../../services/BirYorumaYorumYap.js";
+import { ClipLoader } from "react-spinners";
 
 function AltYorum({ altYorumlar }) {
   const [altYorumlarState, setAltYorumlarState] = useState([]);
   const [yanitVer, setYanitVer] = useState("");
   const [acikCevapVerId, setAcikCevapVerId] = useState(null);
   const [yorumlariGoster, setYorumlariGoster] = useState([]);
+
   useEffect(() => {
     setAltYorumlarState(altYorumlar);
     console.log("alt yorumlar= ", altYorumlar);
@@ -55,9 +57,8 @@ function AltYorum({ altYorumlar }) {
     birYorumdanBegeniKaldir(yorumId);
   };
 
-  const yanitVerHandle = async (yorumId) => {
-    console.log("Yorum icerigi= ", yanitVer);
-    console.log("Yorum id= ", yorumId);
+  const yanitVerHandle = async (yorumId, event) => {
+    event.stopPropagation();
     const yorumIcerigiObje = {
       yorumIcerigi: yanitVer,
     };
@@ -69,6 +70,7 @@ function AltYorum({ altYorumlar }) {
       );
       setYanitVer("");
       yorumaYorumYapGelenVeri = JSON.parse(yorumaYorumYapGelenVeri);
+
       yorumaYorumYapGelenVeri.altYorumlar = [];
       setAltYorumlarState((prev) =>
         prev.map((yorum) => {
@@ -85,6 +87,7 @@ function AltYorum({ altYorumlar }) {
           return yorum;
         })
       );
+      location.reload();
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     }
@@ -185,7 +188,7 @@ function AltYorum({ altYorumlar }) {
               </div>
               <div className="altYorumCevapVerSendDiv">
                 <BiSend
-                  onClick={() => yanitVerHandle(altYorum.yorumId)}
+                  onClick={(event) => yanitVerHandle(altYorum.yorumId, event)}
                   size={25}
                 />
               </div>

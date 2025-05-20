@@ -37,9 +37,6 @@ function EPostaGuncelle() {
       yeniEposta: kullaniciYeniEPostaBilgisi,
     };
 
-    const element = document.getElementById("ePostaGuncelleOtpKutucugu");
-    element.classList.remove("ePostaGuncelleOtpKutucuguClosedForm");
-
     try {
       const gelenVeri = await ePostaGuncelle(myInformationObject);
       console.log("Mail Validasyon Kodu Gönderildi= ", gelenVeri);
@@ -53,6 +50,8 @@ function EPostaGuncelle() {
         draggable: true,
         progress: undefined,
       });
+      const element = document.getElementById("ePostaGuncelleOtpKutucugu");
+      element.classList.remove("ePostaGuncelleOtpKutucuguClosedForm");
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
       toast.error("Validasyon Adresi Gönderimi Başarısız.", {

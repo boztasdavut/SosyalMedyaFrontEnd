@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./GirisYap.css";
 import InputText from "../../components/InputText/InputText";
 import TextButton from "../../components/TextButton/TextButton";
@@ -9,10 +9,14 @@ import logo3 from "./loginEkraniResmi3.jpg";
 import { login } from "../../services/Login.js";
 import { useNavigate } from "react-router-dom";
 import { anasayfa } from "../../services/Anasayfa.js";
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function GirisYap() {
   const [kullaniciEPosta, setKullaniciEPosta] = useState("");
   const [kullaniciSifre, setKullaniciSifre] = useState("");
   const navigate = useNavigate();
+  const buttonRef = useRef(null);
 
   const girisYapHandle = async () => {
     const kullanicininGirdigiBilgiler = {
@@ -22,10 +26,27 @@ function GirisYap() {
 
     try {
       const apidenGelenCevap = await login(kullanicininGirdigiBilgiler);
-      navigate("/anasayfa");
+      toast.success("Başarıyla Giriş Yapıldı", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => {
+          navigate("/anasayfa");
+        },
+      });
     } catch (error) {
-      console.log("Giriş yapılamadı:", error.message);
-      // İstersen kullanıcıya hata mesajı göster
+      toast.error("E-Posta Adresi Veya Şifre Yanlış", {
+        position: "top-center",
+        autoClose: 3000,
+        onClose: () => {
+          setKullaniciEPosta("");
+          setKullaniciSifre("");
+        },
+      });
     }
   };
 
@@ -35,6 +56,8 @@ function GirisYap() {
 
   return (
     <div className="componentDiv">
+      <ToastContainer />
+
       <div className="girisYapAnaDiv">
         <div>
           <h1>Giriş Yap</h1>

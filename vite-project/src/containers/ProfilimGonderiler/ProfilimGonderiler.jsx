@@ -3,7 +3,6 @@ import "./ProfilimGonderiler.css";
 import { kullanicininTumGonderileriniGetir } from "../../services/KullaniciTumGonderileri.js";
 import { useNavigate } from "react-router-dom";
 import { kullaniciProfilBilgileriGetir } from "../../services/KullaniciProfilBilgileri.js";
-import { belirtilenGonderiyiSil } from "../../services/GonderiSil.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ClipLoader } from "react-spinners";
@@ -14,18 +13,23 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import ProfilimGonderilerModal from "../../components/ProfilimGonderilerModal/ProfilimGonderilerModal.jsx";
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 
-function ProfilimGonderiler({ setGonderiSayisi }) {
-  const [kullanicininTumGonderileri, setKullanicininTumGonderileri] = useState(
-    []
-  );
+function ProfilimGonderiler({
+  setGonderiSayisi,
+  modalIsOpen,
+  setModalIsOpen,
+  setGonderiIdModal,
+  kullanicininTumGonderileri,
+  setKullanicininTumGonderileri,
+}) {
   const [kullaniciProfilBilgileri, setKullaniciProfilBilgileri] = useState({});
   const [aktifGonderiId, setAktifGonderiId] = useState(null);
   const [gonderiSilmeLoading, setGonderiSilmeLoading] = useState(false);
-  const refs = useRef({});
   const navigate = useNavigate();
   const [lightboxImage, setLightboxImage] = useState(null);
-
+  const [secilenGonderi, setSecilenGonderi] = useState(null);
   const birGonderiyiBegen = async (gonderiId, e) => {
     e.stopPropagation();
     const gonderi = kullanicininTumGonderileri.find(
@@ -82,48 +86,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
     gonderileriGetir();
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        aktifGonderiId !== null &&
-        refs.current[aktifGonderiId] &&
-        !refs.current[aktifGonderiId].contains(event.target)
-      ) {
-        setAktifGonderiId(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [aktifGonderiId]);
-
-  const gonderiSeceneklerineTiklandi = (gonderiId) => {
-    if (aktifGonderiId === gonderiId) {
-      setAktifGonderiId(null);
-    } else {
-      setAktifGonderiId(gonderiId);
-    }
-  };
-
-  const handleGonderiSil = async (gonderiId) => {
-    setGonderiSilmeLoading(true);
-    try {
-      const gelenVeri = await belirtilenGonderiyiSil(gonderiId);
-      setAktifGonderiId(null);
-      setKullanicininTumGonderileri((prevGonderiler) => {
-        const yeniListe = prevGonderiler.filter(
-          (gonderi) => gonderi.gonderiId !== gonderiId
-        );
-        setGonderiSayisi(yeniListe.length); // burada yeni state üzerinden hesaplama yapıyoruz
-        return yeniListe;
-      });
-      setGonderiSilmeLoading(false);
-    } catch (err) {
-      console.log("Bir hata meydana geldi= ", err);
-    }
-  };
+  
 
   const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
     try {
@@ -131,6 +94,12 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     }
+  };
+
+  const gonderiyiAyarlariniSec = (gonderiId, event) => {
+    event.stopPropagation();
+    setModalIsOpen(true);
+    setGonderiIdModal(gonderiId);
   };
 
   return (
@@ -153,12 +122,7 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                 )
               }
             >
-              <div
-                ref={(el) => {
-                  refs.current[gonderi.gonderiId] = el;
-                }}
-                className="profilimGonderiCardDiv"
-              >
+              <div className="profilimGonderiCardDiv">
                 <div className="profilimProfilResmiVeTakmaAdVeAyarlarDiv">
                   <div className="profilimProfilResmiVeTakmaAdDiv">
                     <div>
@@ -169,6 +133,13 @@ function ProfilimGonderiler({ setGonderiSayisi }) {
                       />
                     </div>
                     <div>@{gonderi.kullaniciTakmaAd}</div>
+                  </div>
+                  <div>
+                    <MoreVertOutlinedIcon
+                      onClick={(event) =>
+                        gonderiyiAyarlariniSec(gonderi.gonderiId, event)
+                      }
+                    />
                   </div>
                 </div>
 

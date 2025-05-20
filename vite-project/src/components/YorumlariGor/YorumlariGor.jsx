@@ -10,6 +10,8 @@ import { birYorumaYorumYap } from "../../services/BirYorumaYorumYap.js";
 import { ClipLoader } from "react-spinners";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import AltYorum from "../AltYorum/AltYorum.jsx";
+import { jwtTakmaAdAl } from "../../services/MevcutTakmaAdAl.js";
+
 function YorumlariGor({ gonderiBilgisi }) {
   const [yorumBegeniBilgisi, setYorumBegeniBilgisi] = useState({});
   const [yorumBegeniSayisi, setYorumBegeniSayisi] = useState({});
@@ -23,10 +25,8 @@ function YorumlariGor({ gonderiBilgisi }) {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    console.log("yorumlariGor useEffect icerisine girildi.");
     console.log("gonderi bilgisi= ", gonderiBilgisi);
     if (gonderiBilgisi.yorumlar.length > 0) {
-      console.log("if kosulu icerisine girildi.");
       setIsLoading(true);
       const yeniBegeniBilgisi = {};
       const yeniBegeniSayisi = {};
@@ -39,7 +39,6 @@ function YorumlariGor({ gonderiBilgisi }) {
       setYorumlarState(gonderiBilgisi.yorumlar);
       setGirisYapanKullaniciFoto(gonderiBilgisi.kullaniciFoto);
     } else {
-      console.log("else bölümüne girildi.");
     }
   }, []);
 
@@ -64,7 +63,7 @@ function YorumlariGor({ gonderiBilgisi }) {
     }));
     birYorumuBegen(yorumId);
   };
-
+  
   const birYorumdanBegeniKaldirHandle = (yorumId) => {
     setYorumBegeniBilgisi((prev) => ({
       ...prev,
@@ -84,6 +83,7 @@ function YorumlariGor({ gonderiBilgisi }) {
     };
 
     try {
+      const mevcutTakmaAd = await jwtTakmaAdAl();
       let yorumaYorumYapGelenVeri = await birYorumaYorumYap(
         yorumId,
         yorumIcerigiObje
@@ -92,9 +92,7 @@ function YorumlariGor({ gonderiBilgisi }) {
       yorumaYorumYapGelenVeri = JSON.parse(yorumaYorumYapGelenVeri);
       yorumaYorumYapGelenVeri.altYorumlar = [];
       yorumaYorumYapGelenVeri.yorumYapanResim = gonderiBilgisi.kullaniciFoto;
-      yorumaYorumYapGelenVeri.yorumYapanTakmaAd =
-        gonderiBilgisi.kullaniciTakmaAd;
-      console.log("Yorum yap gelen veri= ", yorumaYorumYapGelenVeri);
+      yorumaYorumYapGelenVeri.yorumYapanTakmaAd = mevcutTakmaAd;
 
       setYorumlarState((prev) =>
         prev.map((yorum) => {
@@ -124,11 +122,16 @@ function YorumlariGor({ gonderiBilgisi }) {
       const baseUrl = location.pathname + "?comments=all";
       navigate(baseUrl);
     } else {
-      console.log("else kısmına giris yapildi.");
       const baseUrl = location.pathname + `?comments=${yorumId}`;
       navigate(baseUrl);
     }
   };
+
+  useEffect(() => {
+    if (yorumlarState.length > 0) {
+      console.log("Yorum state= ", yorumlarState);
+    }
+  }, [yorumlarState]);
 
   const yorumaCevapVer = (yorumId) => {
     setIsLoading(true);
@@ -142,10 +145,8 @@ function YorumlariGor({ gonderiBilgisi }) {
   }, [acikCevapVerId]);
 
   useEffect(() => {
-    console.log("useEffect içerisine girildi.");
     const yorumId = searchParams.get("comments");
     if (yorumId) {
-      console.log("useEffect yorum id bilgisi= ", yorumId);
       setIsLoading(false); // URL değişimi tamamlandığında loading'i kapat
     }
   }, [searchParams]); // searchParams her değiştiğinde kontrol et

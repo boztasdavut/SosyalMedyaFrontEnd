@@ -89,7 +89,7 @@ function KayitOl() {
             setInputValue={setKullaniciDogumTarihi}
           />
         </div>
-        <div>
+        {/*<div>
           <textarea
             value={kullaniciBio}
             onChange={(e) => setKullaniciBio(e.target.value)}
@@ -98,7 +98,7 @@ function KayitOl() {
             cols={50}
             className="kayitOlBioTextArea"
           />
-        </div>
+        </div>*/}
 
         <div onClick={registerHandle}>
           <Button butonAdi="Kayıt Ol" />

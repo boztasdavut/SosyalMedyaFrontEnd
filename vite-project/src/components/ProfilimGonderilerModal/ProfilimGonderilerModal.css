@@ -1,0 +1,56 @@
+.profilimGonderilerModalAnaDiv{
+    position: fixed;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.4);
+
+}
+
+.profilimGonderilerModalKutucuk{
+    width: 25%;
+    height: 100px;
+    padding: 10px;
+    background-color: #7ea7e4;
+    border-radius: 10px;
+}
+
+.profilimGonderilerModalSilButonu{
+    width: 100%;
+    background-color: #dbe2ef;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color:#112d4e;
+}
+
+.profilimGonderilerModalSilButonu:hover{
+    cursor: pointer;
+}
+
+.profilimGonderilerModalEminMisinizDiv{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.eminMisinizDiv{
+    background-color: #dbe2ef;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color:#112d4e;
+}
+
+.eminMisinizDiv:hover{
+    cursor: pointer;
+}
+
+.eminMisinizDiv:first-child{
+    margin-right: 10px;
+}

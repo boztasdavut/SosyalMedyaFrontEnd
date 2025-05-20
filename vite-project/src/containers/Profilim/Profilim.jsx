@@ -6,6 +6,7 @@ import Mesajlasma from "../Mesajlasma/Mesajlasma.jsx";
 import ProfilimPageHeader from "../ProfilimPageHeader/ProfilimPageHeader.jsx";
 import TakipcileriGosterModal from "../../components/TakipcileriGosterModal/TakipcileriGosterModal.jsx";
 import TakipEdilenleriGosterModal from "../../components/TakipEdilenleriGosterModal/TakipEdilenleriGosterModal.jsx";
+import ProfilimGonderilerModal from "../../components/ProfilimGonderilerModal/ProfilimGonderilerModal.jsx";
 function Profilim() {
   const [gonderiSayisi, setGonderiSayisi] = useState(null);
   const [isTakipcilerModalOpen, setIsTakipcilerModalOpen] = useState(false);
@@ -13,8 +14,22 @@ function Profilim() {
   const [isTakipEdilenlerModalOpen, setIsTakipEdilenlerModalOpen] =
     useState(false);
   const [takipEdilenlerListesi, setTakipEdilenlerListesi] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [gonderiIdModal, setGonderiIdModal] = useState(null);
+  const [kullanicininTumGonderileri, setKullanicininTumGonderileri] = useState(
+    []
+  );
   return (
     <div>
+      {modalIsOpen && (
+        <ProfilimGonderilerModal
+          setModalIsOpen={setModalIsOpen}
+          gonderiIdModal={gonderiIdModal}
+          kullanicininTumGonderileri={kullanicininTumGonderileri}
+          setKullanicininTumGonderileri={setKullanicininTumGonderileri}
+        />
+      )}
+
       <SolMenu />
       {isTakipcilerModalOpen && (
         <TakipcileriGosterModal
@@ -37,7 +52,14 @@ function Profilim() {
         setTakipEdilenlerListesi={setTakipEdilenlerListesi}
         setIsTakipEdilenlerModalOpen={setIsTakipEdilenlerModalOpen}
       />
-      <ProfilimGonderiler setGonderiSayisi={setGonderiSayisi} />
+      <ProfilimGonderiler
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        setGonderiSayisi={setGonderiSayisi}
+        setGonderiIdModal={setGonderiIdModal}
+        kullanicininTumGonderileri={kullanicininTumGonderileri}
+        setKullanicininTumGonderileri={setKullanicininTumGonderileri}
+      />
       <Mesajlasma />
     </div>
   );
