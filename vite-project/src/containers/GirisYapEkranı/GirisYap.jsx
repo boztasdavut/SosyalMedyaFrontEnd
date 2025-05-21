@@ -54,6 +54,10 @@ function GirisYap() {
     navigate("/kayitOl");
   };
 
+  const sifremiUnuttumHandle = () => {
+    navigate("/sifremiUnuttum?step=1");
+  };
+
   return (
     <div className="componentDiv">
       <ToastContainer />
@@ -78,7 +82,7 @@ function GirisYap() {
             setInputValue={setKullaniciSifre}
           />
         </div>
-        <div>
+        <div onClick={sifremiUnuttumHandle}>
           <TextButton butonAdi="Şifreni mi unuttun?" />
         </div>
         <div onClick={girisYapHandle}>

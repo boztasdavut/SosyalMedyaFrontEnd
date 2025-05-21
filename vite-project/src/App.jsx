@@ -14,6 +14,7 @@ import AnketlerimGenel from "./containers/AnketlerimGenel/AnketlerimGenel.jsx";
 import Anketlerim from "./components/Anketlerim/Anketlerim.jsx";
 import AnketOlustur from "./components/AnketOlustur/AnketOlustur.jsx";
 import AnketKesfet from "./components/AnketKesfet/AnketKesfet.jsx";
+import SifremiUnuttum from "./containers/SifremiUnuttum/SifremiUnuttum.jsx";
 function App() {
   return (
     <>
@@ -36,6 +37,7 @@ function App() {
           <Route path="/anketlerim/anketlerimiGor" element={<Anketlerim />} />
           <Route path="/anketlerim/anketOlustur" element={<AnketOlustur />} />
           <Route path="/anketlerim/anketOnerileri" element={<AnketKesfet />} />
+          <Route path="/sifremiUnuttum" element={<SifremiUnuttum />} />
         </Routes>
       </Router>
     </>
