@@ -1,57 +1,90 @@
+.anketlerimAnaDiv {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 24px;
+  font-family: "Poppins", sans-serif;
+}
+
 .tumAnketSorularDiv {
-  width: 50%;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 20px;
 }
 
 .anketCardYapisi {
-  border-radius: 10px;
-  padding: 10px;
-  background-color: #1a202c;
-  margin: 20px;
+  background-color: #ffffff;
+  border: 2px solid #e0f2f1;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 194, 168, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.anketCardYapisi:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 194, 168, 0.15);
 }
 
 .anketCardAnketSorusu {
-  background-color: #38b2ac;
-  padding: 10px;
-  border-radius: 10px;
-  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: color 0.2s ease;
+}
+
+.anketCardAnketSorusu:hover {
+  color: #00bfa5;
+  text-decoration: underline;
 }
 
 .anketlerimSeceneklerDiv {
-  background-color: #f7fafc;
-  padding: 10px;
+  background-color: #f7fafa;
+  border: 1px solid #e0e0e0;
+  padding: 10px 14px;
   border-radius: 10px;
-  margin: 10px;
-}
-
-.istatistikleriGorButonu {
-  padding: 10px;
-  background-color: cornflowerblue;
-  margin: 10px;
-  border-radius: 10px;
-  width: 20%;
-  text-align: center;
-}
-
-.istatistikleriGorButonu:hover {
-  cursor: pointer;
-}
-
-.anketiSilDiv {
-  padding: 10px;
-  background-color: red;
-  margin: 10px;
-  border-radius: 10px;
-  width: 20%;
-  text-align: center;
-  color: white;
-}
-
-.anketiSilDiv:hover {
-  cursor: pointer;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #444;
 }
 
 .soruCardFooterAnaDiv {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 18px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.istatistikleriGorButonu,
+.anketiSilDiv {
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.istatistikleriGorButonu {
+  background-color: #4a90e2;
+  color: #ffffff;
+}
+
+.istatistikleriGorButonu:hover {
+  background-color: #357bd8;
+  transform: scale(1.03);
+}
+
+.anketiSilDiv {
+  background-color: #e74c3c;
+  color: #ffffff;
+}
+
+.anketiSilDiv:hover {
+  background-color: #c0392b;
+  transform: scale(1.03);
 }

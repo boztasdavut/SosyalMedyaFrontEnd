@@ -1,89 +1,136 @@
-.soruGirisAlaniInput {
+.anketOlusturAnaDiv {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 32px;
+  font-family: "Poppins", sans-serif;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+h3, h4 {
+  color: #222;
+  margin-bottom: 14px;
+  font-weight: 600;
   font-size: 20px;
-  padding: 15px;
-  width: 50%;
 }
 
 .soruGirisAlaniDiv {
   display: flex;
-  justify-content: center;
-  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
-.anketOlusturAnaDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.soruGirisAlaniInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  transition: 0.3s ease;
+}
+
+.soruGirisAlaniInput:focus {
+  border-color: #00c2a8;
+  box-shadow: 0 0 0 3px rgba(0, 194, 168, 0.2);
+  background-color: #fff;
+  outline: none;
 }
 
 .anketSecenekleriAnaDiv {
-  width: 100%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  gap: 16px;
+  margin-top: 4px;
 }
 
 .secenekGirmeDiv {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.secenekGirmeInput {
-  width: 20%;
-  font-size: 15px;
-  padding: 15px;
-  margin: 10px;
-}
-
-.yeniSecenekEkleDiv {
-  background-color: blueviolet;
-  padding: 10px;
-  border-radius: 5px;
-  color: white;
-}
-
-.yeniSecenekEkleDiv:hover {
-  cursor: pointer;
-}
-
-.anketiKaydetDiv {
-  margin-top: 10px;
-  background-color: cornflowerblue;
-  padding: 10px;
-  border-radius: 5px;
-  color: white;
-}
-
-.anketiKaydetDiv:hover {
-  cursor: pointer;
-}
-
-.birSecenegiSilmeDiv {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: 1s;
-  width: 50px;
-}
-
-.birSecenegiSilmeDiv:hover {
-  cursor: pointer;
-  border-radius: 50%;
-  background-color: rgb(241, 231, 231);
-}
-
-.birSecenegiOnaylamaDiv {
-  display: flex;
-  align-items: center;
-}
-
-.birSecenegiOnaylamaDiv:hover {
-  cursor: pointer;
+  gap: 12px;
+  background: #f9fafa;
+  border: 2px solid #e0f2f1;
+  border-radius: 12px;
+  padding: 14px;
+  transition: all 0.3s ease;
 }
 
 .secenekNumarasi {
+  font-weight: 600;
+  color: #00bfa5;
+  min-width: 30px;
+  text-align: center;
+}
+
+.secenekGirmeInput {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #ffffff;
+  transition: 0.3s;
+}
+
+.secenekGirmeInput:focus {
+  border-color: #00c2a8;
+  box-shadow: 0 0 0 3px rgba(0, 194, 168, 0.2);
+  outline: none;
+}
+
+.birSecenegiSilmeDiv {
+  color: #e74c3c;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 10px;
+  justify-content: center;
+  transition: 0.2s ease;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.birSecenegiSilmeDiv:hover {
+  background-color: rgba(231, 76, 60, 0.15);
+  transform: scale(1.15);
+}
+
+.yeniSecenekEkleDiv {
+  margin-top: 28px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #00c2a8, #4dd0e1);
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0, 194, 168, 0.2);
+  transition: all 0.3s ease;
+}
+
+.yeniSecenekEkleDiv:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #00b59b, #3ec5d5);
+}
+
+.anketiKaydetDiv {
+  margin-top: 32px;
+  padding: 16px;
+  background: linear-gradient(135deg, #43a047, #66bb6a);
+  color: white;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(76, 175, 80, 0.25);
+}
+
+.anketiKaydetDiv:hover {
+  transform: scale(1.04);
+  background: linear-gradient(135deg, #388e3c, #4caf50);
 }
