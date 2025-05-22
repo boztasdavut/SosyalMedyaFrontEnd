@@ -32,14 +32,18 @@ function IcMesajIcerigi({
 
   const onMessageReceived = (message) => {
     setIkiKullaniciArasindakiTumMesajlar((prev) => [...prev, message]);
+    console.log(
+      "iki kullanici arasindaki mesajlar= ",
+      ikiKullaniciArasindakiMesajlar
+    );
   };
 
   useEffect(() => {
-    connect(onMessageReceived, karsiTarafAdi);
+    connect(onMessageReceived);
 
-    /*return () => {
+    return () => {
       disconnect();
-    };*/
+    };
   }, [karsiTarafAdi]);
 
   const mesajGondermeButonuHandle = async () => {
@@ -79,6 +83,15 @@ function IcMesajIcerigi({
       console.log("Bir hata meydana geldi= ", err);
     }
   };
+
+  /*const mesajGondermeButonuHandle = async () => {
+    try {
+      await birKullaniciyaMesajGonder(yazilanMesaj, karsiTarafIdBilgisi);
+      setYazilanMesaj("");
+    } catch (err) {
+      console.log("Bir hata meydana geldi= ", err);
+    }
+  };*/
 
   useEffect(() => {
     const mesajVerileriniAl = async (karsiTarafId) => {

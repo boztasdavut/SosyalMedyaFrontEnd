@@ -18,6 +18,7 @@ export function connect(onMessageReceived) {
 
       stompClient.subscribe("/user/queue/mesajlar", (message) => {
         const body = JSON.parse(message.body);
+        console.log("Socket içindeki body verisi= ", body);
         onMessageReceived(body);
       });
     },

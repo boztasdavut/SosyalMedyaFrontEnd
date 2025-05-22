@@ -5,6 +5,9 @@ import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { mesajBaslangicSayfasiGetir } from "../../services/MesajlasmaBaslangicSayfasi";
 import IcMesajIcerigi from "../IcMesajIcerigi/IcMesajIcerigi.jsx";
 import MarkunreadOutlinedIcon from "@mui/icons-material/MarkunreadOutlined";
+import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import { connect, disconnect } from "../../services/SocketBaglantisi.js";
+
 function Mesajlasma() {
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
   const [mesajBaslangicSayfasi, setMesajBaslangicSayfasi] = useState([]);
@@ -12,10 +15,51 @@ function Mesajlasma() {
   const [karsiTarafIdBilgisi, setKarsiTarafIdBilgisi] = useState("");
   const [icMesajlasmaLoading, setIcMesajlasmaLoading] = useState(false);
   const [karsiTarafAdi, setKarsiTarafAdi] = useState("");
+
+  const onMessageReceived = (message) => {
+    setMesajBaslangicSayfasi((prevMesajlar) => {
+      // Eğer aynı kişiyle mesajlaşma zaten varsa güncelle, yoksa ekle
+      const mevcutIndex = prevMesajlar.findIndex(
+        (m) => m.karsiTarafId === message.gonderenKullaniciId
+      );
+
+      if (mevcutIndex !== -1) {
+        const guncellenmisMesaj = {
+          ...prevMesajlar[mevcutIndex],
+          mesajIcerigi: message.mesajIcerigi,
+        };
+
+        const yeniMesajlar = [...prevMesajlar];
+        yeniMesajlar.splice(mevcutIndex, 1); // eskiyi kaldır
+        return [guncellenmisMesaj, ...yeniMesajlar]; // en üste ekle
+      } else {
+        // Yeni bir kullanıcıdan ilk kez mesaj geldi
+        return [
+          {
+            karsiTarafId: message.gonderenKullaniciId,
+            karsiTarafAdi: message.mesajGonderilenKullaniciAdi,
+            karsiTarafProfilResmi: message.mesajGonderilenKullaniciResmi,
+            mesajIcerigi: message.mesajIcerigi,
+          },
+          ...prevMesajlar,
+        ];
+      }
+    });
+  };
+
+  useEffect(() => {
+    connect(onMessageReceived);
+
+    return () => {
+      disconnect();
+    };
+  }, []);
+
   useEffect(() => {
     const baslangicMesajlariGetir = async () => {
       try {
         const mesajBaslangic = await mesajBaslangicSayfasiGetir();
+        console.log("Baslangic mesaj verileri= ", mesajBaslangic);
         setMesajBaslangicSayfasi(mesajBaslangic);
       } catch (err) {
         console.log("Mesajlasma sayfasinda bir hata meydana geldi= ", err);
@@ -73,28 +117,41 @@ function Mesajlasma() {
                     karsiTarafAdi={karsiTarafAdi}
                   />
                 ) : (
-                  mesajBaslangicSayfasi.map((mesaj) => (
-                    <div
-                      onClick={() =>
-                        icMesajlasmaHandle(
-                          mesaj.karsiTarafId,
-                          mesaj.karsiTarafAdi
-                        )
-                      }
-                      key={mesaj.mesajId}
-                      className="cardDiv"
-                    >
-                      <div className="profilResmiVeTakmaAd">
-                        <div>
-                          <img src={mesaj.karsiTarafProfilResmi} alt="Profil" />
-                        </div>
-                        <div>@{mesaj.karsiTarafAdi}</div>
-                      </div>
-                      <div className="mesajVeGonderenDiv">
-                        <div className="lastMessage">{mesaj.mesajIcerigi}</div>
+                  <div>
+                    <div className="yeniMesajOlusturDiv">
+                      <div>Yeni Mesaj</div>
+                      <div>
+                        <AddBoxOutlinedIcon />
                       </div>
                     </div>
-                  ))
+                    {mesajBaslangicSayfasi.map((mesaj) => (
+                      <div
+                        onClick={() =>
+                          icMesajlasmaHandle(
+                            mesaj.karsiTarafId,
+                            mesaj.karsiTarafAdi
+                          )
+                        }
+                        key={mesaj.mesajId}
+                        className="cardDiv"
+                      >
+                        <div className="profilResmiVeTakmaAd">
+                          <div>
+                            <img
+                              src={mesaj.karsiTarafProfilResmi}
+                              alt="Profil"
+                            />
+                          </div>
+                          <div>@{mesaj.karsiTarafAdi}</div>
+                        </div>
+                        <div className="mesajVeGonderenDiv">
+                          <div className="lastMessage">
+                            {mesaj.mesajIcerigi}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
