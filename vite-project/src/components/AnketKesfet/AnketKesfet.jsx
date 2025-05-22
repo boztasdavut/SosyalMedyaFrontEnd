@@ -4,7 +4,7 @@ import AnketlerimGenel from "../../containers/AnketlerimGenel/AnketlerimGenel";
 
 function AnketKesfet() {
   return (
-    <div>
+    <div className="anketKesfetDiv">
       <AnketlerimGenel seciliAlan={1} />
       Anket kesfet
     </div>
