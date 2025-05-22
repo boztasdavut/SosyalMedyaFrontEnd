@@ -40,6 +40,8 @@ function Mesajlasma() {
             karsiTarafAdi: message.mesajGonderilenKullaniciAdi,
             karsiTarafProfilResmi: message.mesajGonderilenKullaniciResmi,
             mesajIcerigi: message.mesajIcerigi,
+            mesajId: message.mesajId,
+            mesajGonderilmeZamani: message.mesajGonderilmeZamani,
           },
           ...prevMesajlar,
         ];
@@ -53,7 +55,7 @@ function Mesajlasma() {
     return () => {
       disconnect();
     };
-  }, []);
+  }, [mesajlasmaKutusuAcikMi]);
 
   useEffect(() => {
     const baslangicMesajlariGetir = async () => {
@@ -67,6 +69,10 @@ function Mesajlasma() {
     };
     baslangicMesajlariGetir();
   }, [icMesajAcikMi]);
+
+  useEffect(() => {
+    console.log("Mesaj baslangic sayfasi= ", mesajBaslangicSayfasi);
+  }, [mesajBaslangicSayfasi]);
 
   const handleClickMesajlasma = () => {
     setMesajlasmaKutusuAcikMi(!mesajlasmaKutusuAcikMi);

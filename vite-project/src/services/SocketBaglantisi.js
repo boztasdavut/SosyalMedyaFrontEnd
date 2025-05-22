@@ -3,6 +3,7 @@ import { Client } from "@stomp/stompjs";
 let stompClient = null;
 
 export function connect(onMessageReceived) {
+  console.log("Connection acildi");
   stompClient = new Client({
     webSocketFactory: () =>
       new WebSocket(
