@@ -7,6 +7,7 @@ import IcMesajIcerigi from "../IcMesajIcerigi/IcMesajIcerigi.jsx";
 import MarkunreadOutlinedIcon from "@mui/icons-material/MarkunreadOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import { connect, disconnect } from "../../services/SocketBaglantisi.js";
+import YeniMesajModal from "../../components/YeniMesajModal/YeniMesajModal.jsx";
 
 function Mesajlasma() {
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
@@ -15,7 +16,8 @@ function Mesajlasma() {
   const [karsiTarafIdBilgisi, setKarsiTarafIdBilgisi] = useState("");
   const [icMesajlasmaLoading, setIcMesajlasmaLoading] = useState(false);
   const [karsiTarafAdi, setKarsiTarafAdi] = useState("");
-
+  const [yeniMesajModalIsOpen, setYeniMesajModalIsOpen] = useState(false);
+  const [profilResmi, setProfilResmi] = useState("");
   const onMessageReceived = (message) => {
     setMesajBaslangicSayfasi((prevMesajlar) => {
       // Eğer aynı kişiyle mesajlaşma zaten varsa güncelle, yoksa ekle
@@ -37,11 +39,11 @@ function Mesajlasma() {
         return [
           {
             karsiTarafId: message.gonderenKullaniciId,
-            karsiTarafAdi: message.mesajGonderilenKullaniciAdi,
-            karsiTarafProfilResmi: message.mesajGonderilenKullaniciResmi,
+            karsiTarafAdi: message.mesajAtanKullaniciTakmaAdi,
             mesajIcerigi: message.mesajIcerigi,
             mesajId: message.mesajId,
             mesajGonderilmeZamani: message.mesajGonderilmeZamani,
+            karsiTarafProfilResmi: message.mesajAtanKullaniciFoto,
           },
           ...prevMesajlar,
         ];
@@ -79,17 +81,34 @@ function Mesajlasma() {
     setIcMesajAcikMi(false); // Mesaj kutusuna geri dönünce iç mesaj kapanmalı
   };
 
-  const icMesajlasmaHandle = async (karsiTarafId, karsiTarafAdi) => {
+  const icMesajlasmaHandle = async (
+    karsiTarafId,
+    karsiTarafAdi,
+    karsiTarafProfilResmi
+  ) => {
     try {
       setIcMesajlasmaLoading(true);
       setIcMesajAcikMi(true); // İç mesaja girildi
       setKarsiTarafIdBilgisi(karsiTarafId);
       setKarsiTarafAdi(karsiTarafAdi);
+      setProfilResmi(karsiTarafProfilResmi);
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     } finally {
       setIcMesajlasmaLoading(false);
     }
+  };
+
+  const yeniMesajModalHandle = () => {
+    setYeniMesajModalIsOpen(true);
+    console.log(
+      "Butonu aktif etme butonu çalıştı deger= ",
+      yeniMesajModalIsOpen
+    );
+  };
+
+  const yeniMesajKisilerListesiniKapat = () => {
+    setYeniMesajModalIsOpen(false);
   };
 
   return (
@@ -107,11 +126,11 @@ function Mesajlasma() {
                 </div>
                 <div>Mesajlarım</div>
               </div>
-
               <div>
                 <MdOutlineKeyboardDoubleArrowDown size={50} />
               </div>
             </div>
+
             <div>
               <div className="profilResmiMesajVeGonderenDiv">
                 {icMesajAcikMi ? (
@@ -121,21 +140,47 @@ function Mesajlasma() {
                     setIcMesajlasmaLoading={setIcMesajlasmaLoading}
                     setIcMesajAcikMi={setIcMesajAcikMi}
                     karsiTarafAdi={karsiTarafAdi}
+                    profilResmi={profilResmi}
                   />
                 ) : (
                   <div>
-                    <div className="yeniMesajOlusturDiv">
-                      <div>Yeni Mesaj</div>
+                    {yeniMesajModalIsOpen ? (
                       <div>
-                        <AddBoxOutlinedIcon />
+                        <div
+                          onClick={yeniMesajKisilerListesiniKapat}
+                          className="yeniMesajOlusturDiv"
+                        >
+                          <div>Listeyi Kapat</div>
+                          <div>
+                            <AddBoxOutlinedIcon />
+                          </div>
+                        </div>
+                        <YeniMesajModal
+                          setIcMesajAcikMi={setIcMesajAcikMi}
+                          setKarsiTarafIdBilgisi={setKarsiTarafIdBilgisi}
+                          setKarsiTarafAdi={setKarsiTarafAdi}
+                          setProfilResmi={setProfilResmi}
+                        />
                       </div>
-                    </div>
+                    ) : (
+                      <div
+                        onClick={yeniMesajModalHandle}
+                        className="yeniMesajOlusturDiv"
+                      >
+                        <div>Yeni Mesaj</div>
+                        <div>
+                          <AddBoxOutlinedIcon />
+                        </div>
+                      </div>
+                    )}
+
                     {mesajBaslangicSayfasi.map((mesaj) => (
                       <div
                         onClick={() =>
                           icMesajlasmaHandle(
                             mesaj.karsiTarafId,
-                            mesaj.karsiTarafAdi
+                            mesaj.karsiTarafAdi,
+                            mesaj.karsiTarafProfilResmi
                           )
                         }
                         key={mesaj.mesajId}

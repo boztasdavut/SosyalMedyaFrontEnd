@@ -8,6 +8,7 @@ import { jwtDecode } from "../../services/JwtDecode.js";
 import { useNavigate } from "react-router-dom";
 import { connect, disconnect } from "../../services/SocketBaglantisi.js";
 import { birKullaniciyaMesajGonder } from "../../services/BirKullaniciyaMesajGonder.js";
+import { jwtTakmaAdAl } from "../../services/MevcutTakmaAdAl.js";
 
 function IcMesajIcerigi({
   karsiTarafIdBilgisi,
@@ -15,7 +16,13 @@ function IcMesajIcerigi({
   setIcMesajlasmaLoading,
   setIcMesajAcikMi,
   karsiTarafAdi,
+  profilResmi,
 }) {
+  useEffect(() => {
+    console.log("ic mesaj profil resmi bilgisi= ", profilResmi);
+    console.log("ic mesaj karsi taraf adi bilgisi= ", karsiTarafAdi);
+  }, [profilResmi, karsiTarafAdi]);
+
   const [
     ikiKullaniciArasindakiTumMesajlar,
     setIkiKullaniciArasindakiTumMesajlar,
@@ -31,7 +38,19 @@ function IcMesajIcerigi({
   const [yazilanMesaj, setYazilanMesaj] = useState("");
 
   const onMessageReceived = (message) => {
-    setIkiKullaniciArasindakiTumMesajlar((prev) => [...prev, message]);
+    let yeniObje = {
+      mesajGonderilenKullaniciAdi: message.mesajAtilanKullaniciTakmaAdi,
+      mesajGonderenKullaniciAdi: message.mesajAtanKullaniciTakmaAdi,
+      mesajGonderenKullaniciResmi: message.mesajAtanKullaniciFoto,
+      mesajId: message.mesajId,
+      gonderenKullaniciId: message.gonderenKullaniciId,
+      aliciKullaniciId: message.aliciKullaniciId,
+      mesajIcerigi: message.mesajIcerigi,
+      mesajGonderilmeZamani: message.mesajGonderilmeZamani,
+      mesajOkunduMu: message.mesajOkunduMu,
+      mesajGonderilenKullaniciResmi: message.mesajAtilanKullaniciFoto,
+    };
+    setIkiKullaniciArasindakiTumMesajlar((prev) => [...prev, yeniObje]);
     console.log(
       "iki kullanici arasindaki mesajlar= ",
       ikiKullaniciArasindakiMesajlar
@@ -53,18 +72,38 @@ function IcMesajIcerigi({
     );
 
     try {
+      let flag = 0;
       let nesne = {};
       for (const obj of ikiKullaniciArasindakiTumMesajlar) {
         if (obj["gonderenKullaniciId"] === oturumSahibiKullaniciId) {
-          nesne["aliciKullaniciId"] = karsiTarafIdBilgisi;
-          nesne["gonderenKullaniciId"] = oturumSahibiKullaniciId;
-          nesne["mesajIcerigi"] = yazilanMesaj;
+          nesne["aliciKullaniciId"] = karsiTarafIdBilgisi; // var
+          nesne["gonderenKullaniciId"] = oturumSahibiKullaniciId; //var
+          nesne["mesajIcerigi"] = yazilanMesaj; //var
           nesne["mesajGonderilenKullaniciResmi"] =
-            obj["mesajGonderilenKullaniciResmi"];
-          nesne["mesajGonderilenKullaniciAdi"] =
+            obj["mesajGonderilenKullaniciResmi"]; //var
+          nesne["mesajGonderilenKullaniciAdi"] = //var
             obj["mesajGonderilenKullaniciAdi"];
+          nesne["mesajId"] = obj["mesajId"];
+          nesne["mesajOkunduMu"] = obj["mesajOkunduMu"]; //var
+          nesne["mesajGonderenKullaniciResmi"] =
+            obj["mesajGonderenKullaniciResmi"]; //yok
+          nesne["mesajGonderenKullaniciAdi"] = obj["mesajGonderenKullaniciAdi"]; //var
+          nesne["mesajGonderilmeZamani"] = obj["mesajGonderilmeZamani"]; //yok
+          flag = flag + 1;
           break;
         }
+      }
+      if (flag === 0) {
+        nesne["aliciKullaniciId"] = karsiTarafIdBilgisi;
+        nesne["gonderenKullaniciId"] = oturumSahibiKullaniciId;
+        nesne["mesajIcerigi"] = yazilanMesaj;
+        nesne["mesajGonderilenKullaniciResmi"] = profilResmi;
+        nesne["mesajGonderilenKullaniciAdi"] = karsiTarafAdi;
+        nesne["mesajOkunduMu"] = false;
+        nesne["mesajGonderenKullaniciResmi"] = null;
+        nesne["mesajGonderenKullaniciAdi"] = jwtTakmaAdAl();
+        nesne["mesajGonderilmeZamani"] = null;
+        nesne["mesajId"] = null;
       }
       console.log(
         "Listeye eklemek için yeni kaydedilen mesaj nesnesi= ",
@@ -100,6 +139,7 @@ function IcMesajIcerigi({
         const kullaniciId = await jwtDecode();
         setOturumSahibiKullaniciId(kullaniciId);
         const gelenVeri = await ikiKullaniciArasindakiMesajlar(karsiTarafId);
+        console.log("iki kullanici arasindaki mesajlar gelen= ", gelenVeri);
         setIkiKullaniciArasindakiTumMesajlar(gelenVeri);
       } catch (err) {
         console.error("Hata:", err);
@@ -132,27 +172,13 @@ function IcMesajIcerigi({
         <div className="anasayfayaDonArrowDiv" onClick={mesajSayfasinaGeriDon}>
           <FaLongArrowAltLeft size={25} />
         </div>
-        {ikiKullaniciArasindakiTumMesajlar.length > 0 && (
+        {ikiKullaniciArasindakiTumMesajlar && (
           <div
-            onClick={() =>
-              mesajdanProfileYonlendir(
-                ikiKullaniciArasindakiTumMesajlar[0].mesajGonderilenKullaniciAdi
-              )
-            }
+            onClick={() => mesajdanProfileYonlendir(karsiTarafAdi)}
             className="mesajlasilanKullaniciBasligi"
           >
-            <img
-              id="mesajBasligiResimId"
-              src={
-                ikiKullaniciArasindakiTumMesajlar[0]
-                  .mesajGonderilenKullaniciResmi
-              }
-              alt="Profil"
-            />
-            <div>
-              @
-              {ikiKullaniciArasindakiTumMesajlar[0].mesajGonderilenKullaniciAdi}
-            </div>
+            <img id="mesajBasligiResimId" src={profilResmi} alt="Profil" />
+            <div>@{karsiTarafAdi}</div>
           </div>
         )}
       </div>
@@ -162,52 +188,52 @@ function IcMesajIcerigi({
         <div className="loaderContainer">
           <ClipLoader size={100} color="#4a90e2" />
         </div>
-      ) : ikiKullaniciArasindakiTumMesajlar.length > 0 ? (
-        <>
-          <div className="mesajlarContainer" ref={mesajListesiRef}>
-            {ikiKullaniciArasindakiTumMesajlar.map((mesaj, index) => (
-              <div key={index} className="mesajCard">
-                {mesaj.gonderenKullaniciId === oturumSahibiKullaniciId ? (
-                  <div className="benimMesajimCard">
-                    <div className="benimAttigimMesajDiv">
-                      {mesaj.mesajIcerigi}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="onunMesajiCard">
-                    <div className="banaAtilanMesajDiv">
-                      {mesaj.mesajIcerigi}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Sabit Input */}
-          <div className="inputContainer">
-            <div className="mesajGondermeDivi">
-              <textarea
-                className="mesajTextarea"
-                type="text"
-                value={yazilanMesaj}
-                onChange={(e) => setYazilanMesaj(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault(); // input'ta yeni satır oluşturulmasını önler
-                    mesajGondermeButonuHandle();
-                  }
-                }}
-                placeholder="Mesajınızı yazın..."
-              />
-            </div>
-            <div onClick={mesajGondermeButonuHandle} className="gonderButton">
-              <BiSend size={25} />
-            </div>
-          </div>
-        </>
       ) : (
-        <p className="mesajYokText">Mesaj bulunamadı.</p>
+        ikiKullaniciArasindakiTumMesajlar && (
+          <>
+            <div className="mesajlarContainer" ref={mesajListesiRef}>
+              {ikiKullaniciArasindakiTumMesajlar.map((mesaj, index) => (
+                <div key={index} className="mesajCard">
+                  {mesaj.gonderenKullaniciId === oturumSahibiKullaniciId ? (
+                    <div className="benimMesajimCard">
+                      <div className="benimAttigimMesajDiv">
+                        {mesaj.mesajIcerigi}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="onunMesajiCard">
+                      <div className="banaAtilanMesajDiv">
+                        {mesaj.mesajIcerigi}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Sabit Input */}
+            <div className="inputContainer">
+              <div className="mesajGondermeDivi">
+                <textarea
+                  className="mesajTextarea"
+                  type="text"
+                  value={yazilanMesaj}
+                  onChange={(e) => setYazilanMesaj(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault(); // input'ta yeni satır oluşturulmasını önler
+                      mesajGondermeButonuHandle();
+                    }
+                  }}
+                  placeholder="Mesajınızı yazın..."
+                />
+              </div>
+              <div onClick={mesajGondermeButonuHandle} className="gonderButton">
+                <BiSend size={25} />
+              </div>
+            </div>
+          </>
+        )
       )}
     </div>
   );
