@@ -24,10 +24,10 @@ function Anasayfa() {
     };
     anasayfaTumVerileriCek();
   }, []);
-  
+
   return (
     <div>
-      <SolMenu  />
+      <SolMenu />
       <GonderiPaylas />
       <AnasayfaGonderiler
         takipEdilenlerinTumGonderileri={takipEdilenlerinGonderileri}

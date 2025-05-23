@@ -8,16 +8,57 @@ import MarkunreadOutlinedIcon from "@mui/icons-material/MarkunreadOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import { connect, disconnect } from "../../services/SocketBaglantisi.js";
 import YeniMesajModal from "../../components/YeniMesajModal/YeniMesajModal.jsx";
+import { useGlobalContext } from "../../GlobalProvider";
 
 function Mesajlasma() {
-  const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
   const [mesajBaslangicSayfasi, setMesajBaslangicSayfasi] = useState([]);
+
+  /*
+  const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
+  bu kod çalışmaktadır.
+  */
+  const {
+    karsiTarafIdBilgisi,
+    setKarsiTarafIdBilgisi,
+    karsiTarafAdi,
+    setKarsiTarafAdi,
+    profilResmi,
+    setProfilResmi,
+    icMesajAcikMi,
+    setIcMesajAcikMi,
+    icMesajlasmaLoading,
+    setIcMesajlasmaLoading,
+    mesajlasmaKutusuAcikMi,
+    setMesajlasmaKutusuAcikMi,
+  } = useGlobalContext();
+
+  /*
   const [icMesajAcikMi, setIcMesajAcikMi] = useState(false);
+  bu kod başarılı bir biçimde çalışmaktadır.
+  */
+
+  /*
   const [karsiTarafIdBilgisi, setKarsiTarafIdBilgisi] = useState("");
+  Bu kod başarılı bir biçimde çalışmaktadır.
+  */
+
+  /*
   const [icMesajlasmaLoading, setIcMesajlasmaLoading] = useState(false);
+  bu kod başarılı bir biçimde çalışmaktadır.
+  */
+
+  /*
   const [karsiTarafAdi, setKarsiTarafAdi] = useState("");
+  Bu kod başarılı bir biçimde çalışmaktadır.
+  */
+
   const [yeniMesajModalIsOpen, setYeniMesajModalIsOpen] = useState(false);
+
+  /*
   const [profilResmi, setProfilResmi] = useState("");
+  Bu kod başarılı bir biçimde çalışmaktadır.
+  */
+
   const onMessageReceived = (message) => {
     setMesajBaslangicSayfasi((prevMesajlar) => {
       // Eğer aynı kişiyle mesajlaşma zaten varsa güncelle, yoksa ekle

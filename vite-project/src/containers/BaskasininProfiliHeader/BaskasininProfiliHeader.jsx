@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./BaskasininProfiliHeader.css";
 import { IoSettingsOutline } from "react-icons/io5";
 import { ClipLoader } from "react-spinners";
 import { birKullaniciyiTakipEt } from "../../services/BirKullaniciyiTakipEt.js";
 import { birKullaniciyiTakiptenCik } from "../../services/BirKullaniciyiTakiptenCik.js";
+import { useGlobalContext } from "../../GlobalProvider.jsx";
 
 function BaskasininProfiliHeader({
   baskasininProfiliBilgileri,
@@ -12,9 +13,34 @@ function BaskasininProfiliHeader({
   const [isLoading, setIsLoading] = useState(true);
   const [kullaniciyiTakipEdiyorMuyum, setKullaniciyiTakipEdiyorMuyum] =
     useState(null);
-    
+
+  const {
+    karsiTarafIdBilgisi,
+    setKarsiTarafIdBilgisi,
+    karsiTarafAdi,
+    setKarsiTarafAdi,
+    profilResmi,
+    setProfilResmi,
+    icMesajAcikMi,
+    setIcMesajAcikMi,
+    icMesajlasmaLoading,
+    setIcMesajlasmaLoading,
+    mesajlasmaKutusuAcikMi,
+    setMesajlasmaKutusuAcikMi,
+  } = useGlobalContext();
+
+  const handleMessage = () => {
+    console.log("Butona tıklandı.");
+    setKarsiTarafIdBilgisi(baskasininProfiliBilgileri.kullaniciId);
+    setKarsiTarafAdi(baskasininProfiliBilgileri.kullaniciTakmaAd);
+    setProfilResmi(baskasininProfiliBilgileri.kullaniciProfilResmi);
+    setIcMesajlasmaLoading(false);
+    setMesajlasmaKutusuAcikMi(true);
+    setIcMesajAcikMi(true);
+  };
 
   useEffect(() => {
+    console.log("baskasinin profil bilgileri= ", baskasininProfiliBilgileri);
     setIsLoading(false);
   }, [baskasininProfiliBilgileri]);
 
@@ -86,7 +112,9 @@ function BaskasininProfiliHeader({
                   </button>
                 )}
 
-                <button className="mesajAt-button">Mesaj</button>
+                <button onClick={handleMessage} className="mesajAt-button">
+                  Mesaj
+                </button>
                 <div className="profilim-settings">
                   <IoSettingsOutline size={22} />
                 </div>
