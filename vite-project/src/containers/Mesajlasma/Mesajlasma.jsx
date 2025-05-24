@@ -30,6 +30,8 @@ function Mesajlasma() {
     setIcMesajlasmaLoading,
     mesajlasmaKutusuAcikMi,
     setMesajlasmaKutusuAcikMi,
+    baslangicMesaji,
+    setBaslangicMesaji,
   } = useGlobalContext();
 
   /*
@@ -182,6 +184,8 @@ function Mesajlasma() {
                     setIcMesajAcikMi={setIcMesajAcikMi}
                     karsiTarafAdi={karsiTarafAdi}
                     profilResmi={profilResmi}
+                    baslangicMesaji={baslangicMesaji}
+                    setBaslangicMesaji={setBaslangicMesaji}
                   />
                 ) : (
                   <div>

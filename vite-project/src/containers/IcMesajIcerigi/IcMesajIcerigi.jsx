@@ -17,6 +17,8 @@ function IcMesajIcerigi({
   setIcMesajAcikMi,
   karsiTarafAdi,
   profilResmi,
+  baslangicMesaji,
+  setBaslangicMesaji,
 }) {
   useEffect(() => {
     console.log("ic mesaj profil resmi bilgisi= ", profilResmi);
@@ -27,6 +29,13 @@ function IcMesajIcerigi({
     ikiKullaniciArasindakiTumMesajlar,
     setIkiKullaniciArasindakiTumMesajlar,
   ] = useState([]);
+  const [yazilanMesaj, setYazilanMesaj] = useState("");
+
+  useEffect(() => {
+    if (baslangicMesaji !== undefined) {
+      setYazilanMesaj(baslangicMesaji);
+    }
+  }, [baslangicMesaji]);
   const [oturumSahibiKullaniciId, setOturumSahibiKullaniciId] = useState(0);
   const mesajListesiRef = useRef(null);
 
@@ -34,8 +43,6 @@ function IcMesajIcerigi({
     setIcMesajAcikMi(false);
   };
   const navigate = useNavigate();
-
-  const [yazilanMesaj, setYazilanMesaj] = useState("");
 
   const onMessageReceived = (message) => {
     let yeniObje = {
@@ -118,6 +125,7 @@ function IcMesajIcerigi({
         karsiTarafIdBilgisi
       );
       setYazilanMesaj("");
+      setBaslangicMesaji("");
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
     }

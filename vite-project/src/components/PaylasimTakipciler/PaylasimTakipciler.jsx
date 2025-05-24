@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./PaylasimTakipciler.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useGlobalContext } from "../../GlobalProvider.jsx";
+import { useNavigate } from "react-router-dom";
 
 function PaylasimTakipciler({
   tumTakipciler,
   setGonderiyiPaylasModalAcikMi,
   tumTakipEdilenler,
+  paylasilanGonderiSahibiTakmaAd,
+  paylasilanGonderiId,
 }) {
   const [totalListe, setTotalListe] = useState([]);
+  const navigate = useNavigate();
   const {
     karsiTarafIdBilgisi,
     setKarsiTarafIdBilgisi,
@@ -22,6 +26,8 @@ function PaylasimTakipciler({
     setIcMesajlasmaLoading,
     mesajlasmaKutusuAcikMi,
     setMesajlasmaKutusuAcikMi,
+    baslangicMesaji,
+    setBaslangicMesaji,
   } = useGlobalContext();
 
   const modalClose = () => {
@@ -40,10 +46,20 @@ function PaylasimTakipciler({
       }
     }
     setTotalListe(benzersizKullanicilar);
-  }, []);
+  }, [tumTakipEdilenler, tumTakipciler]);
 
-  const mesajGonderHandle = () => {
+  const mesajGonderHandle = (kullaniciId, kullaniciTakmaAd, profilResmi) => {
+    const domain = window.location.hostname;
+    console.log("Domain name= ", domain);
+    console.log("Total list= ", totalListe);
+    setKarsiTarafIdBilgisi(kullaniciId);
+    setKarsiTarafAdi(kullaniciTakmaAd);
+    setProfilResmi(profilResmi);
+    setBaslangicMesaji(
+      `https://localhost:5173/gonderiler/${paylasilanGonderiSahibiTakmaAd}/${paylasilanGonderiId}?comments=all`
+    );
     setMesajlasmaKutusuAcikMi(true);
+    setIcMesajAcikMi(true);
   };
 
   return (
@@ -57,7 +73,13 @@ function PaylasimTakipciler({
           {tumTakipciler && tumTakipciler.length > 0 ? (
             totalListe.map((takipci, index) => (
               <div
-                onClick={mesajGonderHandle}
+                onClick={() =>
+                  mesajGonderHandle(
+                    takipci.kullaniciId,
+                    takipci.kullaniciTakmaAd,
+                    takipci.kullaniciProfilResmi
+                  )
+                }
                 key={index}
                 className="takipci-karti"
               >

@@ -25,6 +25,9 @@ function AnasayfaGonderiler({
   const [tumTakipciler, setTumTakipciler] = useState({});
   const [tumTakipEdilenler, setTumTakipEdilenler] = useState({});
   const [yorumlariGorAcikMi, setYorumlarAcikMi] = useState(false);
+  const [paylasilanGonderiSahibiTakmaAd, setPaylasilanGonderiSahibiTakmaAd] =
+    useState("");
+  const [paylasilanGonderiId, setPaylasilanGonderiId] = useState("");
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = takipEdilenlerinTumGonderileri.find(
       (g) => g.gonderiId === gonderiId
@@ -93,10 +96,15 @@ function AnasayfaGonderiler({
     }
   };
 
-  const gonderiyiBaskalariylaPaylasModalHandle = async () => {
+  const gonderiyiBaskalariylaPaylasModalHandle = async (
+    gonderiSahibiTakmaAd,
+    gonderiId
+  ) => {
     try {
       const gelenVeri = await kullanicininTumTakipcileriniGetir();
       const gelenVeri2 = await kullaniciTumTakipEdilenleriGetir();
+      setPaylasilanGonderiSahibiTakmaAd(gonderiSahibiTakmaAd);
+      setPaylasilanGonderiId(gonderiId);
       console.log("Tum takipciler= ", gelenVeri);
       console.log("Tum takip edilenler= ", gelenVeri2);
       setTumTakipciler(gelenVeri.follow);
@@ -123,6 +131,8 @@ function AnasayfaGonderiler({
           setGonderiyiPaylasModalAcikMi={setGonderiyiPaylasModalAcikMi}
           tumTakipciler={tumTakipciler}
           tumTakipEdilenler={tumTakipEdilenler}
+          paylasilanGonderiSahibiTakmaAd={paylasilanGonderiSahibiTakmaAd}
+          paylasilanGonderiId={paylasilanGonderiId}
         />
       ) : (
         <div>
@@ -214,7 +224,12 @@ function AnasayfaGonderiler({
                   <span>{gonderi.gonderiYorumSayisi}</span>
                 </div>
                 <div
-                  onClick={gonderiyiBaskalariylaPaylasModalHandle}
+                  onClick={() =>
+                    gonderiyiBaskalariylaPaylasModalHandle(
+                      gonderi.takipEdilenKullaniciTakmaAd,
+                      gonderi.gonderiId
+                    )
+                  }
                   className="gondermeButonu"
                 >
                   <SendOutlinedIcon style={{ fontSize: "30px" }} />

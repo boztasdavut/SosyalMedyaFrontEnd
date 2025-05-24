@@ -9,6 +9,7 @@ export function GlobalProvider({ children }) {
   const [icMesajAcikMi, setIcMesajAcikMi] = useState(false);
   const [icMesajlasmaLoading, setIcMesajlasmaLoading] = useState(false);
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
+  const [baslangicMesaji, setBaslangicMesaji] = useState("");
   return (
     <GlobalContext.Provider
       value={{
@@ -24,6 +25,8 @@ export function GlobalProvider({ children }) {
         setIcMesajlasmaLoading,
         mesajlasmaKutusuAcikMi,
         setMesajlasmaKutusuAcikMi,
+        baslangicMesaji,
+        setBaslangicMesaji,
       }}
     >
       {children}
