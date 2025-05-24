@@ -73,6 +73,9 @@ function IcMesajIcerigi({
   }, [karsiTarafAdi]);
 
   const mesajGondermeButonuHandle = async () => {
+    if (yazilanMesaj === "") {
+      return;
+    }
     console.log(
       "Mesaj gonderme butonuna tiklandi, mesaj icerigi= ",
       yazilanMesaj

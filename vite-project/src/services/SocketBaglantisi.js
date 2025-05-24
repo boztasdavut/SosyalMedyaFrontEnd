@@ -43,9 +43,9 @@ export function connect(onMessageReceived) {
   stompClient.activate();
 }
 
-export function disconnect() {
+export async function disconnect() {
   if (stompClient) {
-    stompClient.deactivate();
+    await stompClient.deactivate();
     console.log("❌ STOMP bağlantısı kapatıldı.");
   }
 }

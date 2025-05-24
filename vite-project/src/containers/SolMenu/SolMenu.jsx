@@ -10,10 +10,14 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
+import { useGlobalContext } from "../../GlobalProvider.jsx";
+import { disconnect } from "../../services/SocketBaglantisi.js";
+
 function SolMenu() {
   const [kullanicininProfilBilgileri, setKullanicininProfilBilgileri] =
     useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const { setMesajlasmaKutusuAcikMi } = useGlobalContext();
 
   useEffect(() => {
     const profilBilgisiGetir = async () => {
@@ -42,6 +46,8 @@ function SolMenu() {
     const basariDurumu = await logout();
     console.log("Logout durumu= ", basariDurumu);
     localStorage.removeItem("jwt");
+    setMesajlasmaKutusuAcikMi(false);
+    disconnect();
     navigate("/girisYap");
   };
 

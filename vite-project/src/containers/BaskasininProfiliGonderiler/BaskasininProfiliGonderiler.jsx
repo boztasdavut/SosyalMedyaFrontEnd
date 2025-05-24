@@ -149,6 +149,7 @@ function BaskasininProfiliGonderiler({
                 </div>
                 <div className="gonderi-yorum">
                   <GoComment size={25} />
+                  <span>{gonderi.gonderiYorumSayisi}</span>
                 </div>
                 <div className="gonderi-paylas">
                   <BsSend size={25} />

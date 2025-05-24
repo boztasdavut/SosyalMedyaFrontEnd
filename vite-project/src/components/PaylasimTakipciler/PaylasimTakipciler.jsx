@@ -58,6 +58,7 @@ function PaylasimTakipciler({
     setBaslangicMesaji(
       `https://localhost:5173/gonderiler/${paylasilanGonderiSahibiTakmaAd}/${paylasilanGonderiId}?comments=all`
     );
+    setGonderiyiPaylasModalAcikMi(false);
     setMesajlasmaKutusuAcikMi(true);
     setIcMesajAcikMi(true);
   };

@@ -36,3 +36,7 @@
     flex-direction: row;
     align-items: center;
 }
+
+.yeniMesajResimVeTakmaAd:hover{
+    cursor: pointer;
+}
