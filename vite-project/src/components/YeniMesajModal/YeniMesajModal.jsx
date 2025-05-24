@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./YeniMesajModal.css";
 import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";
 import { kullaniciTumTakipEdilenleriGetir } from "../../services/KullaniciTumTakipEdilenlerGetir.js";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function YeniMesajModal({
   setKarsiTarafIdBilgisi,
@@ -12,6 +13,8 @@ function YeniMesajModal({
   const [takipcilerVeTakipEdilenler, setTakipcilerVeTakipEdilenler] = useState(
     []
   );
+  const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
     const takipVerileriniGetir = async () => {
       try {
@@ -54,15 +57,26 @@ function YeniMesajModal({
     setIcMesajAcikMi(true);
   };
 
+  const kullaniciProfilineGit = (kullaniciTakmaAd) => {
+    console.log("Mecvut adres= ", location.pathname);
+    navigate(`/profil/${kullaniciTakmaAd}`);
+  };
+
   return (
     <div className="yeniMesajModalAnaDiv">
       <div className="yeniMesajModalCardDiv">
         {takipcilerVeTakipEdilenler.map((kisi) => (
           <div className="yeniMesajKullaniciDiv">
-            <div className="yeniMesajResimAnaDiv">
-              <img id="yeniMesajResim" src={kisi.kullaniciProfilResmi} />
+            <div
+              onClick={() => kullaniciProfilineGit(kisi.kullaniciTakmaAd)}
+              className="yeniMesajResimVeTakmaAd"
+            >
+              <div className="yeniMesajResimAnaDiv">
+                <img id="yeniMesajResim" src={kisi.kullaniciProfilResmi} />
+              </div>
+              <div>@{kisi.kullaniciTakmaAd}</div>
             </div>
-            <div>@{kisi.kullaniciTakmaAd}</div>
+
             <div
               onClick={() =>
                 mesajGonderHandle(

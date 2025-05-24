@@ -9,6 +9,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { BiSend } from "react-icons/bi";
 import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";
+import { kullaniciTumTakipEdilenleriGetir } from "../../services/KullaniciTumTakipEdilenlerGetir.js";
 import PaylasimTakipciler from "../../components/PaylasimTakipciler/PaylasimTakipciler.jsx";
 import { birGonderiyeYorumYap } from "../../services/BirGonderiyeYorumYap.js";
 
@@ -22,6 +23,7 @@ function AnasayfaGonderiler({
   const [gonderiyiPaylasModalAcikMi, setGonderiyiPaylasModalAcikMi] =
     useState(false);
   const [tumTakipciler, setTumTakipciler] = useState({});
+  const [tumTakipEdilenler, setTumTakipEdilenler] = useState({});
   const [yorumlariGorAcikMi, setYorumlarAcikMi] = useState(false);
   const birGonderiyiBegen = async (gonderiId) => {
     const gonderi = takipEdilenlerinTumGonderileri.find(
@@ -94,8 +96,11 @@ function AnasayfaGonderiler({
   const gonderiyiBaskalariylaPaylasModalHandle = async () => {
     try {
       const gelenVeri = await kullanicininTumTakipcileriniGetir();
+      const gelenVeri2 = await kullaniciTumTakipEdilenleriGetir();
       console.log("Tum takipciler= ", gelenVeri);
-      setTumTakipciler(gelenVeri);
+      console.log("Tum takip edilenler= ", gelenVeri2);
+      setTumTakipciler(gelenVeri.follow);
+      setTumTakipEdilenler(gelenVeri2.follow);
       console.log("Paylasma modal aktif edildi.!");
     } catch (err) {
       console.log("Gonderme baskalariyla paylas hatasi= ", err);
@@ -103,17 +108,21 @@ function AnasayfaGonderiler({
   };
 
   useEffect(() => {
-    if (Object.keys(tumTakipciler).length > 0) {
+    if (
+      Object.keys(tumTakipciler).length > 0 &&
+      Object.keys(tumTakipEdilenler)
+    ) {
       setGonderiyiPaylasModalAcikMi(true);
     }
-  }, [tumTakipciler]);
+  }, [tumTakipciler, tumTakipEdilenler]);
 
   return (
     <div>
       {gonderiyiPaylasModalAcikMi ? (
         <PaylasimTakipciler
           setGonderiyiPaylasModalAcikMi={setGonderiyiPaylasModalAcikMi}
-          tumTakipciler={tumTakipciler.follow}
+          tumTakipciler={tumTakipciler}
+          tumTakipEdilenler={tumTakipEdilenler}
         />
       ) : (
         <div>

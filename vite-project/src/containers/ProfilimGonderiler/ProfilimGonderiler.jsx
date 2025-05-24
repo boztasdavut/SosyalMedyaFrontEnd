@@ -86,8 +86,6 @@ function ProfilimGonderiler({
     gonderileriGetir();
   }, []);
 
-  
-
   const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
     try {
       navigate(`/gonderiler/${kullaniciTakmaAd}/${gonderiId}?comments=all`);
@@ -147,15 +145,31 @@ function ProfilimGonderiler({
                   <div>{gonderi.gonderiIcerigi}</div>
                   <div>
                     {gonderi.gonderiMedyaUrl && (
-                      <img
-                        src={gonderi.gonderiMedyaUrl}
-                        className="profilimGonderiMedya"
-                        alt="Gönderi Medya"
-                        onClick={() =>
-                          setLightboxImage(gonderi.gonderiMedyaUrl)
-                        }
-                        style={{ cursor: "pointer" }}
-                      />
+                      <div>
+                        {gonderi.gonderiMedyaUrl
+                          .toLowerCase()
+                          .endsWith(".mp4") ? (
+                          <video
+                            src={gonderi.gonderiMedyaUrl}
+                            className="profilimGonderiMedya"
+                            alt="Gönderi Medya"
+                            onClick={() =>
+                              setLightboxImage(gonderi.gonderiMedyaUrl)
+                            }
+                            style={{ cursor: "pointer" }}
+                          />
+                        ) : (
+                          <img
+                            src={gonderi.gonderiMedyaUrl}
+                            className="profilimGonderiMedya"
+                            alt="Gönderi Medya"
+                            onClick={() =>
+                              setLightboxImage(gonderi.gonderiMedyaUrl)
+                            }
+                            style={{ cursor: "pointer" }}
+                          />
+                        )}
+                      </div>
                     )}
                   </div>
                 </div>
