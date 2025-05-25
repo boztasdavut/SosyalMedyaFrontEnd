@@ -56,6 +56,7 @@ function Anketlerim() {
     const tumAnketleriminBilgisi = async () => {
       setLoading(true); // veri gelirken loading göstermek için
       const gelenVeri = await anketlerimiGetir();
+      console.log("Anketlerim sayfasi anketler= ", gelenVeri);
       setKullanicininTumAnketleri(gelenVeri);
       setLoading(false);
     };
@@ -66,6 +67,27 @@ function Anketlerim() {
   const anketSilmeOnaylama = (anketId) => {
     setModalIsOpen(true);
     setSilinecekAnketBilgisi(anketId);
+  };
+
+  const getToplamCevapSayisiByAnketId = (anketId) => {
+    if (!kullanicininTumAnketleri) return 0; // Veriler daha yüklenmemiş olabilir
+
+    const anket = kullanicininTumAnketleri.find((a) => a.anketId === anketId);
+    if (!anket) return 0;
+
+    return anket.secenekler.reduce(
+      (toplam, secenek) => toplam + secenek.secenekCevapSayisi,
+      0
+    );
+  };
+
+  const yuzdelikHesapla = (secenekCevapSayisi, anketId) => {
+    const toplamCevapSayisi = getToplamCevapSayisiByAnketId(anketId);
+    if (toplamCevapSayisi === 0) {
+      return 0;
+    } else {
+      return ((secenekCevapSayisi / toplamCevapSayisi) * 100).toFixed(2);
+    }
   };
 
   return (
@@ -110,14 +132,18 @@ function Anketlerim() {
                         key={secenekIndex}
                         className="anketlerimSeceneklerDiv"
                       >
-                        {e.secenekMetni}
+                        <div>{e.secenekMetni}</div>
+                        <div>
+                          %
+                          {yuzdelikHesapla(
+                            e.secenekCevapSayisi,
+                            element.anketId
+                          )}
+                        </div>
                       </div>
                     ))}
                     {element.anketId.toString() === filtreBilgisi && (
                       <div className="soruCardFooterAnaDiv">
-                        <div className="istatistikleriGorButonu">
-                          İstatistikleri Gör
-                        </div>
                         <div
                           onClick={() => anketSilmeOnaylama(element.anketId)}
                           className="anketiSilDiv"

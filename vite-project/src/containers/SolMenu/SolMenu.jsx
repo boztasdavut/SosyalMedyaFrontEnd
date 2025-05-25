@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./SolMenu.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { logout } from "../../services/Logout.js";
 import { kullaniciProfilBilgileriGetir } from "../../services/KullaniciProfilBilgileri.js";
 import { ClipLoader } from "react-spinners";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -10,14 +9,13 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
-import { useGlobalContext } from "../../GlobalProvider.jsx";
-import { disconnect } from "../../services/SocketBaglantisi.js";
+import LogoutModal from "../../components/LogoutModal/LogoutModal.jsx";
 
 function SolMenu() {
   const [kullanicininProfilBilgileri, setKullanicininProfilBilgileri] =
     useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const { setMesajlasmaKutusuAcikMi } = useGlobalContext();
+  const [logoutModalIsOpen, setLogoutModalIsOpen] = useState(false);
 
   useEffect(() => {
     const profilBilgisiGetir = async () => {
@@ -43,12 +41,7 @@ function SolMenu() {
     navigate("/arama");
   };
   const cikisYap = async () => {
-    const basariDurumu = await logout();
-    console.log("Logout durumu= ", basariDurumu);
-    localStorage.removeItem("jwt");
-    setMesajlasmaKutusuAcikMi(false);
-    disconnect();
-    navigate("/girisYap");
+    setLogoutModalIsOpen(true);
   };
 
   const ayarlaraGit = async () => {
@@ -61,13 +54,15 @@ function SolMenu() {
 
   return (
     <div>
-      {isLoading ? (
+      {logoutModalIsOpen ? (
+        <LogoutModal setLogoutModalIsOpen={setLogoutModalIsOpen} />
+      ) : isLoading ? (
         <div
           style={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "100vh", // Bu, ekranın tamamında ortalanmasını sağlar
+            height: "100vh",
           }}
         >
           <ClipLoader size={100} color="#4a90e2" />
@@ -104,7 +99,6 @@ function SolMenu() {
               />
             </div>
           </Tooltip>
-
           <Tooltip title="Çıkış Yap">
             <div onClick={cikisYap}>
               <ExitToAppOutlinedIcon style={{ fontSize: "50px" }} />

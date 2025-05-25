@@ -1,0 +1,44 @@
+.logoutModalAnaDiv{
+    position: fixed;
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+
+}
+
+.logoutModalKutucuk{
+    width: 400px;
+    height: 100px;
+    padding: 10px;
+    background-color: cadetblue;
+    border-radius: 5px;
+}
+
+.logoutModalCevaplar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.logoutModaSecenek{
+    padding: 10px;
+    color:white;
+    background-color: blueviolet;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.logoutModaSecenek:hover{
+    cursor: pointer;
+}
+
+.logoutModalBaslik{
+    text-align: center;
+    color:white;
+    font-size: 20px;
+}
