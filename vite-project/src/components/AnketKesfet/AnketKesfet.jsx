@@ -88,42 +88,46 @@ function AnketKesfet() {
       ) : (
         <>
           <AnketlerimGenel seciliAlan={1} />
-          {anketOnerilerim.map((oneriAnket, index) => (
-            <div className="anketCardYapisi" key={index}>
-              <div>
-                <div className="anketCardAnketSorusu">
-                  {index + 1} ) {oneriAnket.anketSorusu}
+          {anketOnerilerim.length > 0 ? (
+            anketOnerilerim.map((oneriAnket, index) => (
+              <div className="anketCardYapisi" key={index}>
+                <div>
+                  <div className="anketCardAnketSorusu">
+                    {index + 1}) {oneriAnket.anketSorusu}
+                  </div>
                 </div>
-              </div>
-              {oneriAnket.secenekler.map((secenek, i) =>
-                oneriAnket.kullaniciCevapVarMi ? (
-                  <div className="anketlerimSeceneklerDiv" key={i}>
-                    <div>{secenek.secenekMetni}</div>
-                    <div>
-                      %
-                      {(
-                        (secenek.secenekCevapSayisi /
-                          getToplamCevapSayisiByAnketId(oneriAnket.anketId)) *
-                        100
-                      ).toFixed(2)}
+                {oneriAnket.secenekler.map((secenek, i) =>
+                  oneriAnket.kullaniciCevapVarMi ? (
+                    <div className="anketlerimSeceneklerDiv" key={i}>
+                      <div>{secenek.secenekMetni}</div>
+                      <div>
+                        %
+                        {(
+                          (secenek.secenekCevapSayisi /
+                            getToplamCevapSayisiByAnketId(oneriAnket.anketId)) *
+                          100
+                        ).toFixed(2)}
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div>
-                    <label>
-                      <input
-                        type="radio"
-                        name="anketSecimi"
-                        value={secenek.seceneklerId}
-                        onChange={(e) => handleSecim(e, secenek.anketId)} // Bu fonksiyonu sen yazacaksın
-                      />
-                      {secenek.secenekMetni}
-                    </label>
-                  </div>
-                )
-              )}
-            </div>
-          ))}
+                  ) : (
+                    <div key={i}>
+                      <label>
+                        <input
+                          type="radio"
+                          name={`anketSecimi_${oneriAnket.anketId}`} // Aynı anketteki radio'lar gruplansın
+                          value={secenek.seceneklerId}
+                          onChange={(e) => handleSecim(e, oneriAnket.anketId)}
+                        />
+                        {secenek.secenekMetni}
+                      </label>
+                    </div>
+                  )
+                )}
+              </div>
+            ))
+          ) : (
+            <div>Herhangi bir anket bulunmamıştır.</div>
+          )}
         </>
       )}
     </div>

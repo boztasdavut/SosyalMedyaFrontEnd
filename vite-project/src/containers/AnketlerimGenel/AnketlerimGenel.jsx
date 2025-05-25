@@ -7,7 +7,7 @@ import AnketOlustur from "../../components/AnketOlustur/AnketOlustur";
 import Anketlerim from "../../components/Anketlerim/Anketlerim";
 import { useNavigate } from "react-router-dom";
 
-function AnketlerimGenel({ seciliAlan = 0 }) {
+function AnketlerimGenel({ seciliAlan = 1 }) {
   const navigate = useNavigate();
 
   const anketlerimSecenegi = () => {
