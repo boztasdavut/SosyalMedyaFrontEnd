@@ -26,6 +26,13 @@ function AnketOlustur() {
   };
 
   const anketTotalVeriKaydetmeyeHazir = async () => {
+    if (soruYazisi === "") {
+      return;
+    }
+    if (seceneklerinBilgisi.length >= 2) {
+      return;
+    }
+
     const totalAnketVerisi = {
       soruYazisi: soruYazisi,
       soruSecenekleri: seceneklerinBilgisi,

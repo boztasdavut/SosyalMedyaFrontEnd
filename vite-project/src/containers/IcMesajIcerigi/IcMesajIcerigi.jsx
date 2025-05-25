@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { connect, disconnect } from "../../services/SocketBaglantisi.js";
 import { birKullaniciyaMesajGonder } from "../../services/BirKullaniciyaMesajGonder.js";
 import { jwtTakmaAdAl } from "../../services/MevcutTakmaAdAl.js";
+import Linkify from "linkify-react";
 
 function IcMesajIcerigi({
   karsiTarafIdBilgisi,
@@ -208,13 +209,27 @@ function IcMesajIcerigi({
                   {mesaj.gonderenKullaniciId === oturumSahibiKullaniciId ? (
                     <div className="benimMesajimCard">
                       <div className="benimAttigimMesajDiv">
-                        {mesaj.mesajIcerigi}
+                        <Linkify
+                          options={{
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                          }}
+                        >
+                          {mesaj.mesajIcerigi}
+                        </Linkify>
                       </div>
                     </div>
                   ) : (
                     <div className="onunMesajiCard">
                       <div className="banaAtilanMesajDiv">
-                        {mesaj.mesajIcerigi}
+                        <Linkify
+                          options={{
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                          }}
+                        >
+                          {mesaj.mesajIcerigi}
+                        </Linkify>
                       </div>
                     </div>
                   )}

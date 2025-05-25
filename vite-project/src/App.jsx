@@ -2,7 +2,13 @@ import "./App.css";
 import Anasayfa from "./containers/Anasayfa/Anasayfa";
 import GirisYap from "./containers/GirisYapEkranı/GirisYap";
 import KayitOl from "./containers/KayıtOlmaEkranı/KayitOl";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+} from "react-router-dom";
 import Profilim from "./containers/Profilim/Profilim";
 import MailOnay from "./containers/MailOnay/MailOnay.jsx";
 import AramaGecmisi from "./containers/AramaGecmisi/AramaGecmisi.jsx";
@@ -23,6 +29,7 @@ function App() {
       <>
         <Router>
           <Routes>
+            <Route path="/" element={<Navigate to="/girisYap" />} />
             <Route path="/kayitOl" element={<KayitOl />} />
             <Route path="/girisYap" element={<GirisYap />} />
             <Route path="/anasayfa" element={<Anasayfa />} />

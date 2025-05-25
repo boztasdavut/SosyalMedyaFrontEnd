@@ -63,7 +63,7 @@ function YorumlariGor({ gonderiBilgisi }) {
     }));
     birYorumuBegen(yorumId);
   };
-  
+
   const birYorumdanBegeniKaldirHandle = (yorumId) => {
     setYorumBegeniBilgisi((prev) => ({
       ...prev,
@@ -151,6 +151,11 @@ function YorumlariGor({ gonderiBilgisi }) {
     }
   }, [searchParams]); // searchParams her değiştiğinde kontrol et
 
+  const yorumdanProfileGit = (kullaniciTakmaAd, e) => {
+    e.stopPropagation();
+    navigate(`/profil/${kullaniciTakmaAd}`);
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -170,7 +175,12 @@ function YorumlariGor({ gonderiBilgisi }) {
                 className="yorumlarAnaDiv"
                 key={yorum.yorumId}
               >
-                <div className="anaYorumFotoVeTakmaAd">
+                <div
+                  onClick={(e) =>
+                    yorumdanProfileGit(yorum.yorumYapanTakmaAd, e)
+                  }
+                  className="anaYorumFotoVeTakmaAd"
+                >
                   <div>
                     <img src={yorum.yorumYapanResim} alt="" />
                   </div>
