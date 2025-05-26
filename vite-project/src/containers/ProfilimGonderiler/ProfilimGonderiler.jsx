@@ -15,6 +15,9 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import ProfilimGonderilerModal from "../../components/ProfilimGonderilerModal/ProfilimGonderilerModal.jsx";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";
+import { kullaniciTumTakipEdilenleriGetir } from "../../services/KullaniciTumTakipEdilenlerGetir.js";
+import PaylasimTakipciler from "../../components/PaylasimTakipciler/PaylasimTakipciler.jsx";
 
 function ProfilimGonderiler({
   setGonderiSayisi,
@@ -30,6 +33,13 @@ function ProfilimGonderiler({
   const navigate = useNavigate();
   const [lightboxImage, setLightboxImage] = useState(null);
   const [secilenGonderi, setSecilenGonderi] = useState(null);
+  const [gonderiyiPaylasModalAcikMi, setGonderiyiPaylasModalAcikMi] =
+    useState(false);
+  const [tumTakipciler, setTumTakipciler] = useState({});
+  const [tumTakipEdilenler, setTumTakipEdilenler] = useState({});
+  const [paylasilanGonderiSahibiTakmaAd, setPaylasilanGonderiSahibiTakmaAd] =
+    useState("");
+  const [paylasilanGonderiId, setPaylasilanGonderiId] = useState("");
   const birGonderiyiBegen = async (gonderiId, e) => {
     e.stopPropagation();
     const gonderi = kullanicininTumGonderileri.find(
@@ -68,10 +78,33 @@ function ProfilimGonderiler({
     }
   };
 
+  const gonderiyiBaskalariylaPaylasModalHandle = async (
+    gonderiSahibiTakmaAd,
+    gonderiId,
+    e
+  ) => {
+    try {
+      e.stopPropagation();
+      const gelenVeri = await kullanicininTumTakipcileriniGetir();
+      const gelenVeri2 = await kullaniciTumTakipEdilenleriGetir();
+      setPaylasilanGonderiSahibiTakmaAd(gonderiSahibiTakmaAd);
+      setPaylasilanGonderiId(gonderiId);
+      console.log("Tum takipciler= ", gelenVeri);
+      console.log("Tum takip edilenler= ", gelenVeri2);
+      setTumTakipciler(gelenVeri.follow);
+      setTumTakipEdilenler(gelenVeri2.follow);
+      setGonderiyiPaylasModalAcikMi(true);
+      console.log("Paylasma modal aktif edildi.!");
+    } catch (err) {
+      console.log("Gonderme baskalariyla paylas hatasi= ", err);
+    }
+  };
+
   useEffect(() => {
     const gonderileriGetir = async () => {
       try {
         const gonderiler = await kullanicininTumGonderileriniGetir();
+        console.log("Profilim tum gonderiler= ", gonderiler);
         setGonderiSayisi(gonderiler.length);
         setKullanicininTumGonderileri(gonderiler);
 
@@ -102,8 +135,15 @@ function ProfilimGonderiler({
 
   return (
     <div className="profilimTumGonderiYapisiAnaDiv">
-      <ToastContainer position="top-center" />
-      {gonderiSilmeLoading ? (
+      {gonderiyiPaylasModalAcikMi ? (
+        <PaylasimTakipciler
+          setGonderiyiPaylasModalAcikMi={setGonderiyiPaylasModalAcikMi}
+          tumTakipciler={tumTakipciler}
+          tumTakipEdilenler={tumTakipEdilenler}
+          paylasilanGonderiSahibiTakmaAd={paylasilanGonderiSahibiTakmaAd}
+          paylasilanGonderiId={paylasilanGonderiId}
+        />
+      ) : gonderiSilmeLoading ? (
         <div className="loading-container">
           <ClipLoader size={100} color="#4a90e2" />
         </div>
@@ -152,11 +192,11 @@ function ProfilimGonderiler({
                           <video
                             src={gonderi.gonderiMedyaUrl}
                             className="profilimGonderiMedya"
-                            alt="Gönderi Medya"
                             onClick={() =>
                               setLightboxImage(gonderi.gonderiMedyaUrl)
                             }
                             style={{ cursor: "pointer" }}
+                            controls
                           />
                         ) : (
                           <img
@@ -186,14 +226,22 @@ function ProfilimGonderiler({
                     ) : (
                       <FavoriteBorderIcon style={{ fontSize: "30px" }} />
                     )}
-
                     <span>{gonderi.gonderiBegeniSayisi}</span>
                   </div>
                   <div className="profilimYorumButonu">
                     <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
                     <span>{gonderi.gonderiYorumSayisi}</span>
                   </div>
-                  <div className="profilimGondermeButonu">
+                  <div
+                    onClick={(e) =>
+                      gonderiyiBaskalariylaPaylasModalHandle(
+                        gonderi.kullaniciTakmaAd,
+                        gonderi.gonderiId,
+                        e
+                      )
+                    }
+                    className="profilimGondermeButonu"
+                  >
                     <SendOutlinedIcon style={{ fontSize: "30px" }} />
                   </div>
                 </div>
@@ -202,6 +250,8 @@ function ProfilimGonderiler({
           ))}
         </div>
       )}
+
+      <ToastContainer position="top-center" />
 
       {/* Lightbox Overlay */}
       {lightboxImage && (

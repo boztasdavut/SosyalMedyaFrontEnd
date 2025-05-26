@@ -9,6 +9,8 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import { connect, disconnect } from "../../services/SocketBaglantisi.js";
 import YeniMesajModal from "../../components/YeniMesajModal/YeniMesajModal.jsx";
 import { useGlobalContext } from "../../GlobalProvider";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { mesajSil } from "../../services/MesajSilme.js";
 
 function Mesajlasma() {
   const [mesajBaslangicSayfasi, setMesajBaslangicSayfasi] = useState([]);
@@ -154,6 +156,23 @@ function Mesajlasma() {
     setYeniMesajModalIsOpen(false);
   };
 
+  const mesajSilState = (karsiTarafId) => {
+    setMesajBaslangicSayfasi((prevMesajlar) =>
+      prevMesajlar.filter((mesaj) => mesaj.karsiTarafId !== karsiTarafId)
+    );
+  };
+
+  const mesajSilmeyeTiklandi = async (karsiTarafKullaniciId, e) => {
+    e.stopPropagation();
+    console.log("karsi taraf kullanici id= ", karsiTarafKullaniciId);
+    try {
+      const gelenVeri = await mesajSil(karsiTarafKullaniciId);
+      mesajSilState(karsiTarafKullaniciId);
+    } catch (err) {
+      console.log("Mesaj silmede bir hata meydana geldi= ", err);
+    }
+  };
+
   return (
     <div>
       <div className="mesajlasmaAnaDiv">
@@ -231,15 +250,25 @@ function Mesajlasma() {
                         key={mesaj.mesajId}
                         className="cardDiv"
                       >
-                        <div className="profilResmiVeTakmaAd">
+                        <div className="profilBilgisiVeSilmeButonu">
+                          <div className="profilResmiVeTakmaAd">
+                            <div>
+                              <img
+                                src={mesaj.karsiTarafProfilResmi}
+                                alt="Profil"
+                              />
+                            </div>
+                            <div>@{mesaj.karsiTarafAdi}</div>
+                          </div>
                           <div>
-                            <img
-                              src={mesaj.karsiTarafProfilResmi}
-                              alt="Profil"
+                            <DeleteOutlineOutlinedIcon
+                              onClick={(e) =>
+                                mesajSilmeyeTiklandi(mesaj.karsiTarafId, e)
+                              }
                             />
                           </div>
-                          <div>@{mesaj.karsiTarafAdi}</div>
                         </div>
+
                         <div className="mesajVeGonderenDiv">
                           <div className="lastMessage">
                             {mesaj.mesajIcerigi}

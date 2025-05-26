@@ -9,6 +9,9 @@ import { gonderiBegen } from "../../services/GonderiBegen.js";
 import { begeniKaldir } from "../../services/GonderidenBegeniKaldir.js";
 import { BiSend } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";
+import { kullaniciTumTakipEdilenleriGetir } from "../../services/KullaniciTumTakipEdilenlerGetir.js";
+import PaylasimTakipciler from "../../components/PaylasimTakipciler/PaylasimTakipciler.jsx";
 
 function BaskasininProfiliGonderiler({
   baskasininProfiliBilgileri,
@@ -18,6 +21,13 @@ function BaskasininProfiliGonderiler({
   const [lightboxImage, setLightboxImage] = useState(null);
   const inputRefs = useRef({});
   const navigate = useNavigate();
+  const [gonderiyiPaylasModalAcikMi, setGonderiyiPaylasModalAcikMi] =
+    useState(false);
+  const [tumTakipciler, setTumTakipciler] = useState({});
+  const [tumTakipEdilenler, setTumTakipEdilenler] = useState({});
+  const [paylasilanGonderiSahibiTakmaAd, setPaylasilanGonderiSahibiTakmaAd] =
+    useState("");
+  const [paylasilanGonderiId, setPaylasilanGonderiId] = useState("");
   useEffect(() => {
     setIsLoading(false);
     console.log("baskasinin profil bilgileri= ", baskasininProfiliBilgileri);
@@ -73,9 +83,37 @@ function BaskasininProfiliGonderiler({
     } catch (err) {}
   };
 
+  const gonderiyiBaskalariylaPaylasModalHandle = async (
+    gonderiSahibiTakmaAd,
+    gonderiId
+  ) => {
+    try {
+      const gelenVeri = await kullanicininTumTakipcileriniGetir();
+      const gelenVeri2 = await kullaniciTumTakipEdilenleriGetir();
+      setPaylasilanGonderiSahibiTakmaAd(gonderiSahibiTakmaAd);
+      setPaylasilanGonderiId(gonderiId);
+      console.log("Tum takipciler= ", gelenVeri);
+      console.log("Tum takip edilenler= ", gelenVeri2);
+      setTumTakipciler(gelenVeri.follow);
+      setTumTakipEdilenler(gelenVeri2.follow);
+      setGonderiyiPaylasModalAcikMi(true);
+      console.log("Paylasma modal aktif edildi.!");
+    } catch (err) {
+      console.log("Gonderme baskalariyla paylas hatasi= ", err);
+    }
+  };
+
   return (
     <div>
-      {isLoading ? (
+      {gonderiyiPaylasModalAcikMi ? (
+        <PaylasimTakipciler
+          setGonderiyiPaylasModalAcikMi={setGonderiyiPaylasModalAcikMi}
+          tumTakipciler={tumTakipciler}
+          tumTakipEdilenler={tumTakipEdilenler}
+          paylasilanGonderiSahibiTakmaAd={paylasilanGonderiSahibiTakmaAd}
+          paylasilanGonderiId={paylasilanGonderiId}
+        />
+      ) : isLoading ? (
         <div className="gonderi-loading">
           <ClipLoader color="#4a90e2" size={40} />
         </div>
@@ -151,7 +189,15 @@ function BaskasininProfiliGonderiler({
                   <GoComment size={25} />
                   <span>{gonderi.gonderiYorumSayisi}</span>
                 </div>
-                <div className="gonderi-paylas">
+                <div
+                  onClick={() =>
+                    gonderiyiBaskalariylaPaylasModalHandle(
+                      gonderi.kullaniciTakmaAd,
+                      gonderi.gonderiId
+                    )
+                  }
+                  className="gonderi-paylas"
+                >
                   <BsSend size={25} />
                 </div>
               </div>

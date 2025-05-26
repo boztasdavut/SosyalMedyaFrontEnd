@@ -20,6 +20,9 @@ import { jwtDecode } from "../../services/JwtDecode.js";
 import { useSearchParams } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import { jwtTakmaAdAl } from "../../services/MevcutTakmaAdAl.js";
+import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";
+import { kullaniciTumTakipEdilenleriGetir } from "../../services/KullaniciTumTakipEdilenlerGetir.js";
+import PaylasimTakipciler from "../../components/PaylasimTakipciler/PaylasimTakipciler.jsx";
 
 function GonderiIcerigi() {
   const { gonderiId, takmaAd } = useParams();
@@ -31,6 +34,13 @@ function GonderiIcerigi() {
   const [lightboxImage, setLightboxImage] = useState(null);
   const [yapilanYorum, setYapilanYorum] = useState("");
   const [yorumlariGorAcikMi, setYorumlariGorAcikMi] = useState(true);
+  const [gonderiyiPaylasModalAcikMi, setGonderiyiPaylasModalAcikMi] =
+    useState(false);
+  const [tumTakipciler, setTumTakipciler] = useState({});
+  const [tumTakipEdilenler, setTumTakipEdilenler] = useState({});
+  const [paylasilanGonderiSahibiTakmaAd, setPaylasilanGonderiSahibiTakmaAd] =
+    useState("");
+  const [paylasilanGonderiId, setPaylasilanGonderiId] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     const gonderiIcerigineTiklandi = async () => {
@@ -139,12 +149,37 @@ function GonderiIcerigi() {
     navigate(-1);
   };
 
+  const gonderiyiBaskalariylaPaylasModalHandle = async (
+    gonderiSahibiTakmaAd,
+    gonderiId
+  ) => {
+    try {
+      const gelenVeri = await kullanicininTumTakipcileriniGetir();
+      const gelenVeri2 = await kullaniciTumTakipEdilenleriGetir();
+      setPaylasilanGonderiSahibiTakmaAd(gonderiSahibiTakmaAd);
+      setPaylasilanGonderiId(gonderiId);
+      console.log("Tum takipciler= ", gelenVeri);
+      console.log("Tum takip edilenler= ", gelenVeri2);
+      setTumTakipciler(gelenVeri.follow);
+      setTumTakipEdilenler(gelenVeri2.follow);
+      setGonderiyiPaylasModalAcikMi(true);
+      console.log("Paylasma modal aktif edildi.!");
+    } catch (err) {
+      console.log("Gonderme baskalariyla paylas hatasi= ", err);
+    }
+  };
+
   return (
     <div>
-      <SolMenu />
-      <Mesajlasma />
-      <ToastContainer position="top-center" />
-      {isLoading ? (
+      {gonderiyiPaylasModalAcikMi ? (
+        <PaylasimTakipciler
+          setGonderiyiPaylasModalAcikMi={setGonderiyiPaylasModalAcikMi}
+          tumTakipciler={tumTakipciler}
+          tumTakipEdilenler={tumTakipEdilenler}
+          paylasilanGonderiSahibiTakmaAd={paylasilanGonderiSahibiTakmaAd}
+          paylasilanGonderiId={paylasilanGonderiId}
+        />
+      ) : isLoading ? (
         <div className="loading-container">
           <ClipLoader size={100} color="#4a90e2" />
         </div>
@@ -223,7 +258,15 @@ function GonderiIcerigi() {
                 <ChatBubbleOutlineIcon style={{ fontSize: "30px" }} />
                 <span>{gonderiBilgisi.yorumlar.length}</span>
               </div>
-              <div className="gondermeButonu">
+              <div
+                onClick={() =>
+                  gonderiyiBaskalariylaPaylasModalHandle(
+                    gonderiBilgisi.kullaniciTakmaAd,
+                    gonderiBilgisi.gonderiId
+                  )
+                }
+                className="gondermeButonu"
+              >
                 <SendOutlinedIcon style={{ fontSize: "30px" }} />
               </div>
             </div>
@@ -251,6 +294,9 @@ function GonderiIcerigi() {
           </div>
         </div>
       )}
+      <SolMenu />
+      <Mesajlasma />
+      <ToastContainer position="top-center" />
 
       {/* Lightbox Overlay */}
       {lightboxImage && (

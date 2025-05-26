@@ -22,6 +22,7 @@ import AnketOlustur from "./components/AnketOlustur/AnketOlustur.jsx";
 import AnketKesfet from "./components/AnketKesfet/AnketKesfet.jsx";
 import SifremiUnuttum from "./containers/SifremiUnuttum/SifremiUnuttum.jsx";
 import { GlobalProvider } from "./GlobalProvider";
+import PageNotFound from "./containers/PageNotFound/PageNotFound.jsx";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
               element={<AnketKesfet />}
             />
             <Route path="/sifremiUnuttum" element={<SifremiUnuttum />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
       </>
