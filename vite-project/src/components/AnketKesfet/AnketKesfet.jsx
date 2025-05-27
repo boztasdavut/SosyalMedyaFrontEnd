@@ -14,6 +14,7 @@ function AnketKesfet() {
 
         setAnketOnerilerim(anketVerileri);
         console.log("anket onerilerim= ", anketVerileri);
+        console.log("Anket öneri length= ", anketVerileri.length);
       } catch (err) {
         console.log("Bir hata meydana geldi= ", err);
       }
@@ -88,7 +89,7 @@ function AnketKesfet() {
       ) : (
         <>
           <AnketlerimGenel seciliAlan={1} />
-          {anketOnerilerim.length > 0 ? (
+          {anketOnerilerim !== undefined ? (
             anketOnerilerim.map((oneriAnket, index) => (
               <div className="anketCardYapisi" key={index}>
                 <div>
@@ -126,7 +127,7 @@ function AnketKesfet() {
               </div>
             ))
           ) : (
-            <div>Herhangi bir anket bulunmamıştır.</div>
+            <div className="anketBulunamadiDiv">Herhangi bir anket önerisi bulunmamıştır.</div>
           )}
         </>
       )}

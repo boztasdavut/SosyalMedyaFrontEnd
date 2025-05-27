@@ -29,7 +29,7 @@ function AnketOlustur() {
     if (soruYazisi === "") {
       return;
     }
-    if (seceneklerinBilgisi.length >= 2) {
+    if (seceneklerinBilgisi.length < 2) {
       return;
     }
 
