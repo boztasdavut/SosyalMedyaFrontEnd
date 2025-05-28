@@ -34,7 +34,7 @@
   /* Güncelle butonu */
   .guncelle-btn {
     padding: 12px 20px;
-    background-color: #28a745;
+    background: linear-gradient(135deg, #00b4db, #0083b0); /* güzel mavi degrade */
     color: #fff;
     font-size: 15px;
     font-weight: bold;
@@ -45,5 +45,6 @@
   }
   
   .guncelle-btn:hover {
-    background-color: #218838;
-  }
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    }

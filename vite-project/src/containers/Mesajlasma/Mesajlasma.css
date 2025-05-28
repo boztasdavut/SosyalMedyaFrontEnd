@@ -36,9 +36,15 @@
   display: flex;
   flex-direction: column;
   cursor: default;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
+
 .mesajKutusuAcikBaslikVeIcon {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   background: linear-gradient(135deg, #6e8efb, #a777e3);
   color: white;
   padding: 15px 20px;
@@ -49,6 +55,7 @@
   font-size: 18px;
   cursor: pointer;
 }
+
 
 .mesajKutusuKapaliDurum svg,
 .mesajKutusuAcikBaslikVeIcon svg {

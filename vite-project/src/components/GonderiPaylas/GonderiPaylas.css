@@ -73,7 +73,7 @@
 }
 
 .gonderButonu {
-  background-color: #1da1f2;
+  background: linear-gradient(135deg, #00b4db, #0083b0); /* degrade mavi */
   color: #fff;
   border: none;
   padding: 8px 20px;
@@ -84,12 +84,17 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  user-select: none;
 }
 
 .gonderButonu:hover {
-  background-color: #0d8de0;
+  background: linear-gradient(135deg, #00c6ff, #0072ff); /* hover'da farklı mavi */
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
+
 
 .gonderButonu:disabled {
   background-color: #a0d3f5;

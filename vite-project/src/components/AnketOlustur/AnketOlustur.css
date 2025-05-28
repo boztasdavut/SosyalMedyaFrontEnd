@@ -34,7 +34,7 @@ h3, h4 {
 }
 
 .soruGirisAlaniInput:focus {
-  border-color: #00c2a8;
+  border-color: #00c6ff;
   box-shadow: 0 0 0 3px rgba(0, 194, 168, 0.2);
   background-color: #fff;
   outline: none;
@@ -52,7 +52,7 @@ h3, h4 {
   align-items: center;
   gap: 12px;
   background: #f9fafa;
-  border: 2px solid #e0f2f1;
+  border: 2px solid #b4e7f5;
   border-radius: 12px;
   padding: 14px;
   transition: all 0.3s ease;
@@ -60,7 +60,7 @@ h3, h4 {
 
 .secenekNumarasi {
   font-weight: 600;
-  color: #00bfa5;
+  color: #00c6ff;
   min-width: 30px;
   text-align: center;
 }
@@ -100,7 +100,7 @@ h3, h4 {
 .yeniSecenekEkleDiv {
   margin-top: 28px;
   padding: 14px 18px;
-  background: linear-gradient(135deg, #00c2a8, #4dd0e1);
+  background: linear-gradient(135deg, #00b4db, #0083b0); /* güzel mavi degrade */
   color: white;
   font-weight: 600;
   font-size: 16px;
@@ -112,14 +112,14 @@ h3, h4 {
 }
 
 .yeniSecenekEkleDiv:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #00b59b, #3ec5d5);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
 }
 
 .anketiKaydetDiv {
   margin-top: 32px;
   padding: 16px;
-  background: linear-gradient(135deg, #43a047, #66bb6a);
+  background: linear-gradient(135deg, #00796b, #009688);
   color: white;
   font-weight: 700;
   font-size: 17px;
@@ -131,6 +131,6 @@ h3, h4 {
 }
 
 .anketiKaydetDiv:hover {
-  transform: scale(1.04);
-  background: linear-gradient(135deg, #388e3c, #4caf50);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #01ae9a, #009688);
 }

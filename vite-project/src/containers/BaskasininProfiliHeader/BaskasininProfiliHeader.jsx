@@ -115,9 +115,6 @@ function BaskasininProfiliHeader({
                 <button onClick={handleMessage} className="mesajAt-button">
                   Mesaj
                 </button>
-                <div className="profilim-settings">
-                  <IoSettingsOutline size={22} />
-                </div>
               </div>
               <div className="profilim-stats">
                 <div>

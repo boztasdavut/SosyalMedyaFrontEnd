@@ -28,10 +28,10 @@ function LogoutModal({ setLogoutModalIsOpen }) {
           Çıkış Yapmak İstediğinize Emin Misiniz?
         </div>
         <div className="logoutModalCevaplar">
-          <div onClick={cikisYap} className="logoutModaSecenek">
+          <div onClick={cikisYap} className="logoutModalSecenekEvet">
             Evet
           </div>
-          <div onClick={logoutModalKapat} className="logoutModaSecenek">
+          <div onClick={logoutModalKapat} className="logoutModalSecenekHayır">
             Hayır
           </div>
         </div>

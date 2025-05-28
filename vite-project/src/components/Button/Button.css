@@ -4,7 +4,7 @@
     border: 0;
     display: inline-block;
     box-sizing: content-box;
-    background-color: rgb(47, 205, 245);
+    background: linear-gradient(135deg, #00b4db, #0083b0); /* güzel mavi degrade */
     border-radius: 5px;
     color: white;
     font-size: 20px;
@@ -12,4 +12,5 @@
 
 #butonInputArea:hover{
     cursor: pointer;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
 }

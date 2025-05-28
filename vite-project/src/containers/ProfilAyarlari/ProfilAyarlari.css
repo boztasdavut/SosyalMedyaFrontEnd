@@ -19,8 +19,12 @@
 }
 
 .aktif{
-    background-color: #28a745;
+    background: linear-gradient(135deg, #00b4db, #0083b0); /* güzel mavi degrade */
     border-radius: 5px;
     color: white;
-    
+}
+
+.aktif:hover{
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
 }

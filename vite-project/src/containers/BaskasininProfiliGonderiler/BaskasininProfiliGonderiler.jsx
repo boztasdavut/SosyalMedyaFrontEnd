@@ -140,9 +140,6 @@ function BaskasininProfiliGonderiler({
                     @{gonderi.kullaniciTakmaAd}
                   </div>
                 </div>
-                <div className="gonderi-menusu">
-                  <PiDotsThreeOutlineThin />
-                </div>
               </div>
               <div className="gonderi-icerik">
                 <div>{gonderi.gonderiIcerigi}</div>

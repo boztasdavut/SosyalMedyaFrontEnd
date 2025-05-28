@@ -36,14 +36,14 @@
 }
 
 .anketlerimUstMenu:hover {
-  background-color: #18e9ca;
-  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #00c6ff, #0072ff);  color: #ffffff;
   transform: translateY(-1px);
 }
 
 /* Seçili tab rengi */
 .anketlerimSeciliUstMenuBackgroundColor {
-  background-color: #00c2a8;
+  background: linear-gradient(135deg, #00b4db, #0083b0); /* güzel mavi degrade */
   color: white;
   box-shadow: 0 4px 10px rgba(0, 194, 168, 0.2);
 }

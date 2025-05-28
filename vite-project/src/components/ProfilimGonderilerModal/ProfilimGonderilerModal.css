@@ -1,4 +1,4 @@
-.profilimGonderilerModalAnaDiv{
+.profilimGonderilerModalAnaDiv {
     position: fixed;
     z-index: 1000;
     width: 100vw;
@@ -6,51 +6,73 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.4);
-
-}
-
-.profilimGonderilerModalKutucuk{
-    width: 25%;
-    height: 100px;
-    padding: 10px;
-    background-color: #7ea7e4;
-    border-radius: 10px;
-}
-
-.profilimGonderilerModalSilButonu{
-    width: 100%;
-    background-color: #dbe2ef;
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    color:#112d4e;
-}
-
-.profilimGonderilerModalSilButonu:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+  }
+  
+  /* Kart görünüm */
+  .profilimGonderilerModalKutucuk {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 90%;
+    max-width: 340px;
+    animation: scaleIn 0.2s ease;
+  }
+  
+  /* "Gönderiyi Sil" butonu */
+  .profilimGonderilerModalSilButonu {
+    background-color: #fce4ec;
+    color: #b71c1c;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    transition: background-color 0.2s ease;
     cursor: pointer;
-}
-
-.profilimGonderilerModalEminMisinizDiv{
-    margin-top: 10px;
-    width: 100%;
+  }
+  
+  .profilimGonderilerModalSilButonu:hover {
+    background-color: #f8bbd0;
+  }
+  
+  /* "Evet - Hayır" satırı */
+  .profilimGonderilerModalEminMisinizDiv {
+    margin-top: 16px;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-
-.eminMisinizDiv{
-    background-color: #dbe2ef;
-    padding: 10px;
-    box-sizing: border-box;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  /* Evet/Hayır butonları */
+  .eminMisinizDiv {
+    flex: 1;
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 0;
+    text-align: center;
     border-radius: 10px;
-    color:#112d4e;
-}
-
-.eminMisinizDiv:hover{
     cursor: pointer;
-}
-
-.eminMisinizDiv:first-child{
-    margin-right: 10px;
-}
+    transition: background-color 0.2s ease;
+  }
+  
+  .eminMisinizDiv:hover {
+    background-color: #bbdefb;
+  }
+  
+  /* Animasyon */
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
