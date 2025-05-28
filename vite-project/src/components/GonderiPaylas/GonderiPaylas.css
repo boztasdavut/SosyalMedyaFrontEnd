@@ -61,6 +61,13 @@
   margin-top: 12px;
 }
 
+.ikonlar{
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  justify-content: space-between;
+}
+
 .ikonlar label {
   color: #4b5563;
   font-size: 20px;
@@ -129,4 +136,19 @@
   max-height: 300px;
   object-fit: contain;
   border-radius: 12px;
+}
+
+
+.resimOlusturmaSihirbazi{
+  cursor: pointer; 
+  transition: 0.2s ease;
+
+}
+
+.resimOlusturmaSihirbazi:hover{
+  color:#1da1f2;
+}
+
+.resimOlusturmaSihirbaziSecildi{
+  color:#1da1f2;
 }

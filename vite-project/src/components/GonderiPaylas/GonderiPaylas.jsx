@@ -7,31 +7,60 @@ import { gonderiPaylas } from "../../services/GonderiPaylas";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import { resimiGetir } from "../../services/FalAI";
+import { uretilenResmiKaydet } from "../../services/UretilenResmiKaydet";
+import { ClipLoader } from "react-spinners";
 
 function GonderiPaylas() {
   const [icerik, setIcerik] = useState("");
   const [mediaFile, setMediaFile] = useState(null);
   const [mediaPreview, setMediaPreview] = useState("");
   const [yükleniyor, setYükleniyor] = useState(false);
+  const [sihirbazSeciliMi, setSihirbazSeciliMi] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [resimUretildiMi, setResimUretildiMi] = useState(false);
 
   const handleGonder = async () => {
     if (!icerik.trim() && !mediaFile) return;
-
-    try {
-      setYükleniyor(true);
-      await gonderiPaylas(icerik, mediaFile);
-      setIcerik("");
-      setMediaFile(null);
-      setMediaPreview(null);
-      toast.success("Gönderi paylaşıldı.", {
-        position: "top-center",
-        autoClose: 3000,
-      });
-    } catch (err) {
-      console.error("Gönderi hatası:", err);
-      toast.error("Gönderi paylaşılırken hata oluştu.");
-    } finally {
-      setYükleniyor(false);
+    if (resimUretildiMi === true) {
+      try {
+        console.log("Fal aiden resim üretildi gönderilmeye calisiliyor.");
+        const gonderilecekObje = {
+          gonderiIcerigi: icerik,
+          resimUrl: mediaPreview,
+        };
+        const gelenVeri = await uretilenResmiKaydet(gonderilecekObje);
+        setYükleniyor(true);
+        setMediaPreview(null);
+        setIcerik("");
+        toast.success("Gönderi paylaşıldı.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      } catch (err) {
+        console.error("Gönderi hatası:", err);
+        toast.error("Gönderi paylaşılırken hata oluştu.");
+      } finally {
+        setYükleniyor(false);
+      }
+    } else if (resimUretildiMi === false) {
+      try {
+        setYükleniyor(true);
+        await gonderiPaylas(icerik, mediaFile);
+        setIcerik("");
+        setMediaFile(null);
+        setMediaPreview(null);
+        toast.success("Gönderi paylaşıldı.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      } catch (err) {
+        console.error("Gönderi hatası:", err);
+        toast.error("Gönderi paylaşılırken hata oluştu.");
+      } finally {
+        setYükleniyor(false);
+      }
     }
   };
 
@@ -46,6 +75,33 @@ function GonderiPaylas() {
   const handleMediaKaldir = () => {
     setMediaFile(null);
     setMediaPreview(null);
+    setResimUretildiMi(false);
+  };
+
+  const sihirbaziSec = () => {
+    if (sihirbazSeciliMi === false) {
+      document
+        .getElementById("resimOlusturmaSihirbaziId")
+        .classList.add("resimOlusturmaSihirbaziSecildi");
+      setSihirbazSeciliMi(true);
+    } else if (sihirbazSeciliMi === true) {
+      document
+        .getElementById("resimOlusturmaSihirbaziId")
+        .classList.remove("resimOlusturmaSihirbaziSecildi");
+      setSihirbazSeciliMi(false);
+    }
+  };
+
+  const resimUretmePromptGonder = async () => {
+    console.log("Resim üretme metotuna girildi.");
+    setYükleniyor(true);
+    const linkAdresi = await resimiGetir(prompt);
+    setMediaPreview(linkAdresi);
+    setSihirbazSeciliMi(false);
+    sihirbaziSec();
+    setPrompt("");
+    setResimUretildiMi(true);
+    setYükleniyor(false);
   };
 
   return (
@@ -55,46 +111,84 @@ function GonderiPaylas() {
       <div className="gonderiFormu">
         <textarea
           className="gonderiInput"
-          placeholder="Paylaşım yap..."
-          value={icerik}
-          onChange={(e) => setIcerik(e.target.value)}
+          placeholder={
+            sihirbazSeciliMi
+              ? "Resim üretmek için prompt girin..."
+              : "Paylaşım yap..."
+          }
+          value={sihirbazSeciliMi ? prompt : icerik}
+          onChange={
+            sihirbazSeciliMi
+              ? (e) => setPrompt(e.target.value)
+              : (e) => setIcerik(e.target.value)
+          }
           rows={3}
         ></textarea>
-
-        {mediaPreview && (
-          <div className="mediaPreviewContainer">
-            <button className="mediaKapat" onClick={handleMediaKaldir}>
-              ✕
-            </button>
-            {mediaFile?.type.startsWith("video") ? (
-              <video controls className="mediaPreview">
-                <source src={mediaPreview} />
-              </video>
-            ) : (
-              <img src={mediaPreview} alt="preview" className="mediaPreview" />
-            )}
+        {!yükleniyor ? (
+          mediaPreview && (
+            <div className="mediaPreviewContainer">
+              <button className="mediaKapat" onClick={handleMediaKaldir}>
+                ✕
+              </button>
+              {mediaFile?.type.startsWith("video") ? (
+                <video controls className="mediaPreview">
+                  <source src={mediaPreview} />
+                </video>
+              ) : (
+                <img
+                  src={mediaPreview}
+                  alt="preview"
+                  className="mediaPreview"
+                />
+              )}
+            </div>
+          )
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <ClipLoader size={100} color="#4a90e2" />
           </div>
         )}
 
         <div className="gonderiAltBar">
           <div className="ikonlar">
-            <label htmlFor="dosyaInput">
-              <MdOutlinePermMedia size={22} />
-            </label>
-            <input
-              type="file"
-              id="dosyaInput"
-              style={{ display: "none" }}
-              accept="image/*,video/*"
-              onChange={handleDosyaSec}
-            />
+            <div>
+              <label htmlFor="dosyaInput">
+                <MdOutlinePermMedia size={22} />
+              </label>
+              <input
+                type="file"
+                id="dosyaInput"
+                style={{ display: "none" }}
+                accept="image/*,video/*"
+                onChange={handleDosyaSec}
+              />
+            </div>
+            <div
+              id="resimOlusturmaSihirbaziId"
+              className="resimOlusturmaSihirbazi"
+              onClick={sihirbaziSec}
+            >
+              <AutoAwesomeOutlinedIcon />
+            </div>
           </div>
           <button
             className="gonderButonu"
-            onClick={handleGonder}
-            disabled={(!icerik.trim() && !mediaFile) || yükleniyor}
+            onClick={sihirbazSeciliMi ? resimUretmePromptGonder : handleGonder}
+            disabled={
+              (!sihirbazSeciliMi && !icerik.trim() && !mediaFile) || yükleniyor
+            }
           >
-            <FiSend /> {yükleniyor ? "Paylaşılıyor..." : "Paylaş"}
+            <FiSend />{" "}
+            {sihirbazSeciliMi
+              ? "Resim Al"
+              : yükleniyor
+              ? "Paylaşılıyor..."
+              : "Paylaş"}
           </button>
         </div>
       </div>
