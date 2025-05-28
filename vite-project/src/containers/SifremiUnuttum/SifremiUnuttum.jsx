@@ -25,7 +25,7 @@ function SifremiUnuttum() {
     try {
       const gelenVeri = await sifremiUnuttumMailValid(ePostaAdresi);
       console.log("test");
-      toast.success("Başarıyla Giriş Yapıldı", {
+      toast.success("Onay Kodu Mail Adresinize Başarıyla Gönderildi", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -45,15 +45,39 @@ function SifremiUnuttum() {
     }
   };
 
-  const otpBilgisiniStateKaydet = (value, index) => {
-    let tempValue = value;
-    if (value.length > 1) {
-      tempValue = value.charAt(0);
+const otpBilgisiniStateKaydet = (value, index) => {
+  const digits = value.replace(/\D/g, "").split("");
+  const updatedOtp = [...otp];
+
+  if (digits.length === 6) {
+    setOtp(digits);
+    document.getElementById("otp-5")?.focus();
+    return;
+  }
+
+  if (digits.length === 1) {
+    updatedOtp[index] = digits[0];
+    setOtp(updatedOtp);
+    if (index < otp.length - 1) {
+      document.getElementById(`otp-${index + 1}`)?.focus();
     }
-    const tempArray = [...otp];
-    tempArray[index] = tempValue;
-    setOtp(tempArray);
-  };
+  }
+
+  if (value === "") {
+    updatedOtp[index] = "";
+    setOtp(updatedOtp);
+  }
+};
+
+
+const otpGeriSilHandle = (event, index) => {
+  if (event.key === "Backspace") {
+    if (otp[index] === "" && index > 0) {
+      document.getElementById(`otp-${index - 1}`)?.focus();
+    }
+  }
+};
+
 
   const otpTotalBilgisiniAl = async () => {
     const baseUrl = location.pathname;
@@ -212,18 +236,20 @@ function SifremiUnuttum() {
             Adım 2: Mail Adresinize Gelen Onay Kodunu Girin
           </div>
           <div className="sifremiUnuttumOtpKutucuguAnaDiv">
-            {otp.map((otp, index) => (
-              <div key={index} className="sifremiUnuttumOtpKutucuguDiv">
-                <input
-                  value={otp}
-                  onChange={(event) =>
-                    otpBilgisiniStateKaydet(event.target.value, index)
-                  }
-                  className="sifremiUnuttumOtpKutucuInput"
-                  type="text"
-                />
-              </div>
-            ))}
+          {otp.map((o, index) => (
+            <div key={index} className="sifremiUnuttumOtpKutucuguDiv">
+              <input
+                id={`otp-${index}`}
+                value={otp[index]}
+                onChange={(e) => otpBilgisiniStateKaydet(e.target.value, index, e.nativeEvent)}
+                onKeyDown={(e) => otpGeriSilHandle(e, index)}
+                className="sifremiUnuttumOtpKutucuInput"
+                type="text"
+                maxLength={6} // yapıştırma için gerekli
+              />
+            </div>
+          ))}
+
           </div>
           <div className="sifremiUnuttumOtpGondermeDiv">
             <div
