@@ -18,6 +18,7 @@ function TakipEdilenleriGosterModal({
   return (
     <div className="takipEdilenleriGosterDiv">
       <div className="takipEdilenlerListesiAnaDiv">
+      <div className="modalBaslik">Takip Edilenler</div>
         {takipEdilenlerListesi.follow.map((person) => (
           <div
             onClick={() => takipEdilenProfileGit(person.kullaniciTakmaAd)}

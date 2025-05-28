@@ -17,6 +17,7 @@ function TakipcileriGosterModal({
   return (
     <div className="takipcileriGosterDiv">
       <div className="takipciListesiAnaDiv">
+      <div className="modalBaslik">Takipçiler</div>
         {takipcilerListesi.follow.map((person) => (
           <div
             onClick={() => takipciProfileGit(person.kullaniciTakmaAd)}
