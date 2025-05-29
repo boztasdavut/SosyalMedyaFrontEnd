@@ -86,21 +86,18 @@ function SifremiUnuttum() {
           ePostaAdresi,
           totalOtpTemp
         );
-        toast.success(
-          "Şifre Değiştirme Başarılı, Anasayfaya Yönlendiriliyorsunuz...",
-          {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            onClose: () => {
-              navigate(`/girisYap`);
-            },
-          }
-        );
+        toast.success("Şifre Girme Bölümüne Yönlendiriliyorsunuz...", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          onClose: () => {
+            navigate(`${baseUrl}?step=3`);
+          },
+        });
       } catch (err) {
         toast.error("Bir Sorun Meydana Geldi.", {
           position: "top-center",

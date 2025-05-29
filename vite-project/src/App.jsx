@@ -34,6 +34,7 @@ function AppContent() {
     "/girisYap",
     "/kayitOl",
     "/sifremiUnuttum",
+    "/mailOnay",
   ].includes(location.pathname);
 
   return (
