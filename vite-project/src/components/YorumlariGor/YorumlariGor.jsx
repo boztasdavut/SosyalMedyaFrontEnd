@@ -182,7 +182,14 @@ function YorumlariGor({ gonderiBilgisi }) {
                   className="anaYorumFotoVeTakmaAd"
                 >
                   <div>
-                    <img src={yorum.yorumYapanResim} alt="" />
+                    <img
+                      src={
+                        yorum.yorumYapanResim?.endsWith("empty.png")
+                          ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                          : yorum.yorumYapanResim
+                      }
+                      alt="Profil Resmi"
+                    />
                   </div>
                   <div>
                     <span>@{yorum.yorumYapanTakmaAd}</span>

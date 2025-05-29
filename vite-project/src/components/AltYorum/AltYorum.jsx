@@ -122,9 +122,13 @@ function AltYorum({ altYorumlar }) {
           <div className="altYorumHeader">
             <div>
               <img
-                src={altYorum.yorumYapanResim}
-                alt="avatar"
                 className="altYorumAvatar"
+                src={
+                  altYorum.yorumYapanResim?.endsWith("empty.png")
+                    ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                    : altYorum.yorumYapanResim
+                }
+                alt="Profil Resmi"
               />
             </div>
             <div>

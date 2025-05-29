@@ -133,9 +133,16 @@ function BaskasininProfiliGonderiler({
                 <div className="gonderi-kullanici">
                   <img
                     className="gonderi-profil-resmi"
-                    src={baskasininProfiliBilgileri.kullaniciProfilResmi}
+                    src={
+                      baskasininProfiliBilgileri.kullaniciProfilResmi?.endsWith(
+                        "empty.png"
+                      )
+                        ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                        : baskasininProfiliBilgileri.kullaniciProfilResmi
+                    }
                     alt="Profil"
                   />
+
                   <div className="gonderi-takma-ad">
                     @{gonderi.kullaniciTakmaAd}
                   </div>

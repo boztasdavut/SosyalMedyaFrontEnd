@@ -198,8 +198,15 @@ function GonderiIcerigi() {
                       gonderiBilgisi.kullaniciId
                     )
                   }
+                  src={
+                    gonderiBilgisi.gonderiAtanKullaniciFoto?.endsWith(
+                      "empty.png"
+                    )
+                      ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                      : gonderiBilgisi.gonderiAtanKullaniciFoto
+                  }
                   id="anasayfaProfilResim"
-                  src={gonderiBilgisi.gonderiAtanKullaniciFoto}
+                  alt="Profil"
                 />
               </div>
               <div

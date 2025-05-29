@@ -9,8 +9,6 @@
   margin-bottom: 10px;
 }
 
-
-
 .profilimGonderiCardVeGonderiAyarlari div {
   margin-bottom: 10px;
 }
@@ -44,7 +42,7 @@
   justify-content: space-between;
 }
 
-.profilimProfilResmiVeTakmaAdVeAyarlarDiv:hover{
+.profilimProfilResmiVeTakmaAdVeAyarlarDiv:hover {
   cursor: pointer;
 }
 
@@ -78,10 +76,10 @@
 .profilimGonderiMedya,
 .profilimGonderiMedya img,
 .profilimGonderiMedya video {
-  max-width: 100%;      /* kartın genişliğini aşmasın */
-  height: auto;         /* orantıyı korusun */
-  max-height: 400px;    /* en fazla 400px yükseklik */
-  object-fit: contain;  /* taşan kısmı gizleyip tamamını göster */
+  max-width: 100%; /* kartın genişliğini aşmasın */
+  height: auto; /* orantıyı korusun */
+  max-height: 400px; /* en fazla 400px yükseklik */
+  object-fit: contain; /* taşan kısmı gizleyip tamamını göster */
   display: block;
   margin: 10px auto;
 }
@@ -96,7 +94,7 @@
 }
 
 .profilimGonderiSecenekleriGiris:hover {
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
 
@@ -107,7 +105,7 @@
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   z-index: 50;
 }
@@ -131,8 +129,10 @@
 /* Lightbox */
 .lightbox-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
@@ -148,20 +148,24 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-.profilimBegenmeButonu{
+.profilimBegenmeButonu {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 6px;
 }
 
-.profilimBegenmeButonu:hover{
+.profilimBegenmeButonu:hover {
   cursor: pointer;
 }
 
-.profilimYorumButonu{
+.profilimYorumButonu {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 6px;
+}
+
+.profilimGondermeButonu:hover {
+  cursor: pointer;
 }
