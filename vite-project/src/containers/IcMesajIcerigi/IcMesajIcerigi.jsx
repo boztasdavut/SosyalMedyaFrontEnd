@@ -225,7 +225,6 @@ function IcMesajIcerigi({
                       <div className="benimAttigimMesajDiv">
                         <Linkify
                           options={{
-                            target: "_blank",
                             rel: "noopener noreferrer",
                           }}
                         >
@@ -238,7 +237,6 @@ function IcMesajIcerigi({
                       <div className="banaAtilanMesajDiv">
                         <Linkify
                           options={{
-                            target: "_blank",
                             rel: "noopener noreferrer",
                           }}
                         >

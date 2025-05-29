@@ -12,7 +12,9 @@ import { useNavigate } from "react-router-dom";
 import { kullanicininTumTakipcileriniGetir } from "../../services/KullaniciTumTakipcileriGetir.js";
 import { kullaniciTumTakipEdilenleriGetir } from "../../services/KullaniciTumTakipEdilenlerGetir.js";
 import PaylasimTakipciler from "../../components/PaylasimTakipciler/PaylasimTakipciler.jsx";
-
+import { jwtDecode } from "../../services/JwtDecode.js";
+import { birGonderiyeYorumYap } from "../../services/BirGonderiyeYorumYap.js";
+import { jwtParse } from "../../services/ParseJWT.js";
 function BaskasininProfiliGonderiler({
   baskasininProfiliBilgileri,
   setBaskasininProfiliBilgileri,
@@ -72,9 +74,16 @@ function BaskasininProfiliGonderiler({
     }
   };
 
-  const yorumGonderHandle = async (gonderiId) => {
-    const kullaniciId = await jwtDecode();
+  const yorumGonderHandle = async (gonderiId, takmaAd) => {
     const yorumIcerigi = inputRefs.current[gonderiId].value;
+    const yorumBilgisi = {
+      gonderiId: gonderiId,
+      yorumIcerigi: yorumIcerigi,
+    };
+    const yorumYapmaGelenVeri = await birGonderiyeYorumYap(yorumBilgisi);
+    navigate(`/gonderiler/${takmaAd}/${gonderiId}?comments=all`);
+
+    inputRefs.current[gonderiId].value = "";
   };
 
   const gonderiIcineTiklandi = async (gonderiId, kullaniciTakmaAd) => {
@@ -214,7 +223,12 @@ function BaskasininProfiliGonderiler({
                   />
                 </div>
                 <div
-                  onClick={() => yorumGonderHandle(gonderi.gonderiId)}
+                  onClick={() =>
+                    yorumGonderHandle(
+                      gonderi.gonderiId,
+                      gonderi.kullaniciTakmaAd
+                    )
+                  }
                   className="anasayfaYorumYazmaGonderDiv"
                 >
                   <BiSend size={25} />
