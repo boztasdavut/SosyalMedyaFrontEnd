@@ -18,7 +18,7 @@ function TakipEdilenleriGosterModal({
   return (
     <div className="takipEdilenleriGosterDiv">
       <div className="takipEdilenlerListesiAnaDiv">
-      <div className="modalBaslik">Takip Edilenler</div>
+        <div className="modalBaslik">Takip Edilenler</div>
         {takipEdilenlerListesi.follow.map((person) => (
           <div
             onClick={() => takipEdilenProfileGit(person.kullaniciTakmaAd)}
@@ -27,8 +27,17 @@ function TakipEdilenleriGosterModal({
             <div>
               <img
                 className="takipEdilenleriGosterModalResim"
-                src={person.kullaniciProfilResmi}
+                src={
+                  person.kullaniciProfilResmi?.endsWith("empty.png")
+                    ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                    : person.kullaniciProfilResmi
+                }
+                alt="Profil"
               />
+              {/*<img
+                className="takipEdilenleriGosterModalResim"
+                src={person.kullaniciProfilResmi}
+              />*/}
             </div>
             <div>@{person.kullaniciTakmaAd}</div>
           </div>

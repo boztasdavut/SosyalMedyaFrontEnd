@@ -38,46 +38,44 @@ function SifremiUnuttum() {
         },
       });
     } catch (err) {
-      toast.error("Bir Sorun Meydana Geldi.", {
+      toast.error("E-Posta Adresi Bulunamadı.", {
         position: "top-center",
         autoClose: 3000,
       });
     }
   };
 
-const otpBilgisiniStateKaydet = (value, index) => {
-  const digits = value.replace(/\D/g, "").split("");
-  const updatedOtp = [...otp];
+  const otpBilgisiniStateKaydet = (value, index) => {
+    const digits = value.replace(/\D/g, "").split("");
+    const updatedOtp = [...otp];
 
-  if (digits.length === 6) {
-    setOtp(digits);
-    document.getElementById("otp-5")?.focus();
-    return;
-  }
-
-  if (digits.length === 1) {
-    updatedOtp[index] = digits[0];
-    setOtp(updatedOtp);
-    if (index < otp.length - 1) {
-      document.getElementById(`otp-${index + 1}`)?.focus();
+    if (digits.length === 6) {
+      setOtp(digits);
+      document.getElementById("otp-5")?.focus();
+      return;
     }
-  }
 
-  if (value === "") {
-    updatedOtp[index] = "";
-    setOtp(updatedOtp);
-  }
-};
-
-
-const otpGeriSilHandle = (event, index) => {
-  if (event.key === "Backspace") {
-    if (otp[index] === "" && index > 0) {
-      document.getElementById(`otp-${index - 1}`)?.focus();
+    if (digits.length === 1) {
+      updatedOtp[index] = digits[0];
+      setOtp(updatedOtp);
+      if (index < otp.length - 1) {
+        document.getElementById(`otp-${index + 1}`)?.focus();
+      }
     }
-  }
-};
 
+    if (value === "") {
+      updatedOtp[index] = "";
+      setOtp(updatedOtp);
+    }
+  };
+
+  const otpGeriSilHandle = (event, index) => {
+    if (event.key === "Backspace") {
+      if (otp[index] === "" && index > 0) {
+        document.getElementById(`otp-${index - 1}`)?.focus();
+      }
+    }
+  };
 
   const otpTotalBilgisiniAl = async () => {
     const baseUrl = location.pathname;
@@ -88,18 +86,21 @@ const otpGeriSilHandle = (event, index) => {
           ePostaAdresi,
           totalOtpTemp
         );
-        toast.success("Şifre Oluşturma Sayfasına Yönlendiriliyorsunuz...", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          onClose: () => {
-            navigate(`${baseUrl}?step=3`);
-          },
-        });
+        toast.success(
+          "Şifre Değiştirme Başarılı, Anasayfaya Yönlendiriliyorsunuz...",
+          {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            onClose: () => {
+              navigate(`/girisYap`);
+            },
+          }
+        );
       } catch (err) {
         toast.error("Bir Sorun Meydana Geldi.", {
           position: "top-center",
@@ -236,20 +237,25 @@ const otpGeriSilHandle = (event, index) => {
             Adım 2: Mail Adresinize Gelen Onay Kodunu Girin
           </div>
           <div className="sifremiUnuttumOtpKutucuguAnaDiv">
-          {otp.map((o, index) => (
-            <div key={index} className="sifremiUnuttumOtpKutucuguDiv">
-              <input
-                id={`otp-${index}`}
-                value={otp[index]}
-                onChange={(e) => otpBilgisiniStateKaydet(e.target.value, index, e.nativeEvent)}
-                onKeyDown={(e) => otpGeriSilHandle(e, index)}
-                className="sifremiUnuttumOtpKutucuInput"
-                type="text"
-                maxLength={6} // yapıştırma için gerekli
-              />
-            </div>
-          ))}
-
+            {otp.map((o, index) => (
+              <div key={index} className="sifremiUnuttumOtpKutucuguDiv">
+                <input
+                  id={`otp-${index}`}
+                  value={otp[index]}
+                  onChange={(e) =>
+                    otpBilgisiniStateKaydet(
+                      e.target.value,
+                      index,
+                      e.nativeEvent
+                    )
+                  }
+                  onKeyDown={(e) => otpGeriSilHandle(e, index)}
+                  className="sifremiUnuttumOtpKutucuInput"
+                  type="text"
+                  maxLength={6} // yapıştırma için gerekli
+                />
+              </div>
+            ))}
           </div>
           <div className="sifremiUnuttumOtpGondermeDiv">
             <div

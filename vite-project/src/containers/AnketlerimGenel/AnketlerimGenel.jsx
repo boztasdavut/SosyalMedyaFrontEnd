@@ -21,11 +21,11 @@ function AnketlerimGenel({ seciliAlan = 1 }) {
   const anketOnerileriSecenegi = () => {
     navigate(`/anketlerim/anketOnerileri`);
   };
-
+  
   return (
     <div className="anketlerimDiv">
-      <SolMenu />
-      <Mesajlasma />
+      {/*<SolMenu />*/}
+      {/*<Mesajlasma />*/}
       <div className="anketlerimGenelDiv">
         <div className="anketlerimUstMenuAnaDiv">
           <div

@@ -55,11 +55,21 @@ function MailOnay() {
   };
 
   const mailOnayHandle = async () => {
-
     if (girilenKod.length === 6) {
       try {
         const gelenVeri = await mailOnay(location.state?.ePosta, girilenKod);
-        navigate("/girisYap");
+        toast.success("Kayıt Başarıyla Tamamlandı, Anasayfaya Yönlendiriliyorsunuz...", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          onClose: () => {
+            navigate(`/girisYap`);
+          },
+        });
       } catch (err) {
         toast.error("Yanlış Onay Kodu");
       }
@@ -70,6 +80,8 @@ function MailOnay() {
 
   return (
     <div className="mailOnayAnaDiv">
+      <ToastContainer />
+
       <h3>Onay Kodunu Giriniz</h3>
       <div className="kodKutucuklariAnaDiv">
         {Array.from({ length: 6 }).map((_, index) => (

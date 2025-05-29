@@ -85,11 +85,23 @@ function BaskasininProfiliHeader({
         <div className="profilim-content">
           <div className="profilim-header">
             <div className="profilim-avatar">
-              <img src={baskasininProfiliBilgileri.kullaniciProfilResmi} />
+              <img
+                src={
+                  baskasininProfiliBilgileri.kullaniciProfilResmi?.endsWith(
+                    "empty.png"
+                  )
+                    ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                    : baskasininProfiliBilgileri.kullaniciProfilResmi
+                }
+                alt="Profil"
+              />
+              {/*<img src={baskasininProfiliBilgileri.kullaniciProfilResmi} />*/}
             </div>
             <div className="profilim-info">
               <div className="profilim-top-bar">
-                <div className="profilim-username">{}</div>
+                <div className="profilim-username">
+                  {baskasininProfiliBilgileri.kullaniciTakmaAd}
+                </div>
                 {baskasininProfiliBilgileri.kullaniciyiTakipEdiyorMuyum ? (
                   <button
                     onClick={() =>

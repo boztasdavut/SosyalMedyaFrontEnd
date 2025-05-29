@@ -11,9 +11,9 @@ export function connect(onMessageReceived) {
       ),
     connectHeaders: {}, // Token zaten query'de
     debug: (str) => console.log(str),
-    reconnectDelay: 5000,
-    heartbeatIncoming: 10000,
-    heartbeatOutgoing: 10000, // daha sık sinyal yollasın
+    reconnectDelay: 3000,
+    heartbeatIncoming: 5000,
+    heartbeatOutgoing: 5000, // daha sık sinyal yollasın
     onConnect: () => {
       console.log("🔗 STOMP WebSocket bağlantısı kuruldu.");
 

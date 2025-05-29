@@ -6,6 +6,9 @@ import Button from "../../components/Button/Button";
 import { register } from "../../services/Register.js";
 import logo3 from "./loginEkraniResmi3.jpg";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function KayitOl() {
   const [kullaniciEPosta, setKullaniciEPosta] = useState("");
@@ -18,18 +21,40 @@ function KayitOl() {
   const navigate = useNavigate();
 
   const registerHandle = async () => {
-    const kullanicininGirdigiBilgiler = {
-      ePosta: kullaniciEPosta,
-      sifre: kullaniciSifre,
-      kullaniciTakmaAd: kullaniciTakmaAd,
-      kullaniciBio: kullaniciBio,
-      kullaniciTelefonNo: kullaniciTelefonNo,
-      kullaniciDogumTarihi: kullaniciDogumTarihi,
-    };
-    const donenVeri = await register(kullanicininGirdigiBilgiler);
-    navigate("/mailOnay", {
-      state: { ePosta: kullaniciEPosta },
-    });
+    if (kullaniciSifre === kullaniciSifreTekrar) {
+      if (
+        kullaniciEPosta !== "" &&
+        kullaniciTakmaAd !== "" &&
+        kullaniciTelefonNo &&
+        kullaniciSifre !== "" &&
+        kullaniciSifreTekrar !== "" &&
+        kullaniciDogumTarihi !== ""
+      ) {
+        const kullanicininGirdigiBilgiler = {
+          ePosta: kullaniciEPosta,
+          sifre: kullaniciSifre,
+          kullaniciTakmaAd: kullaniciTakmaAd,
+          kullaniciTelefonNo: kullaniciTelefonNo,
+          kullaniciDogumTarihi: kullaniciDogumTarihi,
+        };
+        
+          const donenVeri = await register(kullanicininGirdigiBilgiler);
+          navigate("/mailOnay", {
+            state: { ePosta: kullaniciEPosta },
+          });
+         
+      } else {
+        toast.error("Tüm Alanları Eksiksiz Doldurun.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      }
+    } else {
+      toast.error("Şifreler Aynı Değil.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
   };
 
   const girisYapButonHandle = () => {
@@ -38,6 +63,8 @@ function KayitOl() {
 
   return (
     <div className="componentDiv">
+      <ToastContainer />
+
       <div className="kayitOlAnaDiv">
         <div>
           <h1>Kayıt Ol</h1>

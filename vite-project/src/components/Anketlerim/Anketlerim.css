@@ -88,3 +88,8 @@
   background-color: #c0392b;
   transform: scale(1.03);
 }
+
+.anketlerimSayfasiBosDiv{
+  text-align: center;
+  font-size: 25px;
+}

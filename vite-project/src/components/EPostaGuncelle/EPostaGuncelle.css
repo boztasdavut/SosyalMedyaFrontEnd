@@ -84,7 +84,8 @@
   padding: 10px;
   border-radius: 10px;
   border: 0;
-  background-color: #28a745;
+  background-color: #007bff;
+  
   color: white;
   font-weight: bold;
   transition: background-color 0.3s ease;
@@ -92,5 +93,5 @@
 
 .mailOtpOnaylaButonu:hover {
   cursor: pointer;
-  background-color: #218838;
+  background-color: #0056b3;
 }

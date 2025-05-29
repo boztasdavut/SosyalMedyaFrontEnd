@@ -14,7 +14,10 @@ import { mesajSil } from "../../services/MesajSilme.js";
 
 function Mesajlasma() {
   const [mesajBaslangicSayfasi, setMesajBaslangicSayfasi] = useState([]);
-
+  const [
+    ikiKullaniciArasindakiTumMesajlar,
+    setIkiKullaniciArasindakiTumMesajlar,
+  ] = useState([]);
   /*
   const [mesajlasmaKutusuAcikMi, setMesajlasmaKutusuAcikMi] = useState(false);
   bu kod çalışmaktadır.
@@ -63,7 +66,8 @@ function Mesajlasma() {
   Bu kod başarılı bir biçimde çalışmaktadır.
   */
 
-  const onMessageReceived = (message) => {
+  const onMessageReceivedMesajBaslangicSayfasi = (message) => {
+    console.log("Mesajlasma sayfasındaki onMessage calisti.");
     setMesajBaslangicSayfasi((prevMesajlar) => {
       // Eğer aynı kişiyle mesajlaşma zaten varsa güncelle, yoksa ekle
       const mevcutIndex = prevMesajlar.findIndex(
@@ -97,14 +101,6 @@ function Mesajlasma() {
   };
 
   useEffect(() => {
-    connect(onMessageReceived);
-
-    return () => {
-      disconnect();
-    };
-  }, [mesajlasmaKutusuAcikMi]);
-
-  useEffect(() => {
     const baslangicMesajlariGetir = async () => {
       try {
         const mesajBaslangic = await mesajBaslangicSayfasiGetir();
@@ -115,7 +111,26 @@ function Mesajlasma() {
       }
     };
     baslangicMesajlariGetir();
-  }, [icMesajAcikMi]);
+    connect(onMessageReceivedMesajBaslangicSayfasi);
+
+    return () => {
+      console.log("Mesajlasma componenti disconnect calisti");
+      disconnect();
+    };
+  }, []);
+
+  /*useEffect(() => {
+    const baslangicMesajlariGetir = async () => {
+      try {
+        const mesajBaslangic = await mesajBaslangicSayfasiGetir();
+        console.log("Baslangic mesaj verileri= ", mesajBaslangic);
+        setMesajBaslangicSayfasi(mesajBaslangic);
+      } catch (err) {
+        console.log("Mesajlasma sayfasinda bir hata meydana geldi= ", err);
+      }
+    };
+    baslangicMesajlariGetir();
+  }, [icMesajAcikMi]);*/
 
   useEffect(() => {
     console.log("Mesaj baslangic sayfasi= ", mesajBaslangicSayfasi);
@@ -166,6 +181,8 @@ function Mesajlasma() {
     e.stopPropagation();
     console.log("karsi taraf kullanici id= ", karsiTarafKullaniciId);
     try {
+      setIkiKullaniciArasindakiTumMesajlar([]);
+      console.log("Mesaj silme calisti.");
       const gelenVeri = await mesajSil(karsiTarafKullaniciId);
       mesajSilState(karsiTarafKullaniciId);
     } catch (err) {
@@ -205,6 +222,18 @@ function Mesajlasma() {
                     profilResmi={profilResmi}
                     baslangicMesaji={baslangicMesaji}
                     setBaslangicMesaji={setBaslangicMesaji}
+                    ikiKullaniciArasindakiTumMesajlar={
+                      ikiKullaniciArasindakiTumMesajlar
+                    }
+                    setIkiKullaniciArasindakiTumMesajlar={
+                      setIkiKullaniciArasindakiTumMesajlar
+                    }
+                    connect={connect}
+                    disconnect={disconnect}
+                    setMesajBaslangicSayfasi={setMesajBaslangicSayfasi}
+                    onMessageReceivedMesajBaslangicSayfasi={
+                      onMessageReceivedMesajBaslangicSayfasi
+                    }
                   />
                 ) : (
                   <div>
@@ -254,9 +283,19 @@ function Mesajlasma() {
                           <div className="profilResmiVeTakmaAd">
                             <div>
                               <img
-                                src={mesaj.karsiTarafProfilResmi}
+                                src={
+                                  mesaj.karsiTarafProfilResmi?.endsWith(
+                                    "empty.png"
+                                  )
+                                    ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                                    : mesaj.karsiTarafProfilResmi
+                                }
                                 alt="Profil"
                               />
+                              {/*<img
+                                src={mesaj.karsiTarafProfilResmi}
+                                alt="Profil"
+                              />*/}
                             </div>
                             <div>@{mesaj.karsiTarafAdi}</div>
                           </div>

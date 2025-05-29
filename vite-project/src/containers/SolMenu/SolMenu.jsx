@@ -21,6 +21,7 @@ function SolMenu() {
     const profilBilgisiGetir = async () => {
       try {
         const profilBilgileri = await kullaniciProfilBilgileriGetir();
+        console.log("Profil Bilgilerim= ", profilBilgileri);
         setKullanicininProfilBilgileri(profilBilgileri);
       } catch (err) {
         console.log("Bir hata meydana geldi.");
@@ -49,7 +50,7 @@ function SolMenu() {
   };
 
   const anketlereGit = async () => {
-    navigate("/anketlerim");
+    navigate("/anketlerim/anketOnerileri");
   };
 
   return (
@@ -94,7 +95,13 @@ function SolMenu() {
           <Tooltip title="Profilim">
             <div onClick={profilYonlendir} className="solMenu-profilResmi">
               <img
-                src={kullanicininProfilBilgileri.kullaniciProfilResmi}
+                src={
+                  kullanicininProfilBilgileri.kullaniciProfilResmi?.endsWith(
+                    "empty.png"
+                  )
+                    ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                    : kullanicininProfilBilgileri.kullaniciProfilResmi
+                }
                 alt="Profilim"
               />
             </div>

@@ -12,8 +12,8 @@ function ProfilAyarlari() {
 
   return (
     <div className="profil-ayarlari-container">
-      <SolMenu />
-      <Mesajlasma />
+      {/*<SolMenu />*/}
+      {/*<Mesajlasma />*/}
       <div className="ayarlar-icerik">
         <div className="basliklar">
           <button

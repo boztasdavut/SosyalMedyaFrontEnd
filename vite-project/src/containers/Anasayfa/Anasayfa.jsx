@@ -27,13 +27,13 @@ function Anasayfa() {
 
   return (
     <div>
-      <SolMenu />
+      {/*<SolMenu />*/}
       <GonderiPaylas />
       <AnasayfaGonderiler
         takipEdilenlerinTumGonderileri={takipEdilenlerinGonderileri}
         setTakipEdilenlerinGonderileri={setTakipEdilenlerinGonderileri}
       />
-      <Mesajlasma />
+      {/*<Mesajlasma />*/}
     </div>
   );
 }

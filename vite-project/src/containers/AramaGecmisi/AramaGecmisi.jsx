@@ -9,13 +9,13 @@ function AramaGecmisi() {
   const [aramaSonuclari, setAramaSonuclari] = useState([]);
   return (
     <div>
-      <SolMenu />
+      {/*<SolMenu />*/}
       <AramaCubugu
         aramaSonuclari={aramaSonuclari}
         setAramaSonuclari={setAramaSonuclari}
       />
 
-      <Mesajlasma />
+      {/*<Mesajlasma />*/}
     </div>
   );
 }

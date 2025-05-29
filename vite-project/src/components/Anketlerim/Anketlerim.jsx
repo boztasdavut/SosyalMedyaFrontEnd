@@ -98,7 +98,7 @@ function Anketlerim() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "100vh", // Bu, ekranın tamamında ortalanmasını sağlar
+            height: "100vh",
           }}
         >
           <ClipLoader size={100} color="#4a90e2" />
@@ -114,17 +114,17 @@ function Anketlerim() {
 
           <AnketlerimGenel seciliAlan={3} />
           <div className="tumAnketSorularDiv">
-            {kullanicininTumAnketleri.map(
-              (element, index) =>
-                (element.anketId.toString() === filtreBilgisi ||
-                  filtreBilgisi === "all") && (
+            {kullanicininTumAnketleri.length > 0 ? (
+              kullanicininTumAnketleri.map((element, index) =>
+                element.anketId.toString() === filtreBilgisi ||
+                filtreBilgisi === "all" ? (
                   <div key={element.anketId} className="anketCardYapisi">
                     <div>
                       <div
                         onClick={() => anketIcerigineGit(element.anketId)}
                         className="anketCardAnketSorusu"
                       >
-                        {index + 1} ) {element.anketSorusu}
+                        {index + 1}) {element.anketSorusu}
                       </div>
                     </div>
                     {element.secenekler.map((e, secenekIndex) => (
@@ -153,7 +153,10 @@ function Anketlerim() {
                       </div>
                     )}
                   </div>
-                )
+                ) : null
+              )
+            ) : (
+              <div className="anketlerimSayfasiBosDiv">Anket bulunamadı</div>
             )}
           </div>
         </div>

@@ -71,7 +71,7 @@ function PaylasimTakipciler({
           className="paylasimTakipcilerModalClose"
         />
         <div className="takipci-listesi">
-          {tumTakipciler && tumTakipciler.length > 0 ? (
+          {tumTakipciler ? (
             totalListe.map((takipci, index) => (
               <div
                 onClick={() =>
@@ -85,10 +85,19 @@ function PaylasimTakipciler({
                 className="takipci-karti"
               >
                 <img
+                  src={
+                    takipci.kullaniciProfilResmi?.endsWith("empty.png")
+                      ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                      : takipci.kullaniciProfilResmi
+                  }
+                  alt="Profil"
+                  className="takipci-avatar"
+                />
+                {/*<img
                   src={takipci.kullaniciProfilResmi || "/default-avatar.png"}
                   alt="Takipçi"
                   className="takipci-avatar"
-                />
+                />*/}
                 <span className="takipci-isim">
                   @{takipci.kullaniciTakmaAd}
                 </span>

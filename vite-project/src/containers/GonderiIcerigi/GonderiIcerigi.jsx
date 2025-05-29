@@ -294,8 +294,8 @@ function GonderiIcerigi() {
           </div>
         </div>
       )}
-      <SolMenu />
-      <Mesajlasma />
+      {/*<SolMenu />*/}
+      {/*<Mesajlasma />*/}
       <ToastContainer position="top-center" />
 
       {/* Lightbox Overlay */}

@@ -6,7 +6,7 @@ import { ClipLoader } from "react-spinners";
 import { ikiKullaniciArasindakiMesajlar } from "../../services/İkiKullaniciArasindakiMesajlar.js";
 import { jwtDecode } from "../../services/JwtDecode.js";
 import { useNavigate } from "react-router-dom";
-import { connect, disconnect } from "../../services/SocketBaglantisi.js";
+//import { connect, disconnect } from "../../services/SocketBaglantisi.js";
 import { birKullaniciyaMesajGonder } from "../../services/BirKullaniciyaMesajGonder.js";
 import { jwtTakmaAdAl } from "../../services/MevcutTakmaAdAl.js";
 import Linkify from "linkify-react";
@@ -20,16 +20,18 @@ function IcMesajIcerigi({
   profilResmi,
   baslangicMesaji,
   setBaslangicMesaji,
+  ikiKullaniciArasindakiTumMesajlar,
+  setIkiKullaniciArasindakiTumMesajlar,
+  connect,
+  disconnect,
+  setMesajBaslangicSayfasi,
+  onMessageReceivedMesajBaslangicSayfasi,
 }) {
   useEffect(() => {
     console.log("ic mesaj profil resmi bilgisi= ", profilResmi);
     console.log("ic mesaj karsi taraf adi bilgisi= ", karsiTarafAdi);
   }, [profilResmi, karsiTarafAdi]);
 
-  const [
-    ikiKullaniciArasindakiTumMesajlar,
-    setIkiKullaniciArasindakiTumMesajlar,
-  ] = useState([]);
   const [yazilanMesaj, setYazilanMesaj] = useState("");
 
   useEffect(() => {
@@ -58,10 +60,11 @@ function IcMesajIcerigi({
       mesajOkunduMu: message.mesajOkunduMu,
       mesajGonderilenKullaniciResmi: message.mesajAtilanKullaniciFoto,
     };
+    onMessageReceivedMesajBaslangicSayfasi(message);
     setIkiKullaniciArasindakiTumMesajlar((prev) => [...prev, yeniObje]);
     console.log(
       "iki kullanici arasindaki mesajlar= ",
-      ikiKullaniciArasindakiMesajlar
+      ikiKullaniciArasindakiTumMesajlar
     );
   };
 
@@ -69,9 +72,10 @@ function IcMesajIcerigi({
     connect(onMessageReceived);
 
     return () => {
+      console.log("İç mesaj içeriği disconnect calisti.");
       disconnect();
     };
-  }, [karsiTarafAdi]);
+  }, []);
 
   const mesajGondermeButonuHandle = async () => {
     if (yazilanMesaj === "") {
@@ -92,14 +96,14 @@ function IcMesajIcerigi({
           nesne["mesajIcerigi"] = yazilanMesaj; //var
           nesne["mesajGonderilenKullaniciResmi"] =
             obj["mesajGonderilenKullaniciResmi"]; //var
-          nesne["mesajGonderilenKullaniciAdi"] = //var
-            obj["mesajGonderilenKullaniciAdi"];
-          nesne["mesajId"] = obj["mesajId"];
+          nesne["mesajGonderilenKullaniciAdi"] =
+            obj["mesajGonderilenKullaniciAdi"]; //var
+          nesne["mesajId"] = obj["mesajId"]; //var
           nesne["mesajOkunduMu"] = obj["mesajOkunduMu"]; //var
           nesne["mesajGonderenKullaniciResmi"] =
-            obj["mesajGonderenKullaniciResmi"]; //yok
+            obj["mesajGonderenKullaniciResmi"]; //var
           nesne["mesajGonderenKullaniciAdi"] = obj["mesajGonderenKullaniciAdi"]; //var
-          nesne["mesajGonderilmeZamani"] = obj["mesajGonderilmeZamani"]; //yok
+          nesne["mesajGonderilmeZamani"] = obj["mesajGonderilmeZamani"]; //var
           flag = flag + 1;
           break;
         }
@@ -128,6 +132,7 @@ function IcMesajIcerigi({
         yazilanMesaj,
         karsiTarafIdBilgisi
       );
+
       setYazilanMesaj("");
       setBaslangicMesaji("");
     } catch (err) {
@@ -189,7 +194,16 @@ function IcMesajIcerigi({
             onClick={() => mesajdanProfileYonlendir(karsiTarafAdi)}
             className="mesajlasilanKullaniciBasligi"
           >
-            <img id="mesajBasligiResimId" src={profilResmi} alt="Profil" />
+            <img
+              id="mesajBasligiResimId"
+              src={
+                profilResmi?.endsWith("empty.png")
+                  ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                  : profilResmi
+              }
+              alt="Profil"
+            />
+            {/*<img id="mesajBasligiResimId" src={profilResmi} alt="Profil" />*/}
             <div>@{karsiTarafAdi}</div>
           </div>
         )}

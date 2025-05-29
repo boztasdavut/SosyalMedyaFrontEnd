@@ -64,34 +64,42 @@ function YeniMesajModal({
 
   return (
     <div className="yeniMesajModalCardDiv">
-  {takipcilerVeTakipEdilenler.map((kisi) => (
-    <div className="yeniMesajKullaniciDiv" key={kisi.kullaniciId}>
-      <div
-        onClick={() => kullaniciProfilineGit(kisi.kullaniciTakmaAd)}
-        className="yeniMesajResimVeTakmaAd"
-      >
-        <div className="yeniMesajResimAnaDiv">
-          <img id="yeniMesajResim" src={kisi.kullaniciProfilResmi} />
+      {takipcilerVeTakipEdilenler.map((kisi) => (
+        <div className="yeniMesajKullaniciDiv" key={kisi.kullaniciId}>
+          <div
+            onClick={() => kullaniciProfilineGit(kisi.kullaniciTakmaAd)}
+            className="yeniMesajResimVeTakmaAd"
+          >
+            <div className="yeniMesajResimAnaDiv">
+              <img
+                id="yeniMesajResim"
+                src={
+                  kisi.kullaniciProfilResmi?.endsWith("empty.png")
+                    ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                    : kisi.kullaniciProfilResmi
+                }
+                alt="Profil"
+              />
+              {/*<img id="yeniMesajResim" src={kisi.kullaniciProfilResmi} />*/}
+            </div>
+            <div>@{kisi.kullaniciTakmaAd}</div>
+          </div>
+
+          <div
+            onClick={() =>
+              mesajGonderHandle(
+                kisi.kullaniciTakmaAd,
+                kisi.kullaniciId,
+                kisi.kullaniciProfilResmi
+              )
+            }
+            className="yeniMesajGondermeDiv"
+          >
+            Mesaj Gönder
+          </div>
         </div>
-        <div>@{kisi.kullaniciTakmaAd}</div>
-      </div>
-
-      <div
-        onClick={() =>
-          mesajGonderHandle(
-            kisi.kullaniciTakmaAd,
-            kisi.kullaniciId,
-            kisi.kullaniciProfilResmi
-          )
-        }
-        className="yeniMesajGondermeDiv"
-      >
-        Mesaj Gönder
-      </div>
+      ))}
     </div>
-  ))}
-</div>
-
   );
 }
 

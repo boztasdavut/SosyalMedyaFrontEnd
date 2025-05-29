@@ -55,7 +55,7 @@ function EPostaGuncelle() {
     } catch (err) {
       console.log("Bir hata meydana geldi= ", err);
       toast.error("Validasyon Adresi Gönderimi Başarısız.", {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
       });
     }
@@ -202,7 +202,7 @@ function EPostaGuncelle() {
           ))}
         </div>
         <div>
-          <button onClick={handleOtpOnayMaili} className="mailOtpOnaylaButonu">
+          <button onClick={handleOtpOnayMaili} className="guncelle-btn">
             Onayla
           </button>
         </div>

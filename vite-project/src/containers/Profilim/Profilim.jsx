@@ -30,7 +30,7 @@ function Profilim() {
         />
       )}
 
-      <SolMenu />
+      {/*<SolMenu />*/}
       {isTakipcilerModalOpen && (
         <TakipcileriGosterModal
           takipcilerListesi={takipcilerListesi}
@@ -60,7 +60,7 @@ function Profilim() {
         kullanicininTumGonderileri={kullanicininTumGonderileri}
         setKullanicininTumGonderileri={setKullanicininTumGonderileri}
       />
-      <Mesajlasma />
+      {/*<Mesajlasma />*/}
     </div>
   );
 }

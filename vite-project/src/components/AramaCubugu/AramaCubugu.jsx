@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import { aramaSonucuGetir } from "../../services/AramaYap.js";
 import { debounce } from "lodash";
 import AramaSonuclariGoster from "../../containers/AramaSonuclari/AramaSonuclariGoster";
-
+import { jwtDecode } from "../../services/JwtDecode.js";
 export default function AramaCubugu() {
   const [query, setQuery] = useState("");
   const [aramaSonuclari, setAramaSonuclari] = useState([]);
@@ -19,7 +19,12 @@ export default function AramaCubugu() {
       }
       setIsLoading(true);
       const results = await aramaSonucuGetir(q);
-      const list = Array.isArray(results) ? results : results?.data || [];
+      let list = Array.isArray(results) ? results : results?.data || [];
+      const kullanici_id = await jwtDecode();
+      list = list.filter((kullanici) => kullanici.kullaniciId !== kullanici_id);
+      console.log("Arama cubugu query sonucu= ", list);
+      console.log("Arama cubugu mevcut kullanici id= ", kullanici_id);
+
       setAramaSonuclari(list);
       setIsLoading(false);
     }, 300),
@@ -44,7 +49,7 @@ export default function AramaCubugu() {
         />
         <CiSearch className="searchIcon" />
       </div>
-      
+
       <AramaSonuclariGoster
         query={query}
         aramaSonuclari={aramaSonuclari}

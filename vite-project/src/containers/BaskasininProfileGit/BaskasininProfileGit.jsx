@@ -28,7 +28,7 @@ function BaskasininProfileGit() {
 
   return (
     <div>
-      <SolMenu />
+      {/*<SolMenu />*/}
       <BaskasininProfiliHeader
         baskasininProfiliBilgileri={baskasininProfiliBilgileri}
         setBaskasininProfiliBilgileri={setBaskasininProfiliBilgileri}
@@ -37,7 +37,7 @@ function BaskasininProfileGit() {
         baskasininProfiliBilgileri={baskasininProfiliBilgileri}
         setBaskasininProfiliBilgileri={setBaskasininProfiliBilgileri}
       />
-      <Mesajlasma />
+      {/*<Mesajlasma />*/}
     </div>
   );
 }

@@ -16,6 +16,7 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
   const kullanicininTumAramaGecmisiniGetir = async () => {
     try {
       const aramaGecmisi = await aramaGecmisiGetir();
+
       setAramaGecmisiSonuclari(aramaGecmisi);
       console.log("Arama gecmisi sonucları= ", aramaGecmisi);
     } catch (err) {
@@ -89,8 +90,14 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
                   }
                   className="aramaGecmisiProfilResmiVeTakmaAdDiv"
                 >
-                  <div>
-                    <img src={aramaGecmisi.kullaniciProfilResmi} />
+                  <div className="aramaSonuclariResimDiv">
+                    <img
+                      src={
+                        aramaGecmisi.kullaniciProfilResmi?.endsWith("empty.png")
+                          ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                          : aramaGecmisi.kullaniciProfilResmi
+                      }
+                    />
                   </div>
                   <div>@{aramaGecmisi.kullaniciTakmaAd}</div>
                 </div>
@@ -172,7 +179,13 @@ function AramaSonuclariGoster({ query = "", aramaSonuclari = [], isLoading }) {
             )
           }
         >
-          <img src={sonuc.kullaniciProfilResmi} alt="" />
+          <img
+            src={
+              sonuc.kullaniciProfilResmi?.endsWith("empty.png")
+                ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                : sonuc.kullaniciProfilResmi
+            }
+          />
           <div>@{sonuc.kullaniciTakmaAd}</div>
         </div>
       ))}
