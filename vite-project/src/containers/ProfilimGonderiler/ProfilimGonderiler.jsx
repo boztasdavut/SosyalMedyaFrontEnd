@@ -166,7 +166,13 @@ function ProfilimGonderiler({
                     <div>
                       <img
                         id="profilimGonderilerProfilResmi"
-                        src={kullaniciProfilBilgileri.kullaniciProfilResmi}
+                        src={
+                          kullaniciProfilBilgileri.kullaniciProfilResmi?.endsWith(
+                            "empty.png"
+                          )
+                            ? "https://www.pngkey.com/png/full/52-522921_kathrine-vangen-profile-pic-empty-png.png"
+                            : kullaniciProfilBilgileri.kullaniciProfilResmi
+                        }
                         alt="Profil Resmi"
                       />
                     </div>
