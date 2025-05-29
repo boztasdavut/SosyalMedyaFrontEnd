@@ -68,6 +68,8 @@ function Mesajlasma() {
 
   const onMessageReceivedMesajBaslangicSayfasi = (message) => {
     console.log("Mesajlasma sayfasındaki onMessage calisti.");
+    console.log("71. satir baslangic= ", mesajBaslangicSayfasi);
+
     setMesajBaslangicSayfasi((prevMesajlar) => {
       // Eğer aynı kişiyle mesajlaşma zaten varsa güncelle, yoksa ekle
       const mevcutIndex = prevMesajlar.findIndex(
@@ -101,6 +103,7 @@ function Mesajlasma() {
   };
 
   useEffect(() => {
+    console.log("Başlangıç mesajlarına girildi.");
     const baslangicMesajlariGetir = async () => {
       try {
         const mesajBaslangic = await mesajBaslangicSayfasiGetir();

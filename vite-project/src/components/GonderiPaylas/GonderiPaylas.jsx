@@ -97,7 +97,7 @@ function GonderiPaylas() {
     setYükleniyor(true);
     const linkAdresi = await resimiGetir(prompt);
     setMediaPreview(linkAdresi);
-    setSihirbazSeciliMi(false);
+    setSihirbazSeciliMi(true);
     sihirbaziSec();
     setPrompt("");
     setResimUretildiMi(true);
