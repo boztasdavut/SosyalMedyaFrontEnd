@@ -48,6 +48,7 @@ function IcMesajIcerigi({
   const navigate = useNavigate();
 
   const onMessageReceived = (message) => {
+    console.log("ic mesaj on mesaj receive = ", message);
     let yeniObje = {
       mesajGonderilenKullaniciAdi: message.mesajAtilanKullaniciTakmaAdi,
       mesajGonderenKullaniciAdi: message.mesajAtanKullaniciTakmaAdi,
@@ -133,6 +134,30 @@ function IcMesajIcerigi({
         karsiTarafIdBilgisi
       );
 
+      console.log("Gelen veri = ", gelenVeri);
+
+      setMesajBaslangicSayfasi((prev) => {
+        const eslesenIndex = prev.findIndex(
+          (mesaj) => mesaj.karsiTarafId === gelenVeri.aliciKullaniciId
+        );
+
+        const yeniBaslangicMesaji = {
+          mesajId: gelenVeri.mesajId,
+          mesajIcerigi: gelenVeri.mesajIcerigi,
+          mesajGonderilmeZamani: gelenVeri.mesajGonderilmeZamani,
+          karsiTarafAdi: gelenVeri.mesajAtilanKullaniciTakmaAdi,
+          karsiTarafProfilResmi: gelenVeri.mesajAtilanKullaniciFoto,
+          karsiTarafId: gelenVeri.aliciKullaniciId,
+        };
+
+        if (eslesenIndex !== -1) {
+          const yeniListe = [...prev];
+          yeniListe[eslesenIndex] = yeniBaslangicMesaji;
+          return yeniListe;
+        } else {
+          return [yeniBaslangicMesaji, ...prev];
+        }
+      });
       setYazilanMesaj("");
       setBaslangicMesaji("");
     } catch (err) {
