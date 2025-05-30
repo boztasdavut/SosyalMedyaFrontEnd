@@ -2,7 +2,7 @@ import { fal } from "@fal-ai/client";
 
 fal.config({
   credentials:
-    "ce84f693-edca-45b0-a263-13a4ed07c06e:be6981e4785533ebb72f71e5e2d2aa48",
+   
 });
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
