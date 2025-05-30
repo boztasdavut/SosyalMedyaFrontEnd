@@ -4,6 +4,9 @@ import AnketlerimGenel from "../../containers/AnketlerimGenel/AnketlerimGenel";
 import { anketOneri } from "../../services/AnketOneri.js";
 import { ClipLoader } from "react-spinners";
 import { anketeCevapVer } from "../../services/AnketeCevapVer.js";
+import { jwtDecode } from "../../services/JwtDecode.js";
+import { anketlerimiGetir } from "../../services/AnketlerimServis.js";
+
 function AnketKesfet() {
   const [anketOnerilerim, setAnketOnerilerim] = useState(null);
   const [anketKesfetLoading, setAnketKesfetLoading] = useState(true);
@@ -11,8 +14,19 @@ function AnketKesfet() {
     const anketVerileriniAl = async () => {
       try {
         const anketVerileri = await anketOneri();
+        const anketlerim = await anketlerimiGetir();
 
-        setAnketOnerilerim(anketVerileri);
+        // Mevcut anket ID'lerini bir Set'e alıyoruz (hızlı arama için)
+        const mevcutAnketIdSeti = new Set(
+          anketlerim.map((anket) => anket.anketId)
+        );
+
+        // Önerilen anketlerden mevcut olanları filtreleyip çıkarıyoruz
+        const filtrelenmisOnerilenAnketler = anketVerileri.filter(
+          (anket) => !mevcutAnketIdSeti.has(anket.anketId)
+        );
+        setAnketOnerilerim(filtrelenmisOnerilenAnketler);
+        console.log("Mevcut anketlerim= ", anketlerim);
         console.log("anket onerilerim= ", anketVerileri);
         console.log("Anket öneri length= ", anketVerileri.length);
       } catch (err) {
@@ -127,7 +141,9 @@ function AnketKesfet() {
               </div>
             ))
           ) : (
-            <div className="anketBulunamadiDiv">Herhangi bir anket önerisi bulunmamıştır.</div>
+            <div className="anketBulunamadiDiv">
+              Herhangi bir anket önerisi bulunmamıştır.
+            </div>
           )}
         </>
       )}
